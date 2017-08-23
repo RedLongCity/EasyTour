@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author redlongcity
  */
-
+@Repository("meal_TypeDao")
 public class Meal_TypeDaoImpl extends AbstractDao<String,Meal_Type> implements Meal_TypeDao {
 
     @Override

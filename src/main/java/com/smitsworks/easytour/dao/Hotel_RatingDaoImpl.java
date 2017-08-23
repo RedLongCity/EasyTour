@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author redlongcity
  */
-
+@Repository("hotel_RatingDao")
 public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implements Hotel_RatingDao {
 
     @Override

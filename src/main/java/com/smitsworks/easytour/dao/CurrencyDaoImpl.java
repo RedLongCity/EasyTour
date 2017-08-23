@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author redlongcity
  */
 
+@Repository("currencyDao")
 public class CurrencyDaoImpl extends AbstractDao<String,Currency> implements CurrencyDao {
 
     @Override
