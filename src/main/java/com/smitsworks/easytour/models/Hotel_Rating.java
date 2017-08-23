@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(name="hotel_rating")
+@Table(name="hotel_ratings")
 public class Hotel_Rating {
     
     @Id

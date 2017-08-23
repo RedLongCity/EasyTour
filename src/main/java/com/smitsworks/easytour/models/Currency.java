@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author redlongcity
  */
 @Entity
-@Table(name="currency")
+@Table(name="currencys")
 public class Currency {
     
     @Id

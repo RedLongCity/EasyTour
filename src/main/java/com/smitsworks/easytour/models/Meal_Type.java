@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author redlongcity
  */
 @Entity
-@Table(name="meal_type")
+@Table(name="meal_types")
 public class Meal_Type {
     
     @Id

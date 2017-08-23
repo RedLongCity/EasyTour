@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(name="country")
+@Table(name="countrys")
 public class Country {
     
     @Id
