@@ -17,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Currency {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String id;
     
     @NotEmpty

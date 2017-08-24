@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class From_Cities {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String id;
     
     @NotEmpty

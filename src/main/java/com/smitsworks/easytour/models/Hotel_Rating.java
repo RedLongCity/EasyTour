@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Hotel_Rating {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String id;
     
     @NotEmpty
