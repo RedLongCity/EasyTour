@@ -29,7 +29,6 @@ public class Country {
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
-    @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "countrys_has_from_cities",
             joinColumns = {@JoinColumn(name = "countrys_id")},
@@ -62,10 +61,9 @@ public class Country {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.from_CitiesSet);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -87,11 +85,10 @@ public class Country {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.from_CitiesSet, other.from_CitiesSet)) {
-            return false;
-        }
         return true;
     }
+
+
 
     @Override
     public String toString() {

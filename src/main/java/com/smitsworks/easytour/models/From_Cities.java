@@ -28,7 +28,7 @@ public class From_Cities {
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
-    @ManyToMany(mappedBy = "From_CitiesSet")
+    @ManyToMany(mappedBy = "from_CitiesSet")
     @JsonIgnore
     private Set<Country> countrySet = new HashSet<Country>();
     
@@ -59,9 +59,8 @@ public class From_Cities {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.countrySet);
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -83,11 +82,10 @@ public class From_Cities {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.countrySet, other.countrySet)) {
-            return false;
-        }
         return true;
     }
+
+
 
     @Override
     public String toString() {

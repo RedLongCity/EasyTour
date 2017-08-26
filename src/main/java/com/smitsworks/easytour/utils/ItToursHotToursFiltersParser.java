@@ -15,6 +15,7 @@ import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,20 +50,35 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
         } catch (IOException ex) {
             Logger.getLogger(ItToursHotToursFiltersParser.class.getName()).log(Level.SEVERE, null, ex);
         }
+        countryService.deleteAllCountries();//Delete after all
         ArrayNode countriesNode = (ArrayNode) rootNode.path("countries");
         for(int i=0; i<countriesNode.size();i++){
             Country country = new Country();
             country.setId(countriesNode.get(i).path("id").asText());
             country.setName(countriesNode.get(i).path("name").asText());
+            country.setFrom_CitiesSet(new HashSet<From_Cities>());
             countryService.saveCountry(country);
         }
+        from_CitiesService.deleteAllFrom_Cities();//Delete after all
         ArrayNode from_CitiesNode = (ArrayNode) rootNode.path("from_cities");
         for(int i=0;i<from_CitiesNode.size();i++){
             From_Cities from_Cities = new From_Cities();
             from_Cities.setId(from_CitiesNode.get(i).path("id").asText());
             from_Cities.setName(from_CitiesNode.get(i).path("name").asText());
-            from_Cities.setCountry_id(from_CitiesNode.get(i).path("country_id").asText());
+            from_Cities.setCountrySet(new HashSet<Country>());
             from_CitiesService.saveFrom_Cities(from_Cities);
+            String[] countriesIdArray = from_CitiesNode.get(i).path("country_id").
+                    asText().split(",",-1);
+            for(int j=0;j<countriesIdArray.length;j++){
+                String id = countriesIdArray[j];
+                Country country = countryService.findById(id);
+                if(country!=null){
+                    from_Cities.getCountrySet().add(country);
+                    from_CitiesService.updateFrom_Cities(from_Cities);
+                    country.getFrom_CitiesSet().add(from_Cities);
+                    countryService.updateCountry(country);
+                }
+            }
         }
         ArrayNode hotel_RatingNode = (ArrayNode) rootNode.path("hotel_ratings");
         for(int i=0;i<hotel_RatingNode.size();i++){
