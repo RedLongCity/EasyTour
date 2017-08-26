@@ -32,6 +32,7 @@ public class CountryServiceImpl implements CountryService{
         Country entity = countryDao.findById(country.getId());
         if(entity!=null){
             entity.setName(country.getName());
+            entity.setFrom_CitiesSet(country.getFrom_CitiesSet());
         }
     }
 

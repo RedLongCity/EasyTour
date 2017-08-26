@@ -1,12 +1,17 @@
 package com.smitsworks.easytour.models;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -23,6 +28,13 @@ public class Country {
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
+    
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "countrys_has_from_cities",
+            joinColumns = {@JoinColumn(name = "countrys_id")},
+            inverseJoinColumns = {@JoinColumn(name = "from_cities_id")})
+    private Set<From_Cities> from_CitiesSet = new HashSet<From_Cities>();
 
     public String getId() {
         return id;
@@ -40,11 +52,20 @@ public class Country {
         this.name = name;
     }
 
+    public Set<From_Cities> getFrom_CitiesSet() {
+        return from_CitiesSet;
+    }
+
+    public void setFrom_CitiesSet(Set<From_Cities> from_CitiesSet) {
+        this.from_CitiesSet = from_CitiesSet;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + Objects.hashCode(this.name);
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.from_CitiesSet);
         return hash;
     }
 
@@ -66,14 +87,15 @@ public class Country {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
+        if (!Objects.equals(this.from_CitiesSet, other.from_CitiesSet)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Country{" + "id=" + id + ", name=" + name + '}';
+        return "Country{" + "id=" + id + ", name=" + name + ", from_CitiesSet=" + from_CitiesSet + '}';
     }
-    
-    
     
 }

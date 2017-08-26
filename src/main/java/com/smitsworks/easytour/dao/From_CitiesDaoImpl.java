@@ -18,12 +18,20 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
         Criteria crit = createCriteria();
         crit.addOrder(Order.asc("name"));
         List<From_Cities> from_CitiesList = (List<From_Cities>)crit.list();
+        if(from_CitiesList!=null){
+        for(From_Cities from_Cities: from_CitiesList){
+            Hibernate.initialize(from_Cities.getCountrySet());
+        }
+        }
         return from_CitiesList;
     }
 
     @Override
     public From_Cities findById(String id) {
         From_Cities from_Cities = getByKey(id);
+        if(from_Cities!=null){
+            Hibernate.initialize(from_Cities.getCountrySet());
+        }
         return from_Cities;
     }
 

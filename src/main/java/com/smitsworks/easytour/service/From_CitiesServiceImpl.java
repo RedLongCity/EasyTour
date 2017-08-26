@@ -32,7 +32,7 @@ public class From_CitiesServiceImpl implements From_CitiesService {
         From_Cities entity = from_CitiesDao.findById(from_Cities.getId());
         if(entity!=null){
             entity.setName(from_Cities.getName());
-            entity.setCountry_id(from_Cities.getCountry_id());
+            entity.setCountrySet(from_Cities.getCountrySet());
         }
     }
 

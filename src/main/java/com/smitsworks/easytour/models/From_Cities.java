@@ -1,12 +1,16 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -24,10 +28,10 @@ public class From_Cities {
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
-    @NotEmpty
-    @Column(name="country_id",unique=false,nullable=false)
-    private String country_id;
-
+    @ManyToMany(mappedBy = "From_CitiesSet")
+    @JsonIgnore
+    private Set<Country> countrySet = new HashSet<Country>();
+    
     public String getId() {
         return id;
     }
@@ -44,20 +48,20 @@ public class From_Cities {
         this.name = name;
     }
 
-    public String getCountry_id() {
-        return country_id;
+    public Set<Country> getCountrySet() {
+        return countrySet;
     }
 
-    public void setCountry_id(String country_id) {
-        this.country_id = country_id;
+    public void setCountrySet(Set<Country> countrySet) {
+        this.countrySet = countrySet;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.name);
-        hash = 53 * hash + Objects.hashCode(this.country_id);
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.countrySet);
         return hash;
     }
 
@@ -79,7 +83,7 @@ public class From_Cities {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.country_id, other.country_id)) {
+        if (!Objects.equals(this.countrySet, other.countrySet)) {
             return false;
         }
         return true;
@@ -87,9 +91,8 @@ public class From_Cities {
 
     @Override
     public String toString() {
-        return "From_Cities{" + "id=" + id + ", name=" + name + ", country_id=" + country_id + '}';
+        return "From_Cities{" + "id=" + id + ", name=" + name + ", countrySet=" + countrySet + '}';
     }
-    
-    
+   
     
 }
