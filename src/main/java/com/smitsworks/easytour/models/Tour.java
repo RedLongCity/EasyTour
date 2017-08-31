@@ -84,7 +84,7 @@ public class Tour {
     @Column(name="currency_symbol",unique=false,nullable=false)
     private String currency_Symbol;
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="price")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour")
     private Set<Price> prices = new HashSet<Price>();
     
     @Column(name="price_old",unique=false,nullable=false)
