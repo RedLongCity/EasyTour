@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class From_Cities {
     
     @Id
+    @Column(name="id_cities",nullable=false,unique=true)
     private String id;
     
     @NotEmpty

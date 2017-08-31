@@ -23,13 +23,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Country {
     
     @Id
+    @Column(name="id_countries",nullable=false,unique=true)
     private String id;
     
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name = "countrys_has_from_cities",
             joinColumns = {@JoinColumn(name = "countrys_id")},
             inverseJoinColumns = {@JoinColumn(name = "from_cities_id")})

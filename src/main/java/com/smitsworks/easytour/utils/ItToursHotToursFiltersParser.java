@@ -21,11 +21,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author redlongcity
  */
 @Service
+//@Transactional
 public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     
     @Autowired
@@ -66,18 +68,18 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             from_Cities.setId(from_CitiesNode.get(i).path("id").asText());
             from_Cities.setName(from_CitiesNode.get(i).path("name").asText());
             from_Cities.setCountrySet(new HashSet<Country>());
+            //from_CitiesService.saveFrom_Cities(from_Cities);
             String[] countriesIdArray = from_CitiesNode.get(i).path("country_id").
                     asText().split(",",-1);
             for(int j=0;j<countriesIdArray.length;j++){
                 String id = countriesIdArray[j];
                 Country country = countryService.findById(id);
                 if(country!=null){
-                    from_Cities.getCountrySet().add(country);
+                    //from_Cities.getCountrySet().add(country);
                     country.getFrom_CitiesSet().add(from_Cities);
                     countryService.updateCountry(country);
                 }
             }
-            from_CitiesService.saveFrom_Cities(from_Cities);
         }
         ArrayNode hotel_RatingNode = (ArrayNode) rootNode.path("hotel_ratings");
         for(int i=0;i<hotel_RatingNode.size();i++){

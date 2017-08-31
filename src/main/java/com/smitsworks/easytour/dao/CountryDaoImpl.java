@@ -38,7 +38,7 @@ public class CountryDaoImpl extends AbstractDao<String,Country> implements Count
 
     @Override
     public void save(Country country) {
-        saveOrUpdate(country);
+        merge(country);
     }
 
     @Override
