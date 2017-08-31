@@ -42,6 +42,14 @@ public void delete(T entity){
     getSession().delete(entity);
 }
 
+public void merge(T entity){
+    getSession().merge(entity);
+}
+
+public void saveOrUpdate(T entity){
+    getSession().saveOrUpdate(entity);
+}
+
 public Criteria createCriteria(){
     return getSession().createCriteria(persistentClass);
 }

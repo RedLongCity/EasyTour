@@ -25,6 +25,7 @@ public class Tour {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="tour_id",unique=true,nullable=false)
     private Integer id;
     
     @Column(name="key",unique=false,nullable=false)
@@ -105,7 +106,7 @@ public class Tour {
     @Column(name="transport_type",unique=false,nullable=false)
     private String transport_Type;
     
-    @OneToOne(fetch=FetchType.LAZY,mappedBy="hotel_image",cascade=CascadeType.ALL)
+    @OneToOne(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Hotel_Image hotel_Image;
 
     public Integer getId() {

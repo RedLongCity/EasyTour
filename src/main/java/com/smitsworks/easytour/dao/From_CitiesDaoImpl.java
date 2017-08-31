@@ -37,7 +37,7 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
 
     @Override
     public void save(From_Cities from_Cities) {
-        persist(from_Cities);
+        saveOrUpdate(from_Cities);
     }
 
     @Override
