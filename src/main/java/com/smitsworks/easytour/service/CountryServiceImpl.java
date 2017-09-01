@@ -39,7 +39,7 @@ public class CountryServiceImpl implements CountryService{
         if(entity!=null){
             entity.setName(country.getName());
             entity.setFrom_CitiesSet(country.getFrom_CitiesSet());
-            countryDao.mergeCountry(country);
+            countryDao.mergeCountry(entity);
         }
     }
 

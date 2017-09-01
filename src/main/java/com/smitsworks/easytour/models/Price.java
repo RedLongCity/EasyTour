@@ -19,6 +19,7 @@ import javax.persistence.Table;
 public class Price {
     
     @Id
+    @Column(name="price_id",unique=true,nullable=false)
     private Integer id;
     
     @Column(name="cost",unique=false,nullable=false)

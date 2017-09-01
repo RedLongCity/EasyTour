@@ -34,7 +34,7 @@ public class Tour {
     @Column(name="type",unique=false,nullable=false)
     private Integer type;
     
-    @Column(name="country_id",unique=false,nullable=false)
+    @Column(name="country_id",unique=false,nullable=false)//ManyToOne
     private Integer country_id;
     
     @Column(name="country",unique=false,nullable=false)
@@ -49,7 +49,7 @@ public class Tour {
     @Column(name="hotel",unique=false,nullable=false)
     private String hotel;
     
-    @Column(name="hotel_rating",unique=false,nullable=false)
+    @Column(name="hotel_rating",unique=false,nullable=false)//ManyToOne
     private String hotel_rating;
     
     @Column(name="meal_type",unique=false,nullable=false)
@@ -65,7 +65,7 @@ public class Tour {
     private Integer adult_Amount;
     
     @Column(name="child_amount",unique=false,nullable=false)
-    private String child_Amount;
+    private Integer child_Amount;
     
     @Column(name="accomodation",unique=false,nullable=false)
     private String accomodation;
@@ -94,7 +94,7 @@ public class Tour {
     @Column(name="price_change_percent",unique=false,nullable=false)
     private Float price_Change_Percent;
     
-    @Column(name="from_city_id",unique=false,nullable=false)
+    @Column(name="from_city_id",unique=false,nullable=false)//ManyToOne
     private Integer from_City_Id;
     
     @Column(name="from_city",unique=false,nullable=false)
@@ -213,11 +213,11 @@ public class Tour {
         this.adult_Amount = adult_Amount;
     }
 
-    public String getChild_Amount() {
+    public Integer getChild_Amount() {
         return child_Amount;
     }
 
-    public void setChild_Amount(String child_Amount) {
+    public void setChild_Amount(Integer child_Amount) {
         this.child_Amount = child_Amount;
     }
 
