@@ -1,12 +1,16 @@
 package com.smitsworks.easytour.models;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -18,11 +22,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Hotel_Rating {
     
     @Id
+    @Column(name="hotel_rating_id",unique=true,nullable=false)
     private String id;
     
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="hotel_Rating")
+    private Set<Tour> tours = new HashSet<Tour>();
 
     public String getId() {
         return id;
@@ -39,6 +47,16 @@ public class Hotel_Rating {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -71,8 +89,7 @@ public class Hotel_Rating {
 
     @Override
     public String toString() {
-        return "Hotel_Rating{" + "id=" + id + ", name=" + name + '}';
+        return "Hotel_Rating{" + "id=" + id + ", name=" + name + ", tours=" + tours + '}';
     }
-    
-    
+
 }

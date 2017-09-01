@@ -1,12 +1,16 @@
 package com.smitsworks.easytour.models;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -17,6 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Meal_Type {
     
     @Id
+    @Column(name="meal_type_id",unique=true,nullable=false)
     private String id;
     
     @NotEmpty
@@ -26,6 +31,9 @@ public class Meal_Type {
     @NotEmpty
     @Column(name="name_full",unique=false,nullable=false)
     private String name_full;
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="meal_Type")
+    private Set<Tour> tours = new HashSet<Tour>();
 
     public String getId() {
         return id;
@@ -50,6 +58,16 @@ public class Meal_Type {
     public void setName_full(String name_full) {
         this.name_full = name_full;
     }
+
+    public Set<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -86,8 +104,7 @@ public class Meal_Type {
 
     @Override
     public String toString() {
-        return "Meal_Type{" + "id=" + id + ", name=" + name + ", name_full=" + name_full + '}';
+        return "Meal_Type{" + "id=" + id + ", name=" + name + ", name_full=" + name_full + ", tours=" + tours + '}';
     }
-    
-    
+
 }

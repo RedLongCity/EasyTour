@@ -32,6 +32,8 @@ public class Hotel_RatingServiceImpl implements Hotel_RatingService {
         Hotel_Rating entity = hotel_RatingDao.findById(hotel_Rating.getId());
         if(entity!=null){
             entity.setName(hotel_Rating.getName());
+            entity.setTours(hotel_Rating.getTours());
+            hotel_RatingDao.mergeHotel_Rating(entity);
         }
     }
 

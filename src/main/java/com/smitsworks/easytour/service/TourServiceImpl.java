@@ -33,14 +33,12 @@ public class TourServiceImpl implements TourService{
         if(entity!=null){
             entity.setKey(tour.getKey());
             entity.setType(tour.getType());
-            entity.setCountry_id(tour.getCountry_id());
             entity.setCountry(tour.getCountry());
             entity.setRegion(tour.getRegion());
             entity.setHotel_id(tour.getHotel_id());
             entity.setHotel(tour.getHotel());
-            entity.setHotel_rating(tour.getHotel_rating());
+            entity.setHotel_Rating(tour.getHotel_Rating());
             entity.setMeal_Type(tour.getMeal_Type());
-            entity.setMeal_TypeFull(tour.getMeal_TypeFull());
             entity.setRoom_Type(tour.getRoom_Type());
             entity.setAdult_Amount(tour.getAdult_Amount());
             entity.setChild_Amount(tour.getChild_Amount());
@@ -53,8 +51,7 @@ public class TourServiceImpl implements TourService{
             entity.setPrices(tour.getPrices());
             entity.setPrice_Old(tour.getPrice_Old());
             entity.setPrice_Change_Percent(tour.getPrice_Change_Percent());
-            entity.setFrom_City_Id(tour.getFrom_City_Id());
-            entity.setFrom_City(tour.getFrom_City());
+            entity.setFrom_Cities(tour.getFrom_Cities());
             entity.setFrom_City_Gen(tour.getFrom_City_Gen());
             entity.setTransport_Type(tour.getTransport_Type());
             entity.setHotel_Image(tour.getHotel_Image());

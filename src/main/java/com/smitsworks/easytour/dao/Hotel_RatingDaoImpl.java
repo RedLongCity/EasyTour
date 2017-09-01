@@ -37,5 +37,10 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
         Hotel_Rating hotel_Rating = getByKey(id);
         delete(hotel_Rating);
     }
+
+    @Override
+    public void mergeHotel_Rating(Hotel_Rating hotel_Rating) {
+        merge(hotel_Rating);
+    }
     
 }

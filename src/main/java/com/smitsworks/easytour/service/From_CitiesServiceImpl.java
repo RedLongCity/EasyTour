@@ -33,6 +33,8 @@ public class From_CitiesServiceImpl implements From_CitiesService {
         if(entity!=null){
             entity.setName(from_Cities.getName());
             entity.setCountrySet(from_Cities.getCountrySet());
+            entity.setTours(from_Cities.getTours());
+            from_CitiesDao.mergeFrom_Cities(entity);
         }
     }
 

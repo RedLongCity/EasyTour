@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -23,7 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Country {
     
     @Id
-    @Column(name="id_countries",nullable=false,unique=true)
+    @Column(name="country_id",nullable=false,unique=true)
     private String id;
     
     @NotEmpty
@@ -35,6 +36,9 @@ public class Country {
             joinColumns = {@JoinColumn(name = "countrys_id")},
             inverseJoinColumns = {@JoinColumn(name = "from_cities_id")})
     private Set<From_Cities> from_CitiesSet = new HashSet<From_Cities>();
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="country")
+    private Set<Tour> tours = new HashSet<Tour>();
 
     public String getId() {
         return id;
@@ -59,6 +63,16 @@ public class Country {
     public void setFrom_CitiesSet(Set<From_Cities> from_CitiesSet) {
         this.from_CitiesSet = from_CitiesSet;
     }
+
+    public Set<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -89,11 +103,9 @@ public class Country {
         return true;
     }
 
-
-
     @Override
     public String toString() {
-        return "Country{" + "id=" + id + ", name=" + name + ", from_CitiesSet=" + from_CitiesSet + '}';
+        return "Country{" + "id=" + id + ", name=" + name + ", from_CitiesSet=" + from_CitiesSet + ", tours=" + tours + '}';
     }
-    
+
 }

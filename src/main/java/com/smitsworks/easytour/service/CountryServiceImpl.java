@@ -20,9 +20,6 @@ public class CountryServiceImpl implements CountryService{
     @Autowired
     CountryDao countryDao;
     
-    @Autowired
-    From_CitiesDao from_CitiesDao;
-    
     @Override
     public Country findById(String id) {
         return countryDao.findById(id);
@@ -39,6 +36,7 @@ public class CountryServiceImpl implements CountryService{
         if(entity!=null){
             entity.setName(country.getName());
             entity.setFrom_CitiesSet(country.getFrom_CitiesSet());
+            entity.setTours(country.getTours());
             countryDao.mergeCountry(entity);
         }
     }

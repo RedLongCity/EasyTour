@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,11 +36,9 @@ public class Tour {
     @Column(name="type",unique=false,nullable=false)
     private Integer type;
     
-    @Column(name="country_id",unique=false,nullable=false)//ManyToOne
-    private Integer country_id;
-    
-    @Column(name="country",unique=false,nullable=false)
-    private String country;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="country_id",nullable=false)
+    private Country country;
     
     @Column(name="region",unique=false,nullable=false)
     private String region;
@@ -49,14 +49,13 @@ public class Tour {
     @Column(name="hotel",unique=false,nullable=false)
     private String hotel;
     
-    @Column(name="hotel_rating",unique=false,nullable=false)//ManyToOne
-    private String hotel_rating;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="hotel_rating_id",nullable=false)
+    private Hotel_Rating hotel_Rating;
     
-    @Column(name="meal_type",unique=false,nullable=false)
-    private String meal_Type;
-    
-    @Column(name="meal_typefull",unique=false,nullable=false)
-    private String meal_TypeFull;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="meal_type_id",nullable=false)
+    private Meal_Type meal_Type;
     
     @Column(name="room_type",unique=false,nullable=false)
     private String room_Type;
@@ -94,11 +93,9 @@ public class Tour {
     @Column(name="price_change_percent",unique=false,nullable=false)
     private Float price_Change_Percent;
     
-    @Column(name="from_city_id",unique=false,nullable=false)//ManyToOne
-    private Integer from_City_Id;
-    
-    @Column(name="from_city",unique=false,nullable=false)
-    private String from_City;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="from_city_id",nullable=false)
+    private From_Cities from_Cities;
     
     @Column(name="from_city_gen",unique=false,nullable=false)
     private String from_City_Gen;
@@ -133,19 +130,11 @@ public class Tour {
         this.type = type;
     }
 
-    public Integer getCountry_id() {
-        return country_id;
-    }
-
-    public void setCountry_id(Integer country_id) {
-        this.country_id = country_id;
-    }
-
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
@@ -171,30 +160,6 @@ public class Tour {
 
     public void setHotel(String hotel) {
         this.hotel = hotel;
-    }
-
-    public String getHotel_rating() {
-        return hotel_rating;
-    }
-
-    public void setHotel_rating(String hotel_rating) {
-        this.hotel_rating = hotel_rating;
-    }
-
-    public String getMeal_Type() {
-        return meal_Type;
-    }
-
-    public void setMeal_Type(String meal_Type) {
-        this.meal_Type = meal_Type;
-    }
-
-    public String getMeal_TypeFull() {
-        return meal_TypeFull;
-    }
-
-    public void setMeal_TypeFull(String meal_TypeFull) {
-        this.meal_TypeFull = meal_TypeFull;
     }
 
     public String getRoom_Type() {
@@ -293,22 +258,6 @@ public class Tour {
         this.price_Change_Percent = price_Change_Percent;
     }
 
-    public Integer getFrom_City_Id() {
-        return from_City_Id;
-    }
-
-    public void setFrom_City_Id(Integer from_City_Id) {
-        this.from_City_Id = from_City_Id;
-    }
-
-    public String getFrom_City() {
-        return from_City;
-    }
-
-    public void setFrom_City(String from_City) {
-        this.from_City = from_City;
-    }
-
     public String getFrom_City_Gen() {
         return from_City_Gen;
     }
@@ -332,6 +281,32 @@ public class Tour {
     public void setHotel_Image(Hotel_Image hotel_Image) {
         this.hotel_Image = hotel_Image;
     }
+
+    public Hotel_Rating getHotel_Rating() {
+        return hotel_Rating;
+    }
+
+    public void setHotel_Rating(Hotel_Rating hotel_Rating) {
+        this.hotel_Rating = hotel_Rating;
+    }
+
+    public Meal_Type getMeal_Type() {
+        return meal_Type;
+    }
+
+    public void setMeal_Type(Meal_Type meal_Type) {
+        this.meal_Type = meal_Type;
+    }
+
+    public From_Cities getFrom_Cities() {
+        return from_Cities;
+    }
+
+    public void setFrom_Cities(From_Cities from_Cities) {
+        this.from_Cities = from_Cities;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -360,25 +335,7 @@ public class Tour {
 
     @Override
     public String toString() {
-        return "Tour{" + "id=" + id + ", key=" + key + ", type=" + type + 
-                ", country_id=" + country_id + ", country=" + country + 
-                ", region=" + region + ", hotel_id=" + hotel_id + 
-                ", hotel=" + hotel + ", hotel_rating=" + hotel_rating + 
-                ", meal_Type=" + meal_Type + ", meal_TypeFull=" 
-                + meal_TypeFull + ", room_Type=" + room_Type + 
-                ", adult_Amount=" + adult_Amount + ", child_Amount=" + 
-                child_Amount + ", accomodation=" + accomodation + 
-                ", duration=" + duration + ", date_From=" + date_From + 
-                ", date_From_Unix=" + date_From_Unix + ", currency_id=" +
-                currency_id + ", currency_Symbol=" + currency_Symbol + 
-                ", prices=" + prices + ", price_Old=" + price_Old + 
-                ", price_Change_Percent=" + price_Change_Percent + 
-                ", from_City_Id=" + from_City_Id + ", from_City=" + 
-                from_City + ", from_City_Gen=" + from_City_Gen + 
-                ", transport_Type=" + transport_Type + ", hotel_Image=" + 
-                hotel_Image + '}';
+        return "Tour{" + "id=" + id + ", key=" + key + ", type=" + type + ", country=" + country + ", region=" + region + ", hotel_id=" + hotel_id + ", hotel=" + hotel + ", hotel_Rating=" + hotel_Rating + ", meal_Type=" + meal_Type + ", room_Type=" + room_Type + ", adult_Amount=" + adult_Amount + ", child_Amount=" + child_Amount + ", accomodation=" + accomodation + ", duration=" + duration + ", date_From=" + date_From + ", date_From_Unix=" + date_From_Unix + ", currency_id=" + currency_id + ", currency_Symbol=" + currency_Symbol + ", prices=" + prices + ", price_Old=" + price_Old + ", price_Change_Percent=" + price_Change_Percent + ", from_Cities=" + from_Cities + ", from_City_Gen=" + from_City_Gen + ", transport_Type=" + transport_Type + ", hotel_Image=" + hotel_Image + '}';
     }
-    
-    
     
 }

@@ -15,5 +15,7 @@ public interface Hotel_RatingDao {
     
     void save(Hotel_Rating hotel_Rating);
     
+    void mergeHotel_Rating(Hotel_Rating hotel_Rating);
+    
     void deleteById(String id);
 }
