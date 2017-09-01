@@ -15,6 +15,8 @@ public interface From_CitiesDao {
     
     void save(From_Cities from_Cities);
     
+    void mergeFrom_Cities(From_Cities from_Cities);
+    
     void deleteById(String id);
     
 }

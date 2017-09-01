@@ -38,13 +38,18 @@ public class CountryDaoImpl extends AbstractDao<String,Country> implements Count
 
     @Override
     public void save(Country country) {
-        merge(country);
+        persist(country);
     }
 
     @Override
     public void deleteById(String id) {
         Country country = getByKey(id);
         delete(country);
+    }
+
+    @Override
+    public void mergeCountry(Country country) {
+        merge(country);
     }
     
     

@@ -29,21 +29,27 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
     @Override
     public From_Cities findById(String id) {
         From_Cities from_Cities = getByKey(id);
-//        if(from_Cities!=null){
-//            Hibernate.initialize(from_Cities.getCountrySet());
-//        }
+        if(from_Cities!=null){
+            Hibernate.initialize(from_Cities.getCountrySet());
+        }
         return from_Cities;
     }
 
     @Override
     public void save(From_Cities from_Cities) {
-        merge(from_Cities);
+        persist(from_Cities);
     }
+
 
     @Override
     public void deleteById(String id) {
         From_Cities from_Cities = getByKey(id);
         delete(from_Cities);
+    }
+
+    @Override
+    public void mergeFrom_Cities(From_Cities from_Cities) {
+        merge(from_Cities);
     }
     
 }

@@ -16,5 +16,7 @@ public interface CountryDao {
     
     void save(Country country);
     
+    void mergeCountry(Country country);
+    
     void deleteById(String id);
 }
