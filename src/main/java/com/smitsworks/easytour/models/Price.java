@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,7 +28,8 @@ public class Price {
     @Column(name="price_id",unique=true,nullable=false)
     private Integer id;
     
-    @OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="currency_id",nullable=false)
     private Currency currency;
     
     @Column(name="cost",unique=false,nullable=false)

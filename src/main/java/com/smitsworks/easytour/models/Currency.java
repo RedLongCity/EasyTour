@@ -1,10 +1,15 @@
 package com.smitsworks.easytour.models;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -21,6 +26,9 @@ public class Currency {
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="currency",cascade=CascadeType.ALL)
+    private Set<Price> prices = new HashSet<Price>();
 
     public String getId() {
         return id;
@@ -37,6 +45,16 @@ public class Currency {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Set<Price> prices) {
+        this.prices = prices;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -69,8 +87,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Currency{" + "id=" + id + ", name=" + name + '}';
+        return "Currency{" + "id=" + id + ", name=" + name + ", prices=" + prices + '}';
     }
-    
-    
+
 }

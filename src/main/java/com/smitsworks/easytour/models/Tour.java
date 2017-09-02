@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -86,7 +87,7 @@ public class Tour {
     @Column(name="currency_symbol",unique=false,nullable=false)
     private String currency_Symbol;
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Set<Price> prices = new HashSet<Price>();
     
     @Column(name="price_old",unique=false,nullable=true)
@@ -105,7 +106,7 @@ public class Tour {
     @Column(name="transport_type",unique=false,nullable=false)
     private String transport_Type;
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Set<Hotel_Image> hotel_ImageSet = new HashSet<Hotel_Image>();
 
     public Integer getId() {

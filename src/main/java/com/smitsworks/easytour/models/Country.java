@@ -37,7 +37,7 @@ public class Country {
             inverseJoinColumns = {@JoinColumn(name = "from_cities_id")})
     private Set<From_Cities> from_CitiesSet = new HashSet<From_Cities>();
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="country")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="country",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
 
     public String getId() {

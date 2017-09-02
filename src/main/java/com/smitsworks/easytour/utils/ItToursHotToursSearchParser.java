@@ -10,8 +10,10 @@ import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
 import com.smitsworks.easytour.service.From_CitiesService;
+import com.smitsworks.easytour.service.Hotel_ImageService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
+import com.smitsworks.easytour.service.PriceService;
 import com.smitsworks.easytour.service.TourService;
 import java.io.IOException;
 import java.text.ParseException;
@@ -48,6 +50,12 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
     
     @Autowired
     From_CitiesService from_CitiesService;
+    
+    @Autowired
+    Hotel_ImageService hotel_ImageService;
+    
+    @Autowired
+    PriceService priceService;
     
     private JsonNode parseHotToursSearch(Integer page){
                 JsonNode rootNode = null; 
@@ -131,9 +139,15 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                     Hotel_Image hotel_Image = new Hotel_Image();
                     hotel_Image.setFull(hotel_ImagesNode.get(j).path("full").asText());
                     hotel_Image.setThumb(hotel_ImagesNode.get(j).path("thumb").asText());
+                    hotel_Image.setTour(tour);
                     tour.getHotel_ImageSet().add(hotel_Image);
                 }
             tourService.saveTour(tour);
+            for(Hotel_Image hotel_Image:tour.getHotel_ImageSet()){
+                hotel_ImageService.saveHotel_Image(hotel_Image);
+            }
+            for(Price price:tour.getPrices()){
+                priceService.savePrice(price);
             }
             
             flag = rootNode.path("has_more_pages").asBoolean();
@@ -142,4 +156,4 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
         }
         
     }
-
+}
