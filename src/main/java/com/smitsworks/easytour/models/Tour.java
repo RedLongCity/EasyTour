@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.models;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -73,7 +76,8 @@ public class Tour {
     private Integer duration;
     
     @Column(name="date_from",unique=false,nullable=false)// (формат YYYY-mm-dd)
-    private String date_From;
+    @Temporal(TemporalType.DATE)
+    private Date date_From;
     
     @Column(name="date_from_unix",unique=false,nullable=false)
     private Integer date_From_Unix;
@@ -103,8 +107,8 @@ public class Tour {
     @Column(name="transport_type",unique=false,nullable=false)
     private String transport_Type;
     
-    @OneToOne(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
-    private Hotel_Image hotel_Image;
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="tour")
+    private Set<Hotel_Image> hotel_ImageSet = new HashSet<Hotel_Image>();
 
     public Integer getId() {
         return id;
@@ -202,11 +206,11 @@ public class Tour {
         this.duration = duration;
     }
 
-    public String getDate_From() {
+    public Date getDate_From() {
         return date_From;
     }
 
-    public void setDate_From(String date_From) {
+    public void setDate_From(Date date_From) {
         this.date_From = date_From;
     }
 
@@ -274,12 +278,12 @@ public class Tour {
         this.transport_Type = transport_Type;
     }
 
-    public Hotel_Image getHotel_Image() {
-        return hotel_Image;
+    public Set<Hotel_Image> getHotel_ImageSet() {
+        return hotel_ImageSet;
     }
 
-    public void setHotel_Image(Hotel_Image hotel_Image) {
-        this.hotel_Image = hotel_Image;
+    public void setHotel_ImageSet(Set<Hotel_Image> hotel_ImageSet) {
+        this.hotel_ImageSet = hotel_ImageSet;
     }
 
     public Hotel_Rating getHotel_Rating() {
@@ -335,7 +339,7 @@ public class Tour {
 
     @Override
     public String toString() {
-        return "Tour{" + "id=" + id + ", key=" + key + ", type=" + type + ", country=" + country + ", region=" + region + ", hotel_id=" + hotel_id + ", hotel=" + hotel + ", hotel_Rating=" + hotel_Rating + ", meal_Type=" + meal_Type + ", room_Type=" + room_Type + ", adult_Amount=" + adult_Amount + ", child_Amount=" + child_Amount + ", accomodation=" + accomodation + ", duration=" + duration + ", date_From=" + date_From + ", date_From_Unix=" + date_From_Unix + ", currency_id=" + currency_id + ", currency_Symbol=" + currency_Symbol + ", prices=" + prices + ", price_Old=" + price_Old + ", price_Change_Percent=" + price_Change_Percent + ", from_Cities=" + from_Cities + ", from_City_Gen=" + from_City_Gen + ", transport_Type=" + transport_Type + ", hotel_Image=" + hotel_Image + '}';
+        return "Tour{" + "id=" + id + ", key=" + key + ", type=" + type + ", country=" + country + ", region=" + region + ", hotel_id=" + hotel_id + ", hotel=" + hotel + ", hotel_Rating=" + hotel_Rating + ", meal_Type=" + meal_Type + ", room_Type=" + room_Type + ", adult_Amount=" + adult_Amount + ", child_Amount=" + child_Amount + ", accomodation=" + accomodation + ", duration=" + duration + ", date_From=" + date_From + ", date_From_Unix=" + date_From_Unix + ", currency_id=" + currency_id + ", currency_Symbol=" + currency_Symbol + ", prices=" + prices + ", price_Old=" + price_Old + ", price_Change_Percent=" + price_Change_Percent + ", from_Cities=" + from_Cities + ", from_City_Gen=" + from_City_Gen + ", transport_Type=" + transport_Type + ", hotel_ImageSet=" + hotel_ImageSet + '}';
     }
     
 }

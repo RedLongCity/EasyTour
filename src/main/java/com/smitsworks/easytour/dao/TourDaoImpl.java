@@ -21,8 +21,10 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
         List<Tour> tourList = (List<Tour>)crit.list();
         if(tourList!=null){
             for(Tour tour:tourList){
+                Hibernate.initialize(tour.getCountry());
+                Hibernate.initialize(tour.getFrom_Cities());
                 Hibernate.initialize(tour.getPrices());
-                Hibernate.initialize(tour.getHotel_Image());
+                Hibernate.initialize(tour.getHotel_ImageSet());
             }
         }
         return tourList;
@@ -32,8 +34,10 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     public Tour findById(Integer id) {
         Tour tour = getByKey(id);
         if(tour!=null){
+               Hibernate.initialize(tour.getCountry());
+               Hibernate.initialize(tour.getFrom_Cities());
                Hibernate.initialize(tour.getPrices());
-               Hibernate.initialize(tour.getHotel_Image()); 
+               Hibernate.initialize(tour.getHotel_ImageSet()); 
         }
         return tour;
     }

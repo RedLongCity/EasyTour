@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 /**
  *
@@ -18,6 +19,11 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
         Criteria crit = createCriteria();
         crit.addOrder(Order.asc("name"));
         List<Hotel_Rating> hotel_RatingList = (List<Hotel_Rating>)crit.list();
+            if(hotel_RatingList!=null){
+            for(Hotel_Rating hotel_rating:hotel_RatingList){
+                Hibernate.initialize(hotel_rating.getTours());
+            }
+        }
         return hotel_RatingList;
     }
 
@@ -26,6 +32,19 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
         Hotel_Rating hotel_Rating = getByKey(id);
         return hotel_Rating;
     }
+
+    @Override
+    public Hotel_Rating findByName(String name) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.eq("name",name));
+        Hotel_Rating hotel_Rating = (Hotel_Rating)crit.uniqueResult();
+        if(hotel_Rating!=null){
+            Hibernate.initialize(hotel_Rating.getTours());
+        }
+        return hotel_Rating;
+    }
+    
+    
 
     @Override
     public void save(Hotel_Rating hotel_Rating) {

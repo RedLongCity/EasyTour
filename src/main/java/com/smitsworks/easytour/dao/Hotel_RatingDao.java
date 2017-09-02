@@ -13,6 +13,8 @@ public interface Hotel_RatingDao {
     
     Hotel_Rating findById(String id);
     
+    Hotel_Rating findByName(String name);
+    
     void save(Hotel_Rating hotel_Rating);
     
     void mergeHotel_Rating(Hotel_Rating hotel_Rating);

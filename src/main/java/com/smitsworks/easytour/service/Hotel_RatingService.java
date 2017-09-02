@@ -10,6 +10,8 @@ public interface Hotel_RatingService {
     
    Hotel_Rating findById(String id);
    
+   Hotel_Rating findByName(String name);
+   
    void saveHotel_Rating(Hotel_Rating hotel_Rating);
    
    void updateHotel_Rating(Hotel_Rating hotel_Rating);

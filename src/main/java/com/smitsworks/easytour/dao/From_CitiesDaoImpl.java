@@ -21,6 +21,7 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
         if(from_CitiesList!=null){
         for(From_Cities from_Cities: from_CitiesList){
             Hibernate.initialize(from_Cities.getCountrySet());
+            Hibernate.initialize(from_Cities.getTours());
         }
         }
         return from_CitiesList;
@@ -31,6 +32,7 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
         From_Cities from_Cities = getByKey(id);
         if(from_Cities!=null){
             Hibernate.initialize(from_Cities.getCountrySet());
+            Hibernate.initialize(from_Cities.getTours());
         }
         return from_Cities;
     }

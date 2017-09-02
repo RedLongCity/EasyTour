@@ -13,6 +13,8 @@ public interface Meal_TypeDao {
     
     Meal_Type findById(String id);
     
+    Meal_Type findByName(String name);
+    
     void save(Meal_Type meal_Type);
     
     void mergeMeal_Type(Meal_Type meal_Type);

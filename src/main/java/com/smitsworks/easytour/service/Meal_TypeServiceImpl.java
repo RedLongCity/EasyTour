@@ -23,6 +23,11 @@ public class Meal_TypeServiceImpl implements Meal_TypeService {
     }
 
     @Override
+    public Meal_Type findByName(String name) {
+        return meal_TypeDao.findByName(name);
+    }
+    
+    @Override
     public void saveMeal_Type(Meal_Type meal_Type) {
         meal_TypeDao.save(meal_Type);
     }

@@ -56,4 +56,9 @@ public class Hotel_RatingServiceImpl implements Hotel_RatingService {
         }
     }
 }
+
+    @Override
+    public Hotel_Rating findByName(String name) {
+        return hotel_RatingDao.findByName(name);
+    }
 }

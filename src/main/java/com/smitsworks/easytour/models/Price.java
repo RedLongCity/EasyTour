@@ -1,12 +1,16 @@
 package com.smitsworks.easytour.models;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,8 +23,12 @@ import javax.persistence.Table;
 public class Price {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="price_id",unique=true,nullable=false)
     private Integer id;
+    
+    @OneToOne(fetch=FetchType.LAZY,mappedBy="currency_id",cascade=CascadeType.ALL)
+    private Currency currency;
     
     @Column(name="cost",unique=false,nullable=false)
     private Integer cost;
@@ -53,6 +61,16 @@ public class Price {
         this.tour = tour;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -80,9 +98,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return "Price{" + "id=" + id + ", cost=" + cost + ", tour=" + tour + '}';
+        return "Price{" + "id=" + id + ", currency=" + currency + ", cost=" + cost + ", tour=" + tour + '}';
     }
-    
-    
-    
+
 }

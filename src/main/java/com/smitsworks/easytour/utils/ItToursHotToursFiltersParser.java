@@ -1,6 +1,5 @@
 package com.smitsworks.easytour.utils;
 
-import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.models.Country;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -14,20 +13,16 @@ import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author redlongcity
  */
 @Service
-//@Transactional
 public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     
     @Autowired
@@ -48,7 +43,8 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     public JsonNode parseHotToursFilters(){
         JsonNode rootNode = null; 
         try {
-            rootNode = HttpUtils.getJsonNodeFromUrl(api_hot_offers);
+            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
+                    api_showcases_filters);
         } catch (IOException ex) {
             Logger.getLogger(ItToursHotToursFiltersParser.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,8 +5,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -17,11 +20,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Currency {
     
     @Id
+    @Column(name="currency_id",unique=true,nullable=false)
     private String id;
     
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private Price price;
 
     public String getId() {
         return id;

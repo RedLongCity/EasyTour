@@ -10,6 +10,8 @@ public interface Meal_TypeService {
     
     Meal_Type findById(String id);
     
+    Meal_Type findByName(String name);
+    
     void saveMeal_Type(Meal_Type meal_Type);
     
     void updateMeal_Type(Meal_Type meal_Type);
