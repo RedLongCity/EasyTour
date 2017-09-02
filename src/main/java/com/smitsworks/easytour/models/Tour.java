@@ -97,13 +97,13 @@ public class Tour {
     private Float price_Change_Percent;
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="from_city_id",nullable=false)
+    @JoinColumn(name="from_city_id",nullable=true)
     private From_Cities from_Cities;
     
-    @Column(name="from_city_gen",unique=false,nullable=false)
+    @Column(name="from_city_gen",unique=false,nullable=true)
     private String from_City_Gen;
     
-    @Column(name="transport_type",unique=false,nullable=false)
+    @Column(name="transport_type",unique=false,nullable=true)
     private String transport_Type;
     
     @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)

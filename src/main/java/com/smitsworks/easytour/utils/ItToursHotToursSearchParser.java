@@ -115,18 +115,21 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                     Price price_1 = new Price();
                     Currency currency_1 = currencyService.findById("1");
                     Integer cost_1 = pricesNode.path("1").asInt();
+                    price_1.setTour(tour);
                     price_1.setCurrency(currency_1);
                     price_1.setCost(cost_1);
                     tour.getPrices().add(price_1);
                     Price price_2 = new Price();
                     Currency currency_2 = currencyService.findById("2");
                     Integer cost_2 = pricesNode.path("2").asInt();
+                    price_2.setTour(tour);
                     price_2.setCurrency(currency_2);
                     price_2.setCost(cost_2);
                     tour.getPrices().add(price_2);
                     Price price_10 = new Price();
                     Currency currency_10 = currencyService.findById("10");
                     Integer cost_10 = pricesNode.path("10").asInt();
+                    price_10.setTour(tour);
                     price_10.setCurrency(currency_10);
                     price_10.setCost(cost_10);
                     tour.getPrices().add(price_10);
@@ -142,14 +145,7 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                     hotel_Image.setTour(tour);
                     tour.getHotel_ImageSet().add(hotel_Image);
                 }
-//            for(Price price:tour.getPrices()){
-//                priceService.savePrice(price);
-//            }
-                
             tourService.saveTour(tour);
-//            for(Hotel_Image hotel_Image:tour.getHotel_ImageSet()){
-//                hotel_ImageService.saveHotel_Image(hotel_Image);
-//            }
             
             flag = rootNode.path("has_more_pages").asBoolean();
             if(flag) page++;
