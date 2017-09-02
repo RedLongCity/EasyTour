@@ -5,11 +5,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -21,22 +16,18 @@ public class Currency {
     
     @Id
     @Column(name="currency_id",unique=true,nullable=false)
-    private String id;
+    private String currency_id;
     
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Price price;
 
     public String getId() {
-        return id;
+        return currency_id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.currency_id = id;
     }
 
     public String getName() {
@@ -50,7 +41,7 @@ public class Currency {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.currency_id);
         hash = 53 * hash + Objects.hashCode(this.name);
         return hash;
     }
@@ -67,7 +58,7 @@ public class Currency {
             return false;
         }
         final Currency other = (Currency) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.currency_id, other.currency_id)) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
@@ -78,7 +69,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Currency{" + "id=" + id + ", name=" + name + '}';
+        return "Currency{" + "id=" + currency_id + ", name=" + name + '}';
     }
     
     

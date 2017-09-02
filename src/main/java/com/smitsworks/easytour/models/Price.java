@@ -27,7 +27,7 @@ public class Price {
     @Column(name="price_id",unique=true,nullable=false)
     private Integer id;
     
-    @OneToOne(fetch=FetchType.LAZY,mappedBy="currency_id",cascade=CascadeType.ALL)
+    @OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     private Currency currency;
     
     @Column(name="cost",unique=false,nullable=false)
