@@ -16,7 +16,7 @@ public interface Meal_TypeService {
     
     void updateMeal_Type(Meal_Type meal_Type);
     
-    void deleteMeal_TypeById(String id);
+    void deleteMeal_Type(Meal_Type meal_Type);
     
     List<Meal_Type> findAll();
     

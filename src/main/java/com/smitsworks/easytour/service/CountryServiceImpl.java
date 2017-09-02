@@ -42,8 +42,8 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public void deleteCountryById(String id) {
-        countryDao.deleteById(id);
+    public void deleteCountry(Country country) {
+        countryDao.deleteCountry(country);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CountryServiceImpl implements CountryService{
         List<Country> countryList = countryDao.findAll();
         if(countryList!=null){
             for(Country country: countryList){
-                countryDao.deleteById(country.getId());
+                countryDao.deleteCountry(country);
             }
         }
     }

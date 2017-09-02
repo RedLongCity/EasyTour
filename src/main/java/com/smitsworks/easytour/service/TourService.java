@@ -16,7 +16,7 @@ public interface TourService {
    
    void updateTour(Tour tour);
    
-   void deleteTourById(Integer id);
+   void deleteTour(Tour tour);
    
    List<Tour> findAll();
    

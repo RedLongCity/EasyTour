@@ -48,8 +48,12 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     }
 
     @Override
-    public void deleteById(Integer id) {
-        Tour tour = getByKey(id);
+    public void mergeTour(Tour tour) {
+        merge(tour);
+    }
+    
+    @Override
+    public void deleteTour(Tour tour) {
         delete(tour);
     }
     

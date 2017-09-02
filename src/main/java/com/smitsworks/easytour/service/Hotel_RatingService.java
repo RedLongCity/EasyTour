@@ -16,7 +16,7 @@ public interface Hotel_RatingService {
    
    void updateHotel_Rating(Hotel_Rating hotel_Rating);
    
-   void deleteHotel_RatingById(String id);
+   void deleteHotel_Rating(Hotel_Rating hotel_Rating);
    
    List<Hotel_Rating> findAll();
    

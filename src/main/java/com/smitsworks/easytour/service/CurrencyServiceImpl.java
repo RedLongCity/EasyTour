@@ -35,12 +35,13 @@ public class CurrencyServiceImpl implements CurrencyService {
         Currency entity = currencyDao.findById(currency.getId());
         if(entity!=null){
             entity.setName(currency.getName());
+            currencyDao.mergeCurrency(entity);
     }
     }
 
     @Override
-    public void deleteCurrencyById(String id) {
-        currencyDao.deleteById(id);
+    public void deleteCurrency(Currency currency) {
+        currencyDao.deleteCurrency(currency);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         List<Currency> currencyList = currencyDao.findAll();
         if(currencyList!=null){
             for(Currency currency: currencyList){
-                currencyDao.deleteById(currency.getId());
+                currencyDao.deleteCurrency(currency);
             }
         }
     }

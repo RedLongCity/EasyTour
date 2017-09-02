@@ -19,6 +19,6 @@ public interface Meal_TypeDao {
     
     void mergeMeal_Type(Meal_Type meal_Type);
     
-    void deleteById(String id);
+    void deleteMeal_Type(Meal_Type meal_Type);
     
 }

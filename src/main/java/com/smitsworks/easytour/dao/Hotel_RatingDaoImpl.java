@@ -30,6 +30,9 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
     @Override
     public Hotel_Rating findById(String id) {
         Hotel_Rating hotel_Rating = getByKey(id);
+        if(hotel_Rating!=null){
+            Hibernate.initialize(hotel_Rating.getTours());
+        }
         return hotel_Rating;
     }
 
@@ -52,8 +55,7 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
     }
 
     @Override
-    public void deleteById(String id) {
-        Hotel_Rating hotel_Rating = getByKey(id);
+    public void deleteHotel_Rating(Hotel_Rating hotel_Rating) {
         delete(hotel_Rating);
     }
 

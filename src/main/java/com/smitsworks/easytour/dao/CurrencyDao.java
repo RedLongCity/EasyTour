@@ -15,6 +15,8 @@ public interface CurrencyDao {
     
     void save(Currency currency);
     
-    void deleteById(String id);
+    void mergeCurrency(Currency currency);
+    
+    void deleteCurrency(Currency currency);
     
 }

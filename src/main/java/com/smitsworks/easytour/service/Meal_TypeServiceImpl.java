@@ -44,8 +44,8 @@ public class Meal_TypeServiceImpl implements Meal_TypeService {
     }
 
     @Override
-    public void deleteMeal_TypeById(String id) {
-        meal_TypeDao.deleteById(id);
+    public void deleteMeal_Type(Meal_Type meal_Type) {
+        meal_TypeDao.deleteMeal_Type(meal_Type);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Meal_TypeServiceImpl implements Meal_TypeService {
         List<Meal_Type> meal_TypeList = meal_TypeDao.findAll();
         if(meal_TypeList!=null){
             for(Meal_Type meal_Type: meal_TypeList){
-                meal_TypeDao.deleteById(meal_Type.getId());
+                meal_TypeDao.deleteMeal_Type(meal_Type);
             }
         }
     }

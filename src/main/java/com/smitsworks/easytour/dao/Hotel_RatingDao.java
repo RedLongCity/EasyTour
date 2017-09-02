@@ -19,5 +19,5 @@ public interface Hotel_RatingDao {
     
     void mergeHotel_Rating(Hotel_Rating hotel_Rating);
     
-    void deleteById(String id);
+    void deleteHotel_Rating(Hotel_Rating hotel_Rating);
 }

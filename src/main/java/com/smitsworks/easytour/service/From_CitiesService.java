@@ -15,7 +15,7 @@ public interface From_CitiesService {
     
     void updateFrom_Cities(From_Cities from_Cities);
     
-    void deleteFrom_CitiesById(String id);
+    void deleteFrom_Cities(From_Cities from_Cities);
     
     List<From_Cities> findAll();
     

@@ -56,12 +56,13 @@ public class TourServiceImpl implements TourService{
             entity.setFrom_City_Gen(tour.getFrom_City_Gen());
             entity.setTransport_Type(tour.getTransport_Type());
             entity.setHotel_ImageSet(tour.getHotel_ImageSet());
+            tourDao.mergeTour(entity);
         }
     }
 
     @Override
-    public void deleteTourById(Integer id) {
-        tourDao.deleteById(id);
+    public void deleteTour(Tour tour) {
+        tourDao.deleteTour(tour);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class TourServiceImpl implements TourService{
         List<Tour> tourList = tourDao.findAll();
         if(tourList!=null){
             for(Tour tour:tourList){
-                tourDao.deleteById(tour.getId());
+                tourDao.deleteTour(tour);
             }
         }
     }

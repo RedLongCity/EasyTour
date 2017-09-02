@@ -42,12 +42,11 @@ public class From_CitiesDaoImpl extends AbstractDao<String,From_Cities> implemen
         persist(from_Cities);
     }
 
-
     @Override
-    public void deleteById(String id) {
-        From_Cities from_Cities = getByKey(id);
+    public void deleteFrom_Cities(From_Cities from_Cities) {
         delete(from_Cities);
     }
+
 
     @Override
     public void mergeFrom_Cities(From_Cities from_Cities) {

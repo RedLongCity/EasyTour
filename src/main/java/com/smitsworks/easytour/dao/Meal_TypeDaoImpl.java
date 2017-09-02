@@ -55,8 +55,7 @@ public class Meal_TypeDaoImpl extends AbstractDao<String,Meal_Type> implements M
     }
 
     @Override
-    public void deleteById(String id) {
-        Meal_Type meal_Type = getByKey(id);
+    public void deleteMeal_Type(Meal_Type meal_Type) {
         delete(meal_Type);
     }
 

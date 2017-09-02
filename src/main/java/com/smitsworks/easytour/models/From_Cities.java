@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class From_Cities {
     @JsonIgnore
     private Set<Country> countrySet = new HashSet<Country>();
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="from_Cities")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="from_Cities",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
     
     public String getId() {

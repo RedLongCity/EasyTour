@@ -16,6 +16,8 @@ public interface TourDao {
     
     void save(Tour tour);
     
-    void deleteById(Integer id);
+    void mergeTour(Tour tour);
+    
+    void deleteTour(Tour tour);
     
 }

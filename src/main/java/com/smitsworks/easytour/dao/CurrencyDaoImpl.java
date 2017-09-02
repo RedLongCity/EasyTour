@@ -19,12 +19,20 @@ public class CurrencyDaoImpl extends AbstractDao<String,Currency> implements Cur
         Criteria crit = createCriteria();
         crit.addOrder(Order.asc("name"));
         List<Currency> currencyList = (List<Currency>) crit.list();
+        if(currencyList!=null){
+            for(Currency currency:currencyList){
+                Hibernate.initialize(currency.getPrices());
+            }
+        }
         return currencyList;
     }
 
     @Override
     public Currency findById(String id) {
         Currency currency = getByKey(id);
+        if(currency!=null){
+            Hibernate.initialize(currency.getPrices());
+        }
         return currency;
     }
 
@@ -34,8 +42,12 @@ public class CurrencyDaoImpl extends AbstractDao<String,Currency> implements Cur
     }
 
     @Override
-    public void deleteById(String id) {
-        Currency currency = getByKey(id);
+    public void mergeCurrency(Currency currency) {
+        merge(currency);
+    }
+
+    @Override
+    public void deleteCurrency(Currency currency) {
         delete(currency);
     }
     

@@ -3,6 +3,7 @@ package com.smitsworks.easytour.models;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class Meal_Type {
     @Column(name="name_full",unique=false,nullable=false)
     private String name_full;
     
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="meal_Type")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="meal_Type",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
 
     public String getId() {

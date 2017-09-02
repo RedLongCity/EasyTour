@@ -44,10 +44,10 @@ public class CountryDaoImpl extends AbstractDao<String,Country> implements Count
     }
 
     @Override
-    public void deleteById(String id) {
-        Country country = getByKey(id);
+    public void deleteCountry(Country country) {
         delete(country);
     }
+
 
     @Override
     public void mergeCountry(Country country) {

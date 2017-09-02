@@ -38,8 +38,8 @@ public class Hotel_RatingServiceImpl implements Hotel_RatingService {
     }
 
     @Override
-    public void deleteHotel_RatingById(String id) {
-        hotel_RatingDao.deleteById(id);
+    public void deleteHotel_Rating(Hotel_Rating hotel_Rating) {
+        hotel_RatingDao.deleteHotel_Rating(hotel_Rating);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Hotel_RatingServiceImpl implements Hotel_RatingService {
         List<Hotel_Rating> hotel_RatingList = hotel_RatingDao.findAll();
         if(hotel_RatingList!=null){
             for(Hotel_Rating hotel_Rating:hotel_RatingList){
-                hotel_RatingDao.deleteById(hotel_Rating.getId());
+                hotel_RatingDao.deleteHotel_Rating(hotel_Rating);
         }
     }
 }

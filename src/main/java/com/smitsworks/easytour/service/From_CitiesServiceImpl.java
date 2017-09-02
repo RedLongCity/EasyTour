@@ -39,8 +39,8 @@ public class From_CitiesServiceImpl implements From_CitiesService {
     }
 
     @Override
-    public void deleteFrom_CitiesById(String id) {
-        from_CitiesDao.deleteById(id);
+    public void deleteFrom_Cities(From_Cities from_Cities) {
+        from_CitiesDao.deleteFrom_Cities(from_Cities);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class From_CitiesServiceImpl implements From_CitiesService {
         List<From_Cities> from_CitiesList = from_CitiesDao.findAll();
         if(from_CitiesList!=null){
             for(From_Cities from_Cities:from_CitiesList){
-                from_CitiesDao.deleteById(from_Cities.getId());
+                from_CitiesDao.deleteFrom_Cities(from_Cities);
             }
         }
     }

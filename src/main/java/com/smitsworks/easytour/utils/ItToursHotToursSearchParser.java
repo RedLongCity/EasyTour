@@ -142,13 +142,14 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                     hotel_Image.setTour(tour);
                     tour.getHotel_ImageSet().add(hotel_Image);
                 }
+//            for(Price price:tour.getPrices()){
+//                priceService.savePrice(price);
+//            }
+                
             tourService.saveTour(tour);
-            for(Hotel_Image hotel_Image:tour.getHotel_ImageSet()){
-                hotel_ImageService.saveHotel_Image(hotel_Image);
-            }
-            for(Price price:tour.getPrices()){
-                priceService.savePrice(price);
-            }
+//            for(Hotel_Image hotel_Image:tour.getHotel_ImageSet()){
+//                hotel_ImageService.saveHotel_Image(hotel_Image);
+//            }
             
             flag = rootNode.path("has_more_pages").asBoolean();
             if(flag) page++;
