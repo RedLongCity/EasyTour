@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.models;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -75,7 +76,7 @@ public class Tour {
     private Integer duration;
     
     @Column(name="date_from",unique=false,nullable=false)// (формат YYYY-mm-dd)
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     private Date date_From;
     
     @Column(name="date_from_unix",unique=false,nullable=false)

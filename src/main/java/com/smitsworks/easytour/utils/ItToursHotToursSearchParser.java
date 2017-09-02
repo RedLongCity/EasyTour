@@ -16,21 +16,18 @@ import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.service.PriceService;
 import com.smitsworks.easytour.service.TourService;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author redlongcity
  */
 
 @Service
-//@Transactional
 public class ItToursHotToursSearchParser implements ItToursParserConstants {
     
     @Autowired
@@ -101,13 +98,9 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                 tour.setChild_Amount(indexNode.path("child_amount").asInt());
                 tour.setAccomodation(indexNode.path("accomodation").asText());
                 tour.setDuration(indexNode.path("duration").asInt());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");//Change!
-            try {
-                Date date = dateFormat.parse((indexNode.path("date_from").asText()));
+                Date date = Date.valueOf(LocalDate.parse(indexNode.
+                        path("date_from").asText()));
                 tour.setDate_From(date);
-            } catch (ParseException ex) {
-                Logger.getLogger(ItToursHotToursSearchParser.class.getName()).log(Level.SEVERE, null, ex);
-            }
                 tour.setDate_From_Unix(indexNode.path("date_from_unix").asInt());
                 tour.setCurrency_id(indexNode.path("currency_id").asInt());
                 tour.setCurrency_Symbol(indexNode.path("currency_symbol").asText());
@@ -133,18 +126,45 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                     price_10.setCurrency(currency_10);
                     price_10.setCost(cost_10);
                     tour.getPrices().add(price_10);
-                tour.setFrom_Cities(from_CitiesService.findById(
-                        indexNode.path("from_city_id").asText()));
-                tour.setFrom_City_Gen(indexNode.path("from_city_gen").asText());
-                tour.setTransport_Type(indexNode.path("transport_type").asText());
-                ArrayNode hotel_ImagesNode = (ArrayNode) indexNode.path("hotel_images");
+                    
+                JsonNode node = indexNode.path("price_old");
+                if(!node.isMissingNode()){
+                    tour.setPrice_Old(node.asInt());
+                }
+                
+                node = indexNode.path("price_change_percent");
+                if(!node.isMissingNode()){
+                    tour.setPrice_Change_Percent(node.floatValue());
+                }
+                
+                node = indexNode.path("from_city_id");
+                if(!node.isMissingNode()){
+                tour.setFrom_Cities(from_CitiesService.findById(node.asText()));
+                }
+                
+                node = indexNode.path("from_city_gen");
+                if(!node.isMissingNode()){
+                tour.setFrom_City_Gen(node.asText());
+                }
+                
+                node = indexNode.path("transport_type");
+                if(!node.isMissingNode()){
+                   tour.setTransport_Type(node.asText()); 
+                }
+                
+                node = indexNode.path("hotel_images");
+                if(!node.isMissingNode()){
+                ArrayNode hotel_ImagesNode = (ArrayNode) node;
                 for(int j=0;j<hotel_ImagesNode.size();j++){
                     Hotel_Image hotel_Image = new Hotel_Image();
                     hotel_Image.setFull(hotel_ImagesNode.get(j).path("full").asText());
                     hotel_Image.setThumb(hotel_ImagesNode.get(j).path("thumb").asText());
                     hotel_Image.setTour(tour);
                     tour.getHotel_ImageSet().add(hotel_Image);
+                }    
                 }
+                
+
             tourService.saveTour(tour);
             
             flag = rootNode.path("has_more_pages").asBoolean();
