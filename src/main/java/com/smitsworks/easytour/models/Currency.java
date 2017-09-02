@@ -16,18 +16,18 @@ public class Currency {
     
     @Id
     @Column(name="currency_id",unique=true,nullable=false)
-    private String currency_id;
+    private String id;
     
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
 
     public String getId() {
-        return currency_id;
+        return id;
     }
 
     public void setId(String id) {
-        this.currency_id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -41,7 +41,7 @@ public class Currency {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.currency_id);
+        hash = 53 * hash + Objects.hashCode(this.id);
         hash = 53 * hash + Objects.hashCode(this.name);
         return hash;
     }
@@ -58,7 +58,7 @@ public class Currency {
             return false;
         }
         final Currency other = (Currency) obj;
-        if (!Objects.equals(this.currency_id, other.currency_id)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
@@ -69,7 +69,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Currency{" + "id=" + currency_id + ", name=" + name + '}';
+        return "Currency{" + "id=" + id + ", name=" + name + '}';
     }
     
     

@@ -68,13 +68,13 @@ public class Price {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.currency);
+        hash = 59 * hash + Objects.hashCode(this.cost);
         return hash;
     }
 
@@ -93,9 +93,16 @@ public class Price {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.currency, other.currency)) {
+            return false;
+        }
+        if (!Objects.equals(this.cost, other.cost)) {
+            return false;
+        }
         return true;
     }
-
+    
+    
     @Override
     public String toString() {
         return "Price{" + "id=" + id + ", currency=" + currency + ", cost=" + cost + ", tour=" + tour + '}';

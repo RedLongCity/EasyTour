@@ -31,7 +31,7 @@ public class Tour {
     @Column(name="tour_id",unique=true,nullable=false)
     private Integer id;
     
-    @Column(name="key",unique=false,nullable=false)
+    @Column(name="tour_key",unique=false,nullable=false)
     private String key;
     
     @Column(name="type",unique=false,nullable=false)
@@ -89,10 +89,10 @@ public class Tour {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="tour")
     private Set<Price> prices = new HashSet<Price>();
     
-    @Column(name="price_old",unique=false,nullable=false)
+    @Column(name="price_old",unique=false,nullable=true)
     private Integer price_Old;
     
-    @Column(name="price_change_percent",unique=false,nullable=false)
+    @Column(name="price_change_percent",unique=false,nullable=true)
     private Float price_Change_Percent;
     
     @ManyToOne(fetch=FetchType.LAZY)

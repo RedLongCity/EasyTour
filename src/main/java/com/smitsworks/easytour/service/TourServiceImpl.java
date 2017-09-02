@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service("tourService")
+@Transactional
 public class TourServiceImpl implements TourService{
 
     @Autowired

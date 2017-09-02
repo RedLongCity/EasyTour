@@ -21,12 +21,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author redlongcity
  */
 
 @Service
+//@Transactional
 public class ItToursHotToursSearchParser implements ItToursParserConstants {
     
     @Autowired
@@ -62,6 +64,7 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
     }
     
     public void getTours(){
+        tourService.deleteAllTours();//delete after all
         int page=1;
         boolean flag=true;
         while(flag){
@@ -90,9 +93,9 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                 tour.setChild_Amount(indexNode.path("child_amount").asInt());
                 tour.setAccomodation(indexNode.path("accomodation").asText());
                 tour.setDuration(indexNode.path("duration").asInt());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-mm-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");//Change!
             try {
-                Date date = dateFormat.parse(indexNode.path("date_from").asText());
+                Date date = dateFormat.parse((indexNode.path("date_from").asText()));
                 tour.setDate_From(date);
             } catch (ParseException ex) {
                 Logger.getLogger(ItToursHotToursSearchParser.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,16 +103,25 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                 tour.setDate_From_Unix(indexNode.path("date_from_unix").asInt());
                 tour.setCurrency_id(indexNode.path("currency_id").asInt());
                 tour.setCurrency_Symbol(indexNode.path("currency_symbol").asText());
-                ArrayNode pricesNode = (ArrayNode)indexNode.path("prices");
-                for(int j=0;j<pricesNode.size();j++){
-                    Price price = new Price();
-                    String[] arrayPrices = pricesNode.get(j).asText().split(": ",-1);
-                    Currency currency = currencyService.findById(arrayPrices[0]);
-                    Integer cost = Integer.parseInt(arrayPrices[0]);
-                    price.setCurrency(currency);
-                    price.setCost(cost);
-                    tour.getPrices().add(price);
-                }
+                JsonNode pricesNode = indexNode.path("prices");
+                    Price price_1 = new Price();
+                    Currency currency_1 = currencyService.findById("1");
+                    Integer cost_1 = pricesNode.path("1").asInt();
+                    price_1.setCurrency(currency_1);
+                    price_1.setCost(cost_1);
+                    tour.getPrices().add(price_1);
+                    Price price_2 = new Price();
+                    Currency currency_2 = currencyService.findById("2");
+                    Integer cost_2 = pricesNode.path("2").asInt();
+                    price_2.setCurrency(currency_2);
+                    price_2.setCost(cost_2);
+                    tour.getPrices().add(price_2);
+                    Price price_10 = new Price();
+                    Currency currency_10 = currencyService.findById("10");
+                    Integer cost_10 = pricesNode.path("10").asInt();
+                    price_10.setCurrency(currency_10);
+                    price_10.setCost(cost_10);
+                    tour.getPrices().add(price_10);
                 tour.setFrom_Cities(from_CitiesService.findById(
                         indexNode.path("from_city_id").asText()));
                 tour.setFrom_City_Gen(indexNode.path("from_city_gen").asText());
