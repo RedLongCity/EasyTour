@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,15 +25,18 @@ import javax.persistence.Table;
 @Table(name="prices")
 public class Price {
     
+    @JsonView(TourView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="price_id",unique=true,nullable=false)
     private Integer id;
     
+    @JsonView(TourView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="currency_id",nullable=false)
     private Currency currency;
     
+    @JsonView(TourView.class)
     @Column(name="cost",unique=false,nullable=false)
     private Integer cost;
     

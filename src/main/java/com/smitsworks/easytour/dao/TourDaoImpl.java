@@ -1,7 +1,9 @@
 package com.smitsworks.easytour.dao;
 
+import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Tour;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -25,6 +27,8 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
                 Hibernate.initialize(tour.getFrom_Cities());
                 Hibernate.initialize(tour.getPrices());
                 Hibernate.initialize(tour.getHotel_ImageSet());
+                Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getMeal_Type());
             }
         }
         return tourList;
@@ -38,6 +42,8 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
                Hibernate.initialize(tour.getFrom_Cities());
                Hibernate.initialize(tour.getPrices());
                Hibernate.initialize(tour.getHotel_ImageSet()); 
+               Hibernate.initialize(tour.getHotel_Rating());
+               Hibernate.initialize(tour.getMeal_Type());
         }
         return tour;
     }

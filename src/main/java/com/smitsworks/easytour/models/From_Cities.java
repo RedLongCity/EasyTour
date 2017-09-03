@@ -1,6 +1,8 @@
 package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -24,16 +26,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="from_cities")
 public class From_Cities {
     
+    @JsonView(TourView.class)
     @Id
     @Column(name="from_city_id",nullable=false,unique=true)
     private String id;
     
+    @JsonView(TourView.class)
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
     @ManyToMany(mappedBy = "from_CitiesSet")
-    @JsonIgnore
     private Set<Country> countrySet = new HashSet<Country>();
     
     @OneToMany(fetch=FetchType.LAZY,mappedBy="from_Cities",cascade=CascadeType.ALL)

@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,13 +22,16 @@ import javax.persistence.Table;
 @Table(name="hotel_images")
 public class Hotel_Image {
     
+    @JsonView(TourView.class)
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     
+    @JsonView(TourView.class)
     @Column(name="full",unique=false,nullable=false)
     private String full;
     
+    @JsonView(TourView.class)
     @Column(name="thumb",unique=false,nullable=false)
     private String thumb;
     

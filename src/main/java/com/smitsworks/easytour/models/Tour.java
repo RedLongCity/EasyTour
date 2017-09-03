@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.time.LocalDate;
 import java.sql.Date;
 import java.util.HashSet;
@@ -28,85 +30,108 @@ import javax.persistence.TemporalType;
 @Table(name="tours")
 public class Tour {
     
+    @JsonView(TourView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="tour_id",unique=true,nullable=false)
     private Integer id;
     
+    //@JsonView(TourView.class)
     @Column(name="tour_key",unique=false,nullable=false)
     private String key;
     
+    @JsonView(TourView.class)
     @Column(name="type",unique=false,nullable=false)
     private Integer type;
     
+    @JsonView(TourView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="country_id",nullable=false)
     private Country country;
     
+    @JsonView(TourView.class)
     @Column(name="region",unique=false,nullable=false)
     private String region;
     
+    @JsonView(TourView.class)
     @Column(name="hotel_id",unique=false,nullable=false)
     private Integer hotel_id;
     
+    @JsonView(TourView.class)
     @Column(name="hotel",unique=false,nullable=false)
     private String hotel;
     
+    @JsonView(TourView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="hotel_rating_id",nullable=false)
     private Hotel_Rating hotel_Rating;
     
+    @JsonView(TourView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="meal_type_id",nullable=false)
     private Meal_Type meal_Type;
     
+    @JsonView(TourView.class)
     @Column(name="room_type",unique=false,nullable=false)
     private String room_Type;
     
+    @JsonView(TourView.class)
     @Column(name="adult_amount",unique=false,nullable=false)
     private Integer adult_Amount;
     
+    @JsonView(TourView.class)
     @Column(name="child_amount",unique=false,nullable=false)
     private Integer child_Amount;
     
+    @JsonView(TourView.class)
     @Column(name="accomodation",unique=false,nullable=false)
     private String accomodation;
     
+    @JsonView(TourView.class)
     @Column(name="duration",unique=false,nullable=false)
     private Integer duration;
     
+    @JsonView(TourView.class)
     @Column(name="date_from",unique=false,nullable=false)// (формат YYYY-mm-dd)
-    //@Temporal(TemporalType.DATE)
     private Date date_From;
     
     @Column(name="date_from_unix",unique=false,nullable=false)
     private Integer date_From_Unix;
     
+    @JsonView(TourView.class)
     @Column(name="currency_id",unique=false,nullable=false)
     private Integer currency_id;
     
+    @JsonView(TourView.class)
     @Column(name="currency_symbol",unique=false,nullable=false)
     private String currency_Symbol;
     
+    @JsonView(TourView.class)
     @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Set<Price> prices = new HashSet<Price>();
     
+    @JsonView(TourView.class)
     @Column(name="price_old",unique=false,nullable=true)
     private Integer price_Old;
     
+    @JsonView(TourView.class)
     @Column(name="price_change_percent",unique=false,nullable=true)
     private Float price_Change_Percent;
     
+    @JsonView(TourView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="from_city_id",nullable=true)
     private From_Cities from_Cities;
     
+    @JsonView(TourView.class)
     @Column(name="from_city_gen",unique=false,nullable=true)
     private String from_City_Gen;
     
+    @JsonView(TourView.class)
     @Column(name="transport_type",unique=false,nullable=true)
     private String transport_Type;
     
+    @JsonView(TourView.class)
     @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Set<Hotel_Image> hotel_ImageSet = new HashSet<Hotel_Image>();
 
