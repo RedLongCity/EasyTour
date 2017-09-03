@@ -2,6 +2,8 @@ package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.CountryView;
+import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,6 +38,7 @@ public class From_Cities {
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
+    @JsonView(From_CitiesView.class)
     @ManyToMany(mappedBy = "from_CitiesSet")
     private Set<Country> countrySet = new HashSet<Country>();
     

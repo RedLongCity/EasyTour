@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
@@ -35,6 +36,7 @@ public class Country {
     @Column(name="name",unique=false,nullable=false)
     private String name;
     
+    @JsonView(CountryView.class)
     @ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name = "countrys_has_from_cities",
             joinColumns = {@JoinColumn(name = "countrys_id")},

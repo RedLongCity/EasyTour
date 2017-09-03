@@ -4,10 +4,19 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.utils.ItToursHotToursFiltersParser;
 import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.smitsworks.easytour.JsonView.CountryView;
+import com.smitsworks.easytour.JsonView.From_CitiesView;
+import com.smitsworks.easytour.JsonView.Hotel_RatingView;
 import com.smitsworks.easytour.JsonView.TourView;
 import com.smitsworks.easytour.models.Country;
+import com.smitsworks.easytour.models.From_Cities;
+import com.smitsworks.easytour.models.Hotel_Rating;
+import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.service.CountryService;
+import com.smitsworks.easytour.service.From_CitiesService;
+import com.smitsworks.easytour.service.Hotel_RatingService;
+import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import java.util.List;
@@ -34,6 +43,15 @@ public class ToursControllerJSON {
     
     @Autowired
     CountryService countryService;
+    
+    @Autowired
+    From_CitiesService from_CitiesService;
+    
+    @Autowired
+    Hotel_RatingService hotel_ratingService;
+    
+    @Autowired
+    Meal_TypeService meal_TypeService;
     
     @Autowired
     TourService tourService;
@@ -63,4 +81,41 @@ public class ToursControllerJSON {
     }
     return new ResponseEntity<List<Tour>>(tourList,HttpStatus.OK);
 }
+    @JsonView(CountryView.class)
+    @RequestMapping(value="/getcountriesforfilter",method=RequestMethod.GET)
+    public ResponseEntity<List<Country>> getCountriesForFilter(){
+        List<Country> countryList = countryService.findAll();
+        if(countryList==null){
+            return new ResponseEntity<List<Country>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Country>>(countryList,HttpStatus.OK);
+    }
+    @JsonView(From_CitiesView.class)
+    @RequestMapping(value="/getcitiesforfilters",method=RequestMethod.GET)
+    public ResponseEntity<List<From_Cities>> getFrom_CitiesForFilter(){
+        List<From_Cities> from_CitiesList = from_CitiesService.findAll();
+        if(from_CitiesList==null){
+            return new ResponseEntity<List<From_Cities>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<From_Cities>>(from_CitiesList,HttpStatus.OK);
+    } 
+    @JsonView(Hotel_RatingView.class)
+    @RequestMapping(value="/gethotelratingsforfiters",method=RequestMethod.GET)
+    public ResponseEntity<List<Hotel_Rating>> getHotel_RatingsForFilters(){
+        List<Hotel_Rating> hotel_RatingList = hotel_ratingService.findAll();
+        if(hotel_RatingList==null){
+            return new ResponseEntity<List<Hotel_Rating>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Hotel_Rating>>(hotel_RatingList,HttpStatus.OK);
+    }
+    @JsonView(TourView.class)
+    @RequestMapping(value="/getmealtypesforfilter",method=RequestMethod.GET)
+    public ResponseEntity<List<Meal_Type>> getMeal_TypesForFilter(){
+       List<Meal_Type> meal_TypeList = meal_TypeService.findAll();
+       if(meal_TypeList==null){
+           return new ResponseEntity<List<Meal_Type>>(HttpStatus.NO_CONTENT);
+       }
+       return new ResponseEntity<List<Meal_Type>>(meal_TypeList,HttpStatus.OK);
+    }
+    
 }
