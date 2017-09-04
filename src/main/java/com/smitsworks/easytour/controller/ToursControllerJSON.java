@@ -67,7 +67,7 @@ public class ToursControllerJSON {
     
     @RequestMapping(value="/tours", method=RequestMethod.GET)
     public ResponseEntity<Void> getTours(){
-        searchParser.getTours();
+        searchParser.getTours(1);
         
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

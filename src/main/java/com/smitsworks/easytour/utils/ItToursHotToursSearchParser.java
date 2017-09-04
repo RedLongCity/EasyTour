@@ -29,6 +29,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ItToursHotToursSearchParser implements ItToursParserConstants {
+
+    private static final Logger LOG = Logger.getLogger(ItToursHotToursSearchParser.class.getName());
+    
     
     @Autowired
     TourService tourService;
@@ -68,15 +71,17 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
         return rootNode;
     }
     
-    public void getTours(){
-        tourService.deleteAllTours();//delete after all
-        int page=1;
-        boolean flag=true;
-        while(flag){
+    public boolean getTours(Integer page){
             JsonNode rootNode = parseHotToursSearch(page);
+            if(rootNode.isMissingNode()){
+                LOG.log(Level.WARNING, "rootNode is Missing");
+                return false;
+            }
+            tourService.deleteAllTours();
             ArrayNode offersNode = (ArrayNode)rootNode.path("offers");
             if(offersNode.isMissingNode()){
-                return;
+                LOG.log(Level.WARNING, "offersNode is Missing");
+                return false;
             }
             for(int i=0;i<offersNode.size();i++){
                 JsonNode indexNode = offersNode.get(i);
@@ -167,10 +172,12 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
 
             tourService.saveTour(tour);
             
-            flag = rootNode.path("has_more_pages").asBoolean();
-            if(flag) page++;
+            
     }
+        if(rootNode.path("has_more_pages").asBoolean()){
+            getTours(rootNode.path("page").asInt()+1);
         }
-        
+        LOG.log(Level.INFO, "parsing was finished by success");
+        return true;
     }
 }
