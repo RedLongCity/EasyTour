@@ -20,6 +20,10 @@ import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +59,27 @@ public class ToursControllerJSON {
     
     @Autowired
     TourService tourService;
+    
+    @Autowired
+    Scheduler scheduler;
+    
+    @RequestMapping(value="/stopupdating",method=RequestMethod.GET)
+    public void stopScheduling(){
+        try {
+            scheduler.pauseAll();
+        } catch (SchedulerException ex) {
+            Logger.getLogger(ToursControllerJSON.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        @RequestMapping(value="/startupdating",method=RequestMethod.GET)
+    public void startScheduling(){
+        try {
+            scheduler.resumeAll();
+        } catch (SchedulerException ex) {
+            Logger.getLogger(ToursControllerJSON.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)
     public ResponseEntity<JsonNode> getFilters(){
