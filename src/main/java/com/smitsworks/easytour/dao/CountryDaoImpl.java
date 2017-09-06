@@ -23,6 +23,7 @@ public class CountryDaoImpl extends AbstractDao<String,Country> implements Count
             for(Country country:countryList){
                 Hibernate.initialize(country.getFrom_CitiesSet());
                 Hibernate.initialize(country.getTours());
+                Hibernate.initialize(country.getRequests());
             }
         }
         return countryList;
@@ -34,6 +35,7 @@ public class CountryDaoImpl extends AbstractDao<String,Country> implements Count
         if(country!=null){
             Hibernate.initialize(country.getFrom_CitiesSet());
             Hibernate.initialize(country.getTours());
+            Hibernate.initialize(country.getRequests());
         }
         return country;
     }

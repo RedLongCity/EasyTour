@@ -41,6 +41,9 @@ public class Meal_Type {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="meal_Type",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
 
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="meal_Type",cascade=CascadeType.ALL)
+    private Set<Request> requests = new HashSet<Request>();
+    
     public String getId() {
         return id;
     }
@@ -71,6 +74,14 @@ public class Meal_Type {
 
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
+    }
+
+    public Set<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
     
     
@@ -110,7 +121,7 @@ public class Meal_Type {
 
     @Override
     public String toString() {
-        return "Meal_Type{" + "id=" + id + ", name=" + name + ", name_full=" + name_full + ", tours=" + tours + '}';
+        return "Meal_Type{" + "id=" + id + ", name=" + name + ", name_full=" + name_full + ", tours=" + tours + ", requests=" + requests + '}';
     }
 
 }

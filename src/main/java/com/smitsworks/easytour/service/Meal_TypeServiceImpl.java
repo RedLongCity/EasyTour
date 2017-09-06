@@ -39,6 +39,7 @@ public class Meal_TypeServiceImpl implements Meal_TypeService {
             entity.setName(meal_Type.getName());
             entity.setName_full(meal_Type.getName_full());
             entity.setTours(meal_Type.getTours());
+            entity.setRequests(meal_Type.getRequests());
             meal_TypeDao.mergeMeal_Type(entity);
     }
     }

@@ -45,6 +45,9 @@ public class From_Cities {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="from_Cities",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
     
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="from_Cities",cascade=CascadeType.ALL)
+    private Set<Request> requests = new HashSet<Request>();
+    
     public String getId() {
         return id;
     }
@@ -75,6 +78,14 @@ public class From_Cities {
 
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
+    }
+
+    public Set<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
     
     
@@ -110,7 +121,7 @@ public class From_Cities {
 
     @Override
     public String toString() {
-        return "From_Cities{" + "id=" + id + ", name=" + name + ", countrySet=" + countrySet + ", tours=" + tours + '}';
+        return "From_Cities{" + "id=" + id + ", name=" + name + ", countrySet=" + countrySet + ", tours=" + tours + ", requests=" + requests + '}';
     }
 
 }

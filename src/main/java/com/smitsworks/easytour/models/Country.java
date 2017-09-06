@@ -45,6 +45,9 @@ public class Country {
     
     @OneToMany(fetch=FetchType.LAZY,mappedBy="country",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="country",cascade=CascadeType.ALL)
+    private Set<Request> requests = new HashSet<Request>();
 
     public String getId() {
         return id;
@@ -77,9 +80,15 @@ public class Country {
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
-    
-    
 
+    public Set<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -111,7 +120,8 @@ public class Country {
 
     @Override
     public String toString() {
-        return "Country{" + "id=" + id + ", name=" + name + ", from_CitiesSet=" + from_CitiesSet + ", tours=" + tours + '}';
+        return "Country{" + "id=" + id + ", name=" + name + ", from_CitiesSet=" + from_CitiesSet + ", tours=" + tours + ", requests=" + requests + '}';
     }
+
 
 }

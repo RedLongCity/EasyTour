@@ -22,6 +22,7 @@ public class Meal_TypeDaoImpl extends AbstractDao<String,Meal_Type> implements M
         if(meal_TypeList!=null){
             for(Meal_Type meal_Type:meal_TypeList){
                 Hibernate.initialize(meal_Type.getTours());
+                Hibernate.initialize(meal_Type.getRequests());
             }
         }
         return meal_TypeList;
@@ -43,6 +44,7 @@ public class Meal_TypeDaoImpl extends AbstractDao<String,Meal_Type> implements M
         Meal_Type meal_Type = (Meal_Type)crit.uniqueResult();
         if(meal_Type!=null){
             Hibernate.initialize(meal_Type.getTours());
+            Hibernate.initialize(meal_Type.getRequests());
         }
         return meal_Type;
     }
