@@ -10,13 +10,15 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author redlongcity
  * 08.09.2017
- * class for parsing from_CitiesNode
+ * class for parsing From_Cities.class from JsonNode
  */
+@Service("nodeParser")
 public class From_CitiesNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(From_CitiesNodeParser.class.getName());

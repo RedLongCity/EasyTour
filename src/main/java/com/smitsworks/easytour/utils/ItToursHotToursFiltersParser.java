@@ -85,38 +85,36 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             LOG.log(Level.WARNING, "From_Cities Parser return false");
             return; 
         }
-        hotel_RatingService.deleteAllHotel_Rating();//delete after all
         ArrayNode hotel_RatingNode = (ArrayNode) rootNode.path("hotel_ratings");
-        for(int i=0;i<hotel_RatingNode.size();i++){
-            Hotel_Rating hotel_Rating = new Hotel_Rating();
-            hotel_Rating.setId(hotel_RatingNode.get(i).path("id").asText());
-            hotel_Rating.setName(hotel_RatingNode.get(i).path("name").asText());
-            hotel_RatingService.saveHotel_Rating(hotel_Rating);
+        if(hotel_RatingNode.isMissingNode()){
+            LOG.log(Level.WARNING,"Hotel_RatingNode is missing");
+            return; 
         }
-        meal_TypeService.deleteAllMeal_Type();//delete after all
-        ArrayNode meal_TypeNode = (ArrayNode) rootNode.path("meal_types");
-        for(int i=0; i<meal_TypeNode.size();i++){
-            Meal_Type meal_Type = new Meal_Type();
-            meal_Type.setId(meal_TypeNode.get(i).path("id").asText());
-            meal_Type.setName(meal_TypeNode.get(i).path("name").asText());
-            meal_Type.setName_full(meal_TypeNode.get(i).path("name_full").asText());
-            meal_TypeService.saveMeal_Type(meal_Type);
+        hotel_RatingService.deleteAllHotel_Rating();
+        if(!nodeParser.parseNode(hotel_RatingNode)){
+            LOG.log(Level.WARNING, "Hotel_RatingNode Parser return false");
+            return; 
         }
-        currencyService.deleteAllCurrency();//delete after all
+                ArrayNode meal_TypeNode = (ArrayNode) rootNode.path("meal_types");
+        if(meal_TypeNode.isMissingNode()){
+            LOG.log(Level.WARNING,"Meal_TypeNode is missing");
+            return;
+        }
+        meal_TypeService.deleteAllMeal_Type();
+        if(!nodeParser.parseNode(meal_TypeNode)){
+            LOG.log(Level.WARNING, "Meal_TypeNode Parser return false");
+            return;
+        }
         ArrayNode currencyNode = (ArrayNode) rootNode.path("currencies");
-        for(int i=0;i<currencyNode.size();i++){
-            Currency currency = new Currency();
-            currency.setId(currencyNode.get(i).path("id").asText());
-            currency.setName(currencyNode.get(i).path("name").asText());
-            currencyService.saveCurrency(currency);
+        if(currencyNode.isMissingNode()){
+            LOG.log(Level.WARNING,"CurrencyNode is missing");
+            return; 
         }
-//        System.out.println("From countryService: "+countryService.findAll());
-//        System.out.println("From from_CitiesService: "+from_CitiesService.findAll());
-//        System.out.println("From hotel_RatingService: "+hotel_RatingService.findAll());
-//        System.out.println("From meal_TypeService: "+meal_TypeService.findAll());
-//        System.out.println("From curremcyService: "+currencyService.findAll());
-//        System.out.println("RootNode: "+rootNode);
-        return rootNode;
+        currencyService.deleteAllCurrency();
+        if(!nodeParser.parseNode(currencyNode)){
+            LOG.log(Level.WARNING, "CurrencyNode Parser return false");
+            return; 
+        }
     }
     
 }
