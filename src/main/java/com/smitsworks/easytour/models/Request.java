@@ -3,8 +3,11 @@ package com.smitsworks.easytour.models;
 import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.JsonView.TourView;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
@@ -66,6 +70,9 @@ public class Request {
     @NotEmpty
     @Column(name="request_datetime",unique=false,nullable=false)
     private Timestamp request_DateTime;
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)
+    private Set<RequestPullElement> requestPullElement = new HashSet<RequestPullElement>();
 
     public Integer getId() {
         return id;
@@ -130,6 +137,16 @@ public class Request {
     public void setRequest_DateTime(Timestamp request_DateTime) {
         this.request_DateTime = request_DateTime;
     }
+
+    public Set<RequestPullElement> getRequestPullElement() {
+        return requestPullElement;
+    }
+
+    public void setRequestPullElement(Set<RequestPullElement> requestPullElement) {
+        this.requestPullElement = requestPullElement;
+    }
+    
+    
     
     @Override
     public int hashCode() {
@@ -158,8 +175,9 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", request_DateTime=" + request_DateTime + '}';
+        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", request_DateTime=" + request_DateTime + ", requestPullElement=" + requestPullElement + '}';
     }
+
 
     
 }
