@@ -7,11 +7,13 @@ import com.smitsworks.easytour.models.Currency;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
+import com.smitsworks.easytour.parsers.NodeParser;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ItToursHotToursFiltersParser implements ItToursParserConstants {
+
+    private static final Logger LOG = Logger.getLogger(ItToursHotToursFiltersParser.class.getName());
     
     @Autowired
     CountryService countryService;
@@ -40,7 +44,13 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     @Autowired
     CurrencyService currencyService;
     
-    public JsonNode parseHotToursFilters(){
+    @Autowired
+    ProjectConsantsSingletone projectConstantsSingletone;
+    
+    @Autowired
+    NodeParser nodeParser;
+    
+    public void parseHotToursFilters(){
         JsonNode rootNode = null; 
         try {
             rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
@@ -48,34 +58,32 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
         } catch (IOException ex) {
             Logger.getLogger(ItToursHotToursFiltersParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        countryService.deleteAllCountries();//Delete after all
-        ArrayNode countriesNode = (ArrayNode) rootNode.path("countries");
-        for(int i=0; i<countriesNode.size();i++){
-            Country country = new Country();
-            country.setId(countriesNode.get(i).path("id").asText());
-            country.setName(countriesNode.get(i).path("name").asText());
-            country.setFrom_CitiesSet(new HashSet<From_Cities>());
-            countryService.saveCountry(country);
+        if(rootNode.isMissingNode()){
+            LOG.log(Level.WARNING,"rootNode is Missing");
+            return;
         }
-        from_CitiesService.deleteAllFrom_Cities();//Delete after all
+        projectConstantsSingletone.setFiltersUpdate(true);//inform application about upadating filters
+        
+        ArrayNode countriesNode = (ArrayNode) rootNode.path("countries");
+        if(countriesNode.isMissingNode()){
+            LOG.log(Level.WARNING,"countriesNode is missing");
+            return;
+        }
+        countryService.deleteAllCountries();
+        if(!nodeParser.parseNode(countriesNode)){
+            LOG.log(Level.WARNING, "Country Parser return false");
+            return;
+        }
+        
         ArrayNode from_CitiesNode = (ArrayNode) rootNode.path("from_cities");
-        for(int i=0;i<from_CitiesNode.size();i++){
-            From_Cities from_Cities = new From_Cities();
-            from_Cities.setId(from_CitiesNode.get(i).path("id").asText());
-            from_Cities.setName(from_CitiesNode.get(i).path("name").asText());
-            from_Cities.setCountrySet(new HashSet<Country>());
-            //from_CitiesService.saveFrom_Cities(from_Cities);
-            String[] countriesIdArray = from_CitiesNode.get(i).path("country_id").
-                    asText().split(",",-1);
-            for(int j=0;j<countriesIdArray.length;j++){
-                String id = countriesIdArray[j];
-                Country country = countryService.findById(id);
-                if(country!=null){
-                    //from_Cities.getCountrySet().add(country);
-                    country.getFrom_CitiesSet().add(from_Cities);
-                    countryService.updateCountry(country);
-                }
-            }
+        if(from_CitiesNode.isMissingNode()){
+            LOG.log(Level.WARNING,"From_CitiesNode is missing");
+            return;
+        }
+        from_CitiesService.deleteAllFrom_Cities();
+        if(!nodeParser.parseNode(from_CitiesNode)){
+            LOG.log(Level.WARNING, "From_Cities Parser return false");
+            return; 
         }
         hotel_RatingService.deleteAllHotel_Rating();//delete after all
         ArrayNode hotel_RatingNode = (ArrayNode) rootNode.path("hotel_ratings");
