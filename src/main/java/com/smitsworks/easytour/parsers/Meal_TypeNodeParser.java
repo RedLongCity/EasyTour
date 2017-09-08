@@ -7,6 +7,7 @@ import com.smitsworks.easytour.service.Meal_TypeService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Service;
  * class for parsing Meal_Type.class from JsonNode
  */
 
-@Service("nodeParser")
+@Service
+@Qualifier("meal_TypeNodeParser")
 public class Meal_TypeNodeParser implements NodeParser {
 
     private static final Logger LOG = Logger.getLogger(Meal_TypeNodeParser.class.getName());

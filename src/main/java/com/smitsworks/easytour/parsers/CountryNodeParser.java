@@ -11,6 +11,7 @@ import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
 import java.util.HashSet;
 import java.util.logging.Level;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
@@ -18,7 +19,8 @@ import java.util.logging.Level;
  * 08.09.2017
  * class for parsing Country.class from JsonNode
  */
-@Service("nodeParser")
+@Service
+@Qualifier("countryNodeParser")
 public class CountryNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(CountryNodeParser.class.getName());

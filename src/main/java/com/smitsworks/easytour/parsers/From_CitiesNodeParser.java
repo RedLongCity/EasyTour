@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Service;
  * 08.09.2017
  * class for parsing From_Cities.class from JsonNode
  */
-@Service("nodeParser")
+@Service
+@Qualifier("from_CitiesNodeParser")
 public class From_CitiesNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(From_CitiesNodeParser.class.getName());

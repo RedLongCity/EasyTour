@@ -1,12 +1,7 @@
 package com.smitsworks.easytour.utils;
 
-import com.smitsworks.easytour.models.Country;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.smitsworks.easytour.models.Currency;
-import com.smitsworks.easytour.models.From_Cities;
-import com.smitsworks.easytour.models.Hotel_Rating;
-import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.parsers.NodeParser;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
@@ -15,7 +10,6 @@ import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

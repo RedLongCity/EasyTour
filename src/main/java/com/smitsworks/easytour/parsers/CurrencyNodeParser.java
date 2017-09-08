@@ -7,6 +7,7 @@ import com.smitsworks.easytour.service.CurrencyService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.stereotype.Service;
  * 09.09.2017
  * class for parsing Currency.class from JsonNode
  */
-@Service("nodeParser")
+@Service
+@Qualifier("currencyNodeParser")
 public class CurrencyNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(CurrencyNodeParser.class.getName());

@@ -7,6 +7,7 @@ import com.smitsworks.easytour.service.Hotel_RatingService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.stereotype.Service;
  * 08.09.2017
  * class for parsing Hotel_ratingNode
  */
-@Service("nodeParser")
+@Service
+@Qualifier("hotel_RatingNodeParser")
 public class Hotel_RatingNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(Hotel_RatingNodeParser.class.getName());
