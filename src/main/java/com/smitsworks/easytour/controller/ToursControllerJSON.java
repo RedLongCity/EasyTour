@@ -82,12 +82,8 @@ public class ToursControllerJSON {
     }
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)
-    public ResponseEntity<JsonNode> getFilters(){
-        JsonNode rootNode = filterParser.parseHotToursFilters();
-        if(rootNode==null){
-            return new ResponseEntity<JsonNode>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<JsonNode>(rootNode, HttpStatus.OK);
+    public void getFilters(){
+        filterParser.parseHotToursFilters();
     }
     
     @RequestMapping(value="/tours", method=RequestMethod.GET)

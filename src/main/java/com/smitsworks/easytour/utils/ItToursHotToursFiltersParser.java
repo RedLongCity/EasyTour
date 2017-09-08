@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 /**
  *
@@ -69,8 +70,7 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             LOG.log(Level.WARNING,"countriesNode is missing");
             return;
         }
-        countryService.deleteAllCountries();
-        if(!nodeParser.parseNode(countriesNode)){
+        if(!parseCountries(countriesNode)){
             LOG.log(Level.WARNING, "Country Parser return false");
             return;
         }
@@ -80,8 +80,7 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             LOG.log(Level.WARNING,"From_CitiesNode is missing");
             return;
         }
-        from_CitiesService.deleteAllFrom_Cities();
-        if(!nodeParser.parseNode(from_CitiesNode)){
+        if(!parseFrom_Cities(from_CitiesNode)){
             LOG.log(Level.WARNING, "From_Cities Parser return false");
             return; 
         }
@@ -90,18 +89,16 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             LOG.log(Level.WARNING,"Hotel_RatingNode is missing");
             return; 
         }
-        hotel_RatingService.deleteAllHotel_Rating();
-        if(!nodeParser.parseNode(hotel_RatingNode)){
+        if(!parseHotel_rating(hotel_RatingNode)){
             LOG.log(Level.WARNING, "Hotel_RatingNode Parser return false");
             return; 
         }
-                ArrayNode meal_TypeNode = (ArrayNode) rootNode.path("meal_types");
+        ArrayNode meal_TypeNode = (ArrayNode) rootNode.path("meal_types");
         if(meal_TypeNode.isMissingNode()){
             LOG.log(Level.WARNING,"Meal_TypeNode is missing");
             return;
         }
-        meal_TypeService.deleteAllMeal_Type();
-        if(!nodeParser.parseNode(meal_TypeNode)){
+        if(!parseMeal_Type(meal_TypeNode)){
             LOG.log(Level.WARNING, "Meal_TypeNode Parser return false");
             return;
         }
@@ -110,11 +107,42 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
             LOG.log(Level.WARNING,"CurrencyNode is missing");
             return; 
         }
-        currencyService.deleteAllCurrency();
-        if(!nodeParser.parseNode(currencyNode)){
+        if(!parseCurrency(currencyNode)){
             LOG.log(Level.WARNING, "CurrencyNode Parser return false");
             return; 
         }
+        
+         projectConstantsSingletone.setFiltersUpdate(false);//inform application
+         //about finish of upadating filters
     }
     
+    @Qualifier("countryNodeParser")
+    private Boolean parseCountries(ArrayNode countriesNode){
+        countryService.deleteAllCountries();
+        return nodeParser.parseNode(countriesNode);
+    }
+    
+    @Qualifier("from_CitiesNodeParser")
+    private Boolean parseFrom_Cities(ArrayNode from_CitiesNode){
+        from_CitiesService.deleteAllFrom_Cities();
+        return nodeParser.parseNode(from_CitiesNode);
+    }
+    
+    @Qualifier("hotel_RatingNodeParser")
+    private Boolean parseHotel_rating(ArrayNode hotel_RatingNode){
+        hotel_RatingService.deleteAllHotel_Rating();
+        return nodeParser.parseNode(hotel_RatingNode);
+    }
+    
+    @Qualifier("meal_TypeNodeParser")
+    private Boolean parseMeal_Type(ArrayNode meal_TypeNode){
+        meal_TypeService.deleteAllMeal_Type();
+        return nodeParser.parseNode(meal_TypeNode);
+    }
+    
+    @Qualifier("currencyNodeParser")
+    private Boolean parseCurrency(ArrayNode currencyNode){
+        currencyService.deleteAllCurrency();
+        return nodeParser.parseNode(currencyNode);
+    }
 }
