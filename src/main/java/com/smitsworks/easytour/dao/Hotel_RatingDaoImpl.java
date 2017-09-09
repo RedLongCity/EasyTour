@@ -22,7 +22,6 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
             if(hotel_RatingList!=null){
             for(Hotel_Rating hotel_Rating:hotel_RatingList){
                 Hibernate.initialize(hotel_Rating.getTours());
-                Hibernate.initialize(hotel_Rating.getRequests());
             }
         }
         return hotel_RatingList;
@@ -33,7 +32,6 @@ public class Hotel_RatingDaoImpl extends AbstractDao<String,Hotel_Rating> implem
         Hotel_Rating hotel_Rating = getByKey(id);
         if(hotel_Rating!=null){
             Hibernate.initialize(hotel_Rating.getTours());
-            Hibernate.initialize(hotel_Rating.getRequests());
         }
         return hotel_Rating;
     }

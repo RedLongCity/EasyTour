@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.dao;
 
 import com.smitsworks.easytour.models.From_Cities;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,26 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     }
 
     @Override
+    public List<Tour> getToursByRequest(Request request) {
+        Criteria crit = createCriteria();
+        
+        List<Tour> tourList=(List<Tour>) crit.list();
+            if(tourList!=null){
+        for(Tour tour:tourList){
+            Hibernate.initialize(tour.getCountry());
+            Hibernate.initialize(tour.getFrom_Cities());
+            Hibernate.initialize(tour.getPrices());
+            Hibernate.initialize(tour.getHotel_ImageSet());
+            Hibernate.initialize(tour.getHotel_Rating());
+            Hibernate.initialize(tour.getMeal_Type());
+        }
+    }
+        return tourList;
+    }
+    
+    
+
+    @Override
     public Tour findById(Integer id) {
         Tour tour = getByKey(id);
         if(tour!=null){
@@ -47,6 +68,24 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
         }
         return tour;
     }
+
+    @Override
+    public Tour findByRequest(Request request) {
+        Criteria crit = createCriteria();
+        
+        Tour tour = (Tour)crit.uniqueResult();
+        if(tour!=null){
+            Hibernate.initialize(tour.getCountry());
+            Hibernate.initialize(tour.getFrom_Cities());
+            Hibernate.initialize(tour.getPrices());
+            Hibernate.initialize(tour.getHotel_ImageSet());
+            Hibernate.initialize(tour.getHotel_Rating());
+            Hibernate.initialize(tour.getMeal_Type());
+        }
+        return tour;
+    }
+    
+    
 
     @Override
     public void save(Tour tour) {

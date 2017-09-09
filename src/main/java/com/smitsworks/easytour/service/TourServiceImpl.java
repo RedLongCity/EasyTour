@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.dao.TourDao;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,13 @@ public class TourServiceImpl implements TourService{
     public Tour findById(Integer id) {
         return tourDao.findById(id);
     }
+
+    @Override
+    public Tour findByRequest(Request request) {
+        return tourDao.findByRequest(request);
+    }
+    
+    
 
     @Override
     public void saveTour(Tour tour) {
@@ -68,6 +76,11 @@ public class TourServiceImpl implements TourService{
     @Override
     public List<Tour> findAll() {
         return tourDao.findAll();
+    }
+
+    @Override
+    public List<Tour> findToursByRequest(Request request) {
+        return tourDao.getToursByRequest(request);
     }
 
     @Override

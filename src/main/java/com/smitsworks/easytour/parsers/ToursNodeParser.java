@@ -199,8 +199,8 @@ public class ToursNodeParser implements NodeParser {
                 
                 JsonNode pricesNode = node;
                 
-                    Price price_1 = new Price();
-                    Currency currency_1 = currencyService.findById("1");
+                Price price_1 = new Price();
+                Currency currency_1 = currencyService.findById("1");
                     
                 node=pricesNode.path("1");
                 if(node.isMissingNode()){

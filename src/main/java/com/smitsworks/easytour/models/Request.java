@@ -47,9 +47,9 @@ public class Request {
     private From_Cities from_Cities;
     
     @JsonView(TourView.class)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="hotel_rating_id", nullable=false)
-    private Hotel_Rating hotel_Rating;
+    @NotEmpty
+    @Column(name="hotel_rating",unique=false,nullable=false)
+    private String hotel_Rating;
     
     @JsonView(TourView.class)
     @NotEmpty
@@ -98,11 +98,11 @@ public class Request {
         this.from_Cities = from_Cities;
     }
 
-    public Hotel_Rating getHotel_Rating() {
+    public String getHotel_Rating() {
         return hotel_Rating;
     }
 
-    public void setHotel_Rating(Hotel_Rating hotel_Rating) {
+    public void setHotel_Rating(String hotel_Rating) {
         this.hotel_Rating = hotel_Rating;
     }
 

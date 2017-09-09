@@ -11,8 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
@@ -36,9 +34,6 @@ public class Hotel_Rating {
     
     @OneToMany(fetch=FetchType.LAZY,mappedBy="hotel_Rating",cascade=CascadeType.ALL)
     private Set<Tour> tours = new HashSet<Tour>();
-    
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="hotel_Rating",cascade=CascadeType.ALL)
-    private Set<Request> requests = new HashSet<Request>();
 
     public String getId() {
         return id;
@@ -64,14 +59,6 @@ public class Hotel_Rating {
         this.tours = tours;
     }
 
-    public Set<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(Set<Request> requests) {
-        this.requests = requests;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -103,7 +90,8 @@ public class Hotel_Rating {
 
     @Override
     public String toString() {
-        return "Hotel_Rating{" + "id=" + id + ", name=" + name + ", tours=" + tours + ", requests=" + requests + '}';
+        return "Hotel_Rating{" + "id=" + id + ", name=" + name + ", tours=" + tours + '}';
     }
+
 
 }
