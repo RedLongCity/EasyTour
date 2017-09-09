@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
  * class for parsing Currency.class from JsonNode
  */
 @Service
-@Qualifier("currencyNodeParser")
 public class CurrencyNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(CurrencyNodeParser.class.getName());

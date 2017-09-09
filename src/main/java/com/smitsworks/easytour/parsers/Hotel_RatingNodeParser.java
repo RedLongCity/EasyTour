@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
  * class for parsing Hotel_ratingNode
  */
 @Service
-@Qualifier("hotel_RatingNodeParser")
 public class Hotel_RatingNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(Hotel_RatingNodeParser.class.getName());

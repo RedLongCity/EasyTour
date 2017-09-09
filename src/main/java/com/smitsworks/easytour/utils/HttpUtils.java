@@ -12,6 +12,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -23,6 +25,7 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
@@ -33,7 +36,8 @@ import org.apache.http.util.EntityUtils;
  */
 
 public class HttpUtils implements SimpleRequestConstants{
-    
+
+    private static final Logger LOG = Logger.getLogger(HttpUtils.class.getName());
     
     public static final int CONNECT_TIMEOUT = 60 * 1000;
     public static final int SOCKET_TIMEOUT = 60 * 1000;
@@ -64,18 +68,21 @@ public class HttpUtils implements SimpleRequestConstants{
 	}
 
 	public static Content getRequest(String url) throws IOException{
-		try{
-			return Request.Get(url)
+            Response response = null;
+            try{
+			response = Request.Get(url)
 				.connectTimeout(CONNECT_TIMEOUT)
 				.socketTimeout(SOCKET_TIMEOUT)
                                 .addHeader(authorization,authorization_token)
                                 .addHeader(acceptLanguage, response_language)
-				.execute()
-                                .returnContent();
+				.execute();
 		}
 		catch(IOException e){
-                    throw e;
+                    LOG.log(Level.WARNING,e.toString());
+                    e.printStackTrace();
 		}
+            LOG.log(Level.INFO,response.toString());
+            return response.returnContent();
 	}
         
         public static JsonNode getJsonNodeFromUrl(String url) throws IOException{

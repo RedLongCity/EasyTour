@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
  * class for parsing From_Cities.class from JsonNode
  */
 @Service
-@Qualifier("from_CitiesNodeParser")
 public class From_CitiesNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(From_CitiesNodeParser.class.getName());

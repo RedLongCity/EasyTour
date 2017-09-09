@@ -2,6 +2,11 @@ package com.smitsworks.easytour.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.smitsworks.easytour.parsers.CountryNodeParser;
+import com.smitsworks.easytour.parsers.CurrencyNodeParser;
+import com.smitsworks.easytour.parsers.From_CitiesNodeParser;
+import com.smitsworks.easytour.parsers.Hotel_RatingNodeParser;
+import com.smitsworks.easytour.parsers.Meal_TypeNodeParser;
 import com.smitsworks.easytour.parsers.NodeParser;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
@@ -19,6 +24,7 @@ import org.springframework.stereotype.Service;
  *
  * @author redlongcity
  */
+
 @Service
 public class ItToursHotToursFiltersParser implements ItToursParserConstants {
 
@@ -43,9 +49,21 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     ProjectConsantsSingletone projectConstantsSingletone;
     
     @Autowired
-    NodeParser nodeParser;
+    CountryNodeParser countryNodeParser;
     
-    public void parseHotToursFilters(){
+    @Autowired
+    From_CitiesNodeParser from_CitiesNodeParser;
+    
+    @Autowired
+    Hotel_RatingNodeParser hotel_RatingNodeParser;
+    
+    @Autowired
+    Meal_TypeNodeParser meal_TypeNodeParser;
+    
+    @Autowired
+    CurrencyNodeParser currencyNodeParser;
+    
+    public void extractHotToursFilters(){
         JsonNode rootNode = null; 
         try {
             rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
@@ -109,34 +127,24 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
          projectConstantsSingletone.setFiltersUpdate(false);//inform application
          //about finish of upadating filters
     }
-    
-    @Qualifier("countryNodeParser")
     private Boolean parseCountries(ArrayNode countriesNode){
         countryService.deleteAllCountries();
-        return nodeParser.parseNode(countriesNode);
+        return countryNodeParser.parseNode(countriesNode);
     }
-    
-    @Qualifier("from_CitiesNodeParser")
     private Boolean parseFrom_Cities(ArrayNode from_CitiesNode){
         from_CitiesService.deleteAllFrom_Cities();
-        return nodeParser.parseNode(from_CitiesNode);
+        return from_CitiesNodeParser.parseNode(from_CitiesNode);
     }
-    
-    @Qualifier("hotel_RatingNodeParser")
     private Boolean parseHotel_rating(ArrayNode hotel_RatingNode){
         hotel_RatingService.deleteAllHotel_Rating();
-        return nodeParser.parseNode(hotel_RatingNode);
+        return hotel_RatingNodeParser.parseNode(hotel_RatingNode);
     }
-    
-    @Qualifier("meal_TypeNodeParser")
     private Boolean parseMeal_Type(ArrayNode meal_TypeNode){
         meal_TypeService.deleteAllMeal_Type();
-        return nodeParser.parseNode(meal_TypeNode);
+        return meal_TypeNodeParser.parseNode(meal_TypeNode);
     }
-    
-    @Qualifier("currencyNodeParser")
     private Boolean parseCurrency(ArrayNode currencyNode){
         currencyService.deleteAllCurrency();
-        return nodeParser.parseNode(currencyNode);
+        return currencyNodeParser.parseNode(currencyNode);
     }
 }

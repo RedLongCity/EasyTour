@@ -2,16 +2,12 @@ package com.smitsworks.easytour.parsers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.service.CountryService;
-import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Country;
-import com.smitsworks.easytour.models.From_Cities;
-import java.util.HashSet;
 import java.util.logging.Level;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
@@ -20,7 +16,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * class for parsing Country.class from JsonNode
  */
 @Service
-@Qualifier("countryNodeParser")
 public class CountryNodeParser implements NodeParser{
 
     private static final Logger LOG = Logger.getLogger(CountryNodeParser.class.getName());

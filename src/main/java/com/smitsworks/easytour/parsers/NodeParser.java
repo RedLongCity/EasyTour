@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
  * 08.09.2017
  * interface for series of parsers node
  */
-@Service("nodeParser")
 public interface NodeParser {
     
     Boolean parseNode(ArrayNode arrayNode);

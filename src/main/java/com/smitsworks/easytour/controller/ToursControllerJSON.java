@@ -83,12 +83,12 @@ public class ToursControllerJSON {
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)
     public void getFilters(){
-        filterParser.parseHotToursFilters();
+        filterParser.extractHotToursFilters();
     }
     
     @RequestMapping(value="/tours", method=RequestMethod.GET)
     public ResponseEntity<Void> getTours(){
-        searchParser.getTours(1);
+        searchParser.extractTours(1);
         
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

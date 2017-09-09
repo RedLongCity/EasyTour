@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-@Qualifier("meal_TypeNodeParser")
 public class Meal_TypeNodeParser implements NodeParser {
 
     private static final Logger LOG = Logger.getLogger(Meal_TypeNodeParser.class.getName());
