@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.smitsworks.easytour.quartz.jobs;
 
 import com.smitsworks.easytour.models.Request;
@@ -43,7 +38,9 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
-        
+        //saveAndClearRequests();
+        LOG.log(Level.INFO, "GlobalJob Doing");
+        System.out.println("GlobalJob Doing");
     }
     
     private void saveAndClearRequests(){
@@ -52,6 +49,7 @@ public class GlobalUpdatingJob extends QuartzJobBean{
             LOG.log(Level.WARNING,"GlobalUpdatingJob: requestsList is null");
             return;
         }
+        
         Iterator<RequestCommand> it = requestsPull.iterator();
         while(it.hasNext()){
             
@@ -64,12 +62,17 @@ public class GlobalUpdatingJob extends QuartzJobBean{
                 RequestPullElement element = new RequestPullElement();
                 Request request = ((HotSearchRequestCommand) command).getRequest();
                 element.setRequest(request);
-                element.setAreNew(command.getAreNew());
                 element.setByHuman(command.getByHuman());
                 element.setDone(command.getDone());
                 element.setPriority(command.getPriority());
                 element.setRequest_pull_DateTime(command.getRequestTime());
                 requestPullElementService.saveRequestPullElement(element);
+                if(command.getPriority()<2&&command.getByHuman()==false){
+                    it.remove();
+                }else{
+                    command.setDone(Boolean.FALSE);
+                    command.setByHuman(Boolean.FALSE);
+                }
             }
         }
     }

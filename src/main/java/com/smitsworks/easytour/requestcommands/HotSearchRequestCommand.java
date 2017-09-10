@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  * 10.09.2017
  * class for generalization operations with search information
  */
-@Service("requestCommand")
+@Service
 public class HotSearchRequestCommand implements RequestCommand,ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(HotSearchRequestCommand.class.getName());
@@ -34,7 +34,6 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     private Integer priority;
     private Boolean done;
     private Boolean byHuman;
-    private Boolean areNew;
     private Timestamp requestTime;
     
     @Autowired
@@ -43,16 +42,15 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     @Autowired
     HotSearchRequestHandlerService handlerService;
 
-    public HotSearchRequestCommand(Request request, Integer priority, Boolean done, Boolean byHuman, Boolean areNew) {
+    public HotSearchRequestCommand() {
+    }
+
+    public HotSearchRequestCommand(Request request, Integer priority, Boolean done, Boolean byHuman) {
         this.request = request;
         this.priority = priority;
         this.done = done;
         this.byHuman = byHuman;
-        this.areNew = areNew;
     }
-
-
-
     
     @Override
     public void execute() {
@@ -62,10 +60,6 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         } catch (IOException ex) {
             Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void parse() {
         parser.extractTours(rootNode);
     }
 
@@ -107,14 +101,7 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         this.request = request;
     }
 
-    public Boolean getAreNew() {
-        return areNew;
-    }
-
-    public void setAreNew(Boolean areNew) {
-        this.areNew = areNew;
-    }
-
+    
     public Timestamp getRequestTime() {
         return requestTime;
     }

@@ -12,8 +12,6 @@ public interface RequestCommand {
     
     void execute();
     
-    void parse();
-    
     void setPriority(Integer priority);
     
     Integer getPriority();
@@ -25,10 +23,6 @@ public interface RequestCommand {
     void setByHuman(Boolean byHuman);
     
     Boolean getByHuman();
-    
-    void setAreNew(Boolean areNew);
-    
-    Boolean getAreNew();
     
     void setRequestTime(Timestamp time);
     

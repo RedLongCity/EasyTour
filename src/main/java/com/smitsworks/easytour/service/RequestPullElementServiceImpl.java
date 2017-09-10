@@ -42,9 +42,8 @@ public class RequestPullElementServiceImpl implements RequestPullElementService 
         if(entity!=null){
             entity.setRequest(requestPullElement.getRequest());
             entity.setRequest_pull_DateTime(requestPullElement.getRequest_pull_DateTime());
-            entity.setAreNew(requestPullElement.getAreNew());
-            entity.setAreNew(requestPullElement.getAreNew());
             entity.setDone(requestPullElement.getDone());
+            entity.setByHuman(requestPullElement.getByHuman());
             entity.setPriority(requestPullElement.getPriority());
             requestPullElementDao.mergeRequestPullElement(entity);
         }

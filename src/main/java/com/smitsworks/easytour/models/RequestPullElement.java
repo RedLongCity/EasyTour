@@ -44,10 +44,6 @@ public class RequestPullElement {
     private Timestamp request_pull_DateTime;
     
     @JsonView(TourView.class)
-    @Column(name="are_new",unique=false,nullable=false)
-    private Boolean areNew;
-    
-    @JsonView(TourView.class)
     @NotEmpty
     @Column(name="done",unique=false,nullable=false)
     private Boolean done;
@@ -85,15 +81,6 @@ public class RequestPullElement {
     public void setRequest_pull_DateTime(Timestamp request_pull_DateTime) {
         this.request_pull_DateTime = request_pull_DateTime;
     }
-
-    public Boolean getAreNew() {
-        return areNew;
-    }
-
-    public void setAreNew(Boolean areNew) {
-        this.areNew = areNew;
-    }
-
     public Boolean getDone() {
         return done;
     }
@@ -147,7 +134,7 @@ public class RequestPullElement {
 
     @Override
     public String toString() {
-        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", request_pull_DateTime=" + request_pull_DateTime + ", areNew=" + areNew + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
+        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", request_pull_DateTime=" + request_pull_DateTime + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
     }
 
 }

@@ -27,9 +27,9 @@ public class ProjectConsantsSingletone {
     
     private Request requestUpdating;//Request which are updating at the moment
     
-    private TimeUnit shortUpdatingDelay;//Previous or Current update time
+    private Integer shortUpdatingDelay;//Previous or Current update time
     
-    private TimeUnit globalUpdatingDelay;//delay between global updating
+    private String globalUpdatingDelay;//delay between global updating
     
     private List<RequestCommand> requestsPull;//pull for all requests
     
@@ -62,19 +62,19 @@ public class ProjectConsantsSingletone {
         this.requestUpdating = requestUpdating;
     }
 
-    public TimeUnit getShortUpdatingDelay() {
+    public Integer getShortUpdatingDelay() {
         return shortUpdatingDelay;
     }
 
-    public void setShortUpdatingDelay(TimeUnit shortUpdatingDelay) {
+    public void setShortUpdatingDelay(Integer shortUpdatingDelay) {
         this.shortUpdatingDelay = shortUpdatingDelay;
     }
 
-    public TimeUnit getGlobalUpdatingDelay() {
+    public String getGlobalUpdatingDelay() {
         return globalUpdatingDelay;
     }
 
-    public void setGlobalUpdatingDelay(TimeUnit globalUpdatingDelay) {
+    public void setGlobalUpdatingDelay(String globalUpdatingDelay) {
         this.globalUpdatingDelay = globalUpdatingDelay;
     }
 

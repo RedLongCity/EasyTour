@@ -12,11 +12,14 @@ import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Tour;
+import com.smitsworks.easytour.quartz.services.GlobalUpdatingQuartzService;
+import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.service.TourService;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import java.util.List;
 import java.util.logging.Level;
@@ -60,34 +63,31 @@ public class ToursControllerJSON {
     TourService tourService;
     
     @Autowired
-    Scheduler scheduler;
+    ProjectConsantsSingletone projectConsantsSingletone;
     
+    @Autowired
+    QuartzService quartzService;
+            
     @RequestMapping(value="/stopupdating",method=RequestMethod.GET)
     public void stopScheduling(){
-        try {
-            scheduler.pauseAll();
-        } catch (SchedulerException ex) {
-            Logger.getLogger(ToursControllerJSON.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
     
         @RequestMapping(value="/startupdating",method=RequestMethod.GET)
     public void startScheduling(){
-        try {
-            scheduler.resumeAll();
-        } catch (SchedulerException ex) {
-            Logger.getLogger(ToursControllerJSON.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        projectConsantsSingletone.setGlobalUpdatingDelay("0/10 * * * * ?");
+        projectConsantsSingletone.setShortUpdatingDelay(2);
+        quartzService.start();
     }
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)
     public void getFilters(){
-        filterParser.extractHotToursFilters();
+        
     }
     
     @RequestMapping(value="/tours", method=RequestMethod.GET)
     public ResponseEntity<Void> getTours(){
-        searchParser.extractTours(1);
+        //searchParser.extractTours(1);
         
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

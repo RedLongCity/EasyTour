@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * 10.09.2017
  * class for generalization operations with filters information
  */
-@Service("requestCommand")
+@Service
 public class HotFiltersRequestCommand implements RequestCommand,ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(HotFiltersRequestCommand.class.getName());
@@ -28,11 +28,12 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     private JsonNode rootNode;
     private Boolean done;
 
-
+    public HotFiltersRequestCommand() {
+    }
+    
     public HotFiltersRequestCommand(Boolean done) {
         this.done = done;
     }
-
     
     
     @Override
@@ -43,13 +44,8 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
         } catch (IOException ex) {
             Logger.getLogger(HotFiltersRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void parse() {
         parser.extractHotToursFilters(rootNode);
     }
-
 
     @Override
     public Boolean getDone() {
@@ -78,16 +74,6 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
 
     @Override
     public Boolean getByHuman() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setAreNew(Boolean areNew) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Boolean getAreNew() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
