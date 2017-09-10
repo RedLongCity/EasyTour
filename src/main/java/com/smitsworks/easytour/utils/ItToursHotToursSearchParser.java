@@ -34,22 +34,21 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
     @Autowired
     ToursNodeParser toursNodeParser;
     
-    private JsonNode parseHotToursSearch(Integer page){
-                JsonNode rootNode = null; 
-        try {
-            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
-                    api_showcases_search+api_showcases_hotel_rating+
-                    api_showcases_night_from+api_showcases_night_till+
-                    api_showcases_page+page+api_showcases_items_per_page+
-                    api_showcases_hotel_image);
-        } catch (IOException ex) {
-            Logger.getLogger(ItToursHotToursSearchParser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rootNode;
-    }
+//    private JsonNode parseHotToursSearch(Integer page){
+//                JsonNode rootNode = null; 
+//        try {
+//            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
+//                    api_showcases_search+api_showcases_hotel_rating+
+//                    api_showcases_night_from+api_showcases_night_till+
+//                    api_showcases_page+page+api_showcases_items_per_page+
+//                    api_showcases_hotel_image);
+//        } catch (IOException ex) {
+//            Logger.getLogger(ItToursHotToursSearchParser.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return rootNode;
+//    }
     
-    public boolean extractTours(Integer page){
-            JsonNode rootNode = parseHotToursSearch(page);
+    public boolean extractTours(JsonNode rootNode){
             if(rootNode.isMissingNode()){
                 LOG.log(Level.WARNING, "rootNode is Missing");
                 return false;
@@ -64,20 +63,20 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                LOG.log(Level.WARNING,"ToursNodeParser: toursNode Parser returned false");
                return false;
             }
-        JsonNode node;
-        node=rootNode.path("has_more_pages");
-        if(node.isMissingNode()){
-        LOG.log(Level.WARNING,"has_more_pagesNode is missing");
-        return false; 
-        }
-        if(node.asBoolean()){
-            node=rootNode.path("page");
-            if(node.isMissingNode()){
-                LOG.log(Level.WARNING,"pageNode is missing");
-            return false; 
-        }
-            extractTours(node.asInt()+1);
-        }
+//        JsonNode node;
+//        node=rootNode.path("has_more_pages");
+//        if(node.isMissingNode()){
+//        LOG.log(Level.WARNING,"has_more_pagesNode is missing");
+//        return false; 
+//        }
+//        if(node.asBoolean()){
+//            node=rootNode.path("page");
+//            if(node.isMissingNode()){
+//                LOG.log(Level.WARNING,"pageNode is missing");
+//            return false; 
+//        }
+//            extractTours(node.asInt()+1);
+//        }
         LOG.log(Level.INFO, "parsing was finished by success");
         return true;
     }

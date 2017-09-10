@@ -7,18 +7,15 @@ import com.smitsworks.easytour.parsers.CurrencyNodeParser;
 import com.smitsworks.easytour.parsers.From_CitiesNodeParser;
 import com.smitsworks.easytour.parsers.Hotel_RatingNodeParser;
 import com.smitsworks.easytour.parsers.Meal_TypeNodeParser;
-import com.smitsworks.easytour.parsers.NodeParser;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 /**
  *
@@ -26,7 +23,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class ItToursHotToursFiltersParser implements ItToursParserConstants {
+public class ItToursHotToursFiltersParser {
 
     private static final Logger LOG = Logger.getLogger(ItToursHotToursFiltersParser.class.getName());
     
@@ -63,14 +60,8 @@ public class ItToursHotToursFiltersParser implements ItToursParserConstants {
     @Autowired
     CurrencyNodeParser currencyNodeParser;
     
-    public void extractHotToursFilters(){
-        JsonNode rootNode = null; 
-        try {
-            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
-                    api_showcases_filters);
-        } catch (IOException ex) {
-            Logger.getLogger(ItToursHotToursFiltersParser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void extractHotToursFilters(JsonNode rootNode){
+
         if(rootNode.isMissingNode()){
             LOG.log(Level.WARNING,"rootNode is Missing");
             return;

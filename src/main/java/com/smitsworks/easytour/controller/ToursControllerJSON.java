@@ -3,7 +3,6 @@ package com.smitsworks.easytour.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.utils.ItToursHotToursFiltersParser;
 import org.springframework.http.ResponseEntity;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.Hotel_RatingView;

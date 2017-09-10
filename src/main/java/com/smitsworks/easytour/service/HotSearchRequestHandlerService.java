@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
  *
  * @author redlongcity
  * 09.09.2017
- * class for handling operations with request
+ * class for handling operations with ItTours Hot Search Request
  */
 @Service("requestHandlerService")
-public class RequestHandlerServiceImpl implements RequestHandlerService,ItToursParserConstants {
+public class HotSearchRequestHandlerService implements RequestHandlerService,ItToursParserConstants {
 
-    private static final Logger LOG = Logger.getLogger(RequestHandlerServiceImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(HotSearchRequestHandlerService.class.getName());
 
     @Override
     public List<Criterion> getCriterionsByRequest(Request request) {

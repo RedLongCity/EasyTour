@@ -1,7 +1,9 @@
 package com.smitsworks.easytour.singletons;
 
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.requestcommands.RequestCommand;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,11 @@ public class ProjectConsantsSingletone {
     
     private Request requestUpdating;//Request which are updating at the moment
     
-    private Timestamp updateTime;//Previous or Current update time
+    private TimeUnit shortUpdatingDelay;//Previous or Current update time
     
-    private TimeUnit updatingDelay;//delay between global updating
+    private TimeUnit globalUpdatingDelay;//delay between global updating
     
-    
+    private List<RequestCommand> requestsPull;//pull for all requests
     
     public static ProjectConsantsSingletone getInstance(){
         ProjectConsantsSingletone localInstance = instance;
@@ -58,26 +60,33 @@ public class ProjectConsantsSingletone {
         this.requestUpdating = requestUpdating;
     }
 
-    public Timestamp getUpdateTime() {
-        return updateTime;
+    public TimeUnit getShortUpdatingDelay() {
+        return shortUpdatingDelay;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
+    public void setShortUpdatingDelay(TimeUnit shortUpdatingDelay) {
+        this.shortUpdatingDelay = shortUpdatingDelay;
     }
 
-    public TimeUnit getUpdatingDelay() {
-        return updatingDelay;
+    public TimeUnit getGlobalUpdatingDelay() {
+        return globalUpdatingDelay;
     }
 
-    public void setUpdatingDelay(TimeUnit updatingDelay) {
-        this.updatingDelay = updatingDelay;
+    public void setGlobalUpdatingDelay(TimeUnit globalUpdatingDelay) {
+        this.globalUpdatingDelay = globalUpdatingDelay;
+    }
+
+    public List<RequestCommand> getRequestsPull() {
+        return requestsPull;
+    }
+
+    public void setRequestsPull(List<RequestCommand> requestsPull) {
+        this.requestsPull = requestsPull;
     }
 
     @Override
     public String toString() {
-        return "ProjectConsantsSingletone{" + "filtersUpdate=" + filtersUpdate + ", requestUpdating=" + requestUpdating + ", updateTime=" + updateTime + ", updatingDelay=" + updatingDelay + '}';
+        return "ProjectConsantsSingletone{" + "filtersUpdate=" + filtersUpdate + ", requestUpdating=" + requestUpdating + ", shortUpdatingDelay=" + shortUpdatingDelay + ", globalUpdatingDelay=" + globalUpdatingDelay + ", requestsPull=" + requestsPull + '}';
     }
-    
     
 }

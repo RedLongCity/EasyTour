@@ -44,6 +44,9 @@ public class RequestPullElementServiceImpl implements RequestPullElementService 
             entity.setRequest_pull_DateTime(requestPullElement.getRequest_pull_DateTime());
             entity.setAreNew(requestPullElement.getAreNew());
             entity.setAreConfirmed(requestPullElement.getAreConfirmed());
+            entity.setAreNew(requestPullElement.getAreNew());
+            entity.setDone(requestPullElement.getDone());
+            entity.setPriority(requestPullElement.getPriority());
             requestPullElementDao.mergeRequestPullElement(entity);
         }
     }

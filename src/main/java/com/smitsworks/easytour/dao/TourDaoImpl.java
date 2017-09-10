@@ -3,11 +3,14 @@ package com.smitsworks.easytour.dao;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
+import com.smitsworks.easytour.service.RequestHandlerService;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 /**
  *
@@ -17,6 +20,9 @@ import org.springframework.stereotype.Repository;
 @Repository("tourDao")
 public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
 
+    @Autowired
+    RequestHandlerService requestHandlerService;
+    
     @Override
     public List<Tour> findAll() {
         Criteria crit = createCriteria();
@@ -38,7 +44,12 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     @Override
     public List<Tour> getToursByRequest(Request request) {
         Criteria crit = createCriteria();
-        
+        List<Criterion> criterionsList = requestHandlerService.getCriterionsByRequest(request);
+        if(criterionsList!=null){
+            for(Criterion criterion:criterionsList){
+                crit.add(criterion);
+            }
+        }
         List<Tour> tourList=(List<Tour>) crit.list();
             if(tourList!=null){
         for(Tour tour:tourList){
@@ -72,7 +83,12 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     @Override
     public Tour findByRequest(Request request) {
         Criteria crit = createCriteria();
-        
+        List<Criterion> criterionsList = requestHandlerService.getCriterionsByRequest(request);
+        if(criterionsList!=null){
+            for(Criterion criterion:criterionsList){
+                crit.add(criterion);
+            }
+        }
         Tour tour = (Tour)crit.uniqueResult();
         if(tour!=null){
             Hibernate.initialize(tour.getCountry());

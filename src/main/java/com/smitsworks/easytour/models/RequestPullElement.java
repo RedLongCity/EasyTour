@@ -50,6 +50,21 @@ public class RequestPullElement {
     @JsonView(TourView.class)
     @Column(name="are_confirmed",nullable=true)
     private Boolean areConfirmed;
+    
+    @JsonView(TourView.class)
+    @NotEmpty
+    @Column(name="done",unique=false,nullable=false)
+    private Boolean done;
+    
+    @JsonView(TourView.class)
+    @NotEmpty
+    @Column(name="priority",unique=false,nullable=false)
+    private Integer priority;
+    
+    @JsonView(TourView.class)
+    @NotEmpty
+    @Column(name="by_human",unique=false,nullable=false)
+    private Boolean byHuman;
 
     public Integer getId() {
         return id;
@@ -91,6 +106,32 @@ public class RequestPullElement {
         this.areConfirmed = areConfirmed;
     }
 
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public Boolean getByHuman() {
+        return byHuman;
+    }
+
+    public void setByHuman(Boolean byHuman) {
+        this.byHuman = byHuman;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -118,8 +159,9 @@ public class RequestPullElement {
 
     @Override
     public String toString() {
-        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", request_pull_DateTime=" + request_pull_DateTime + ", areNew=" + areNew + ", areConfirmed=" + areConfirmed + '}';
+        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", request_pull_DateTime=" + request_pull_DateTime + ", areNew=" + areNew + ", areConfirmed=" + areConfirmed + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
     }
+
     
     
 }
