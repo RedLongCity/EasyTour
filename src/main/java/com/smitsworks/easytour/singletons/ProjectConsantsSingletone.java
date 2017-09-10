@@ -21,6 +21,8 @@ public class ProjectConsantsSingletone {
     
     private static volatile ProjectConsantsSingletone instance;
     
+    private boolean globalDelay;//for regulation access to out database
+    
     private boolean filtersUpdate;//consist Country, From_Cities updating etc.
     
     private Request requestUpdating;//Request which are updating at the moment
@@ -84,6 +86,15 @@ public class ProjectConsantsSingletone {
         this.requestsPull = requestsPull;
     }
 
+    public boolean isGlobalDelay() {
+        return globalDelay;
+    }
+
+    public void setGlobalDelay(boolean globalDelay) {
+        this.globalDelay = globalDelay;
+    }
+
+    
     @Override
     public String toString() {
         return "ProjectConsantsSingletone{" + "filtersUpdate=" + filtersUpdate + ", requestUpdating=" + requestUpdating + ", shortUpdatingDelay=" + shortUpdatingDelay + ", globalUpdatingDelay=" + globalUpdatingDelay + ", requestsPull=" + requestsPull + '}';

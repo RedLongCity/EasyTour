@@ -66,11 +66,6 @@ public class Request {
     @JoinColumn(name="meal_type_id", nullable=false)
     private Meal_Type meal_Type;
     
-    @JsonView(TourView.class)
-    @NotEmpty
-    @Column(name="request_datetime",unique=false,nullable=false)
-    private Timestamp request_DateTime;
-    
     @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)
     private Set<RequestPullElement> requestPullElement = new HashSet<RequestPullElement>();
 
@@ -130,14 +125,6 @@ public class Request {
         this.meal_Type = meal_Type;
     }
 
-    public Timestamp getRequest_DateTime() {
-        return request_DateTime;
-    }
-
-    public void setRequest_DateTime(Timestamp request_DateTime) {
-        this.request_DateTime = request_DateTime;
-    }
-
     public Set<RequestPullElement> getRequestPullElement() {
         return requestPullElement;
     }
@@ -175,9 +162,7 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", request_DateTime=" + request_DateTime + ", requestPullElement=" + requestPullElement + '}';
+        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", requestPullElement=" + requestPullElement + '}';
     }
 
-
-    
 }

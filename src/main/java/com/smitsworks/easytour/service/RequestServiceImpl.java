@@ -39,7 +39,6 @@ public class RequestServiceImpl implements RequestService {
             entity.setMeal_Type(request.getMeal_Type());
             entity.setNight_From(request.getNight_From());
             entity.setNight_Till(request.getNight_Till());
-            entity.setRequest_DateTime(request.getRequest_DateTime());
             requestDao.mergeRequest(entity);
         }
     }

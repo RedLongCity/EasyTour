@@ -5,6 +5,7 @@ import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursFiltersParser;
 import com.smitsworks.easytour.utils.ItToursParserConstants;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,13 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     ItToursHotToursFiltersParser parser;
     
     private JsonNode rootNode;
-    private Integer priority;
     private Boolean done;
-    private Boolean byHuman;
 
-    public HotFiltersRequestCommand(Integer priority, Boolean done, Boolean byHuman) {
-        this.priority = priority;
+
+    public HotFiltersRequestCommand(Boolean done) {
         this.done = done;
-        this.byHuman = byHuman;
     }
+
     
     
     @Override
@@ -51,15 +50,6 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
         parser.extractHotToursFilters(rootNode);
     }
 
-    @Override
-    public Integer getPriority() {
-        return priority;
-    }
-
-    @Override
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
 
     @Override
     public Boolean getDone() {
@@ -72,15 +62,44 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     }
 
     @Override
-    public Boolean getByHuman() {
-        return byHuman;
+    public void setPriority(Integer priority) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Integer getPriority() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setByHuman(Boolean byHuman) {
-        this.byHuman = byHuman;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
+    @Override
+    public Boolean getByHuman() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setAreNew(Boolean areNew) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean getAreNew() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setRequestTime(Timestamp time) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Timestamp getRequestTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

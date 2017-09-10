@@ -12,6 +12,7 @@ import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.ItToursParserConstants;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     private Integer priority;
     private Boolean done;
     private Boolean byHuman;
+    private Boolean areNew;
+    private Timestamp requestTime;
     
     @Autowired
     ItToursHotToursSearchParser parser;
@@ -40,12 +43,15 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     @Autowired
     HotSearchRequestHandlerService handlerService;
 
-    public HotSearchRequestCommand(Request request, Integer priority, Boolean done, Boolean byHuman) {
+    public HotSearchRequestCommand(Request request, Integer priority, Boolean done, Boolean byHuman, Boolean areNew) {
         this.request = request;
         this.priority = priority;
         this.done = done;
         this.byHuman = byHuman;
+        this.areNew = areNew;
     }
+
+
 
     
     @Override
@@ -91,6 +97,30 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     @Override
     public void setByHuman(Boolean byHuman) {
         this.byHuman = byHuman;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    public Boolean getAreNew() {
+        return areNew;
+    }
+
+    public void setAreNew(Boolean areNew) {
+        this.areNew = areNew;
+    }
+
+    public Timestamp getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(Timestamp requestTime) {
+        this.requestTime = requestTime;
     }
     
     

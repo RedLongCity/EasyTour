@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.requestcommands;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author redlongcity
@@ -23,5 +25,12 @@ public interface RequestCommand {
     void setByHuman(Boolean byHuman);
     
     Boolean getByHuman();
-
+    
+    void setAreNew(Boolean areNew);
+    
+    Boolean getAreNew();
+    
+    void setRequestTime(Timestamp time);
+    
+    Timestamp getRequestTime();
 }
