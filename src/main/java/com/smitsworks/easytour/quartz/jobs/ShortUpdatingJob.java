@@ -70,7 +70,24 @@ public class ShortUpdatingJob extends QuartzJobBean{
                            requestCommand=command;
                        }
                    }
+                   HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
+                   projectConsantsSingletone.setRequestUpdating(
+                           hotCommand.getRequest());
                    return requestCommand;
+               }else{
+                   if(!command.getDone()){
+                       if(requestCommand==null){
+                           requestCommand=command;
+                       }else{
+                           if(requestCommand.getPriority()<command.getPriority()){
+                               requestCommand=command;
+                           }
+                       }
+                   HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
+                   projectConsantsSingletone.setRequestUpdating(
+                           hotCommand.getRequest());
+                   return requestCommand; 
+                   }
                } 
             }
         }
