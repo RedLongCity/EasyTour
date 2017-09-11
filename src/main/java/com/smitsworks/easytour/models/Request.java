@@ -3,6 +3,7 @@ package com.smitsworks.easytour.models;
 import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.JsonView.CountryView;
+import com.smitsworks.easytour.JsonView.RequestView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
@@ -72,6 +73,7 @@ public class Request {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)
     private Set<RequestPullElement> requestPullElement = new HashSet<RequestPullElement>();
 
+    @JsonView(RequestView.class)
     @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name="requests_has_tours",
             joinColumns={@JoinColumn(name="request_id")},
