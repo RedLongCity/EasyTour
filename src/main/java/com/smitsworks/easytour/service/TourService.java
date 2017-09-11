@@ -15,6 +15,8 @@ public interface TourService {
    
    Tour findByRequest(Request request);
    
+   Tour findByKey(String key);
+   
    void saveTour(Tour tour);
    
    void updateTour(Tour tour);

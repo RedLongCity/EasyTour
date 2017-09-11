@@ -10,6 +10,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 /**
@@ -107,8 +108,23 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
         }
         return tour;
     }
-    
-    
+
+    @Override
+    public Tour findByKey(String key) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.eq("tour_key",key));
+        Tour tour = (Tour)crit.uniqueResult();
+        if(tour!=null){
+            Hibernate.initialize(tour.getCountry());
+            Hibernate.initialize(tour.getFrom_Cities());
+            Hibernate.initialize(tour.getPrices());
+            Hibernate.initialize(tour.getHotel_ImageSet());
+            Hibernate.initialize(tour.getHotel_Rating());
+            Hibernate.initialize(tour.getMeal_Type());
+            Hibernate.initialize(tour.getRequestSet());  
+        }
+        return tour;
+    }
 
     @Override
     public void save(Tour tour) {

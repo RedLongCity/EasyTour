@@ -17,6 +17,8 @@ void saveRequest(Request request);
 
 void updateRequest(Request request);
 
+void saveOrUpdateRequest(Request request);
+
 void deleteRequest(Request request);
 
 List<Request> findAll();

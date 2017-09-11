@@ -21,6 +21,8 @@ public interface TourDao {
     
     Tour findByRequest(Request request);
     
+    Tour findByKey(String key);
+    
     void save(Tour tour);
     
     void mergeTour(Tour tour);

@@ -28,9 +28,12 @@ public class TourServiceImpl implements TourService{
     public Tour findByRequest(Request request) {
         return tourDao.findByRequest(request);
     }
-    
-    
 
+    @Override
+    public Tour findByKey(String key) {
+        return tourDao.findByKey(key);
+    }
+    
     @Override
     public void saveTour(Tour tour) {
         tourDao.save(tour);

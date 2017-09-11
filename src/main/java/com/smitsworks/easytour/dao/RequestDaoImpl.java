@@ -81,8 +81,32 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
         } 
         return requestList;
         }
-    
-    
+
+    @Override
+    public Request findRequestByFields(Request request) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.eq("country_id", 
+                request.getCountry().getId()));
+        crit.add(Restrictions.eq("from_city_id", 
+                request.getFrom_Cities().getId()));
+        crit.add(Restrictions.eq("hotel_rating",
+                request.getHotel_Rating()));
+        crit.add(Restrictions.eq("night_from", 
+                request.getNight_From()));
+        crit.add(Restrictions.eq("night_till", 
+                request.getNight_Till()));
+        crit.add(Restrictions.eq("meal_type_id", 
+                request.getMeal_Type().getId()));
+        Request entity = (Request) crit.uniqueResult();
+        if(entity!=null){
+              Hibernate.initialize(entity.getCountry());
+              Hibernate.initialize(entity.getFrom_Cities());
+              Hibernate.initialize(entity.getHotel_Rating());
+              Hibernate.initialize(entity.getMeal_Type());
+              Hibernate.initialize(entity.getTourSet()); 
+        }
+        return entity;
+    }
     
     @Override
     public void saveRequest(Request request) {

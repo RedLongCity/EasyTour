@@ -45,6 +45,25 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public void saveOrUpdateRequest(Request request) {
+        Request entity = requestDao.findById(request.getId());
+        if(entity!=null){
+            entity.setCountry(request.getCountry());
+            entity.setFrom_Cities(request.getFrom_Cities());
+            entity.setHotel_Rating(request.getHotel_Rating());
+            entity.setMeal_Type(request.getMeal_Type());
+            entity.setNight_From(request.getNight_From());
+            entity.setNight_Till(request.getNight_Till());
+            entity.setTourSet(request.getTourSet());
+            requestDao.mergeRequest(entity); 
+        }else{
+            requestDao.saveRequest(request);
+        }
+    }
+    
+    
+
+    @Override
     public void deleteRequest(Request request) {
         requestDao.deleteRequest(request);
     }

@@ -11,13 +11,16 @@ import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.Currency;
 import com.smitsworks.easytour.models.Hotel_Image;
 import com.smitsworks.easytour.models.Price;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.CurrencyService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
+import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -52,6 +55,12 @@ public class ToursNodeParser implements NodeParser {
     @Autowired
     From_CitiesService from_CitiesService;
     
+    @Autowired
+    ProjectConsantsSingletone projectConsantsSingletone;
+    
+    @Autowired
+    RequestService requestService;
+    
     private static final Logger LOG = Logger.getLogger(ToursNodeParser.class.getName());
     
     @Override
@@ -74,7 +83,19 @@ public class ToursNodeParser implements NodeParser {
                 LOG.log(Level.WARNING,"OffersNode: keyNode is missing");
                 return false; 
                 }
-                tour.setKey(node.asText());
+                String key = node.asText();
+                Tour entity = tourService.findByKey(key);
+                if(entity!=null){
+                    Request request = projectConsantsSingletone.getRequestUpdating();
+                    if(request==null){
+                        LOG.log(Level.WARNING,"OffersNode: request is missing");
+                        return false;  
+                    }
+                    entity.getRequestSet().add(request);
+                    tourService.updateTour(entity);
+                    continue;
+                }
+                tour.setKey(key);
                 
                 node=indexNode.path("type");
                 if(node.isMissingNode()){
@@ -277,6 +298,8 @@ public class ToursNodeParser implements NodeParser {
                     tour.getHotel_ImageSet().add(hotel_Image);
                 }    
                 }
+            Request request = projectConsantsSingletone.getRequestUpdating();
+            tour.getRequestSet().add(request);
             tourService.saveTour(tour);
     } 
         return true;

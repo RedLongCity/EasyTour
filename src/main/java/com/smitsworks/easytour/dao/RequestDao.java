@@ -14,6 +14,8 @@ public interface RequestDao {
     
     Request findById(Integer id);
     
+    Request findRequestByFields(Request request);
+    
     List<Request> findByDate(Timestamp request_DateTime);
     
     List<Request> findByDatesInterval(Timestamp dateFrom,
