@@ -26,6 +26,7 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
               Hibernate.initialize(request.getFrom_Cities());
               Hibernate.initialize(request.getHotel_Rating());
               Hibernate.initialize(request.getMeal_Type());
+              Hibernate.initialize(request.getTourSet());
         }
         }
         return requestList;
@@ -38,7 +39,9 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
               Hibernate.initialize(request.getCountry());
               Hibernate.initialize(request.getFrom_Cities());
               Hibernate.initialize(request.getHotel_Rating());
-              Hibernate.initialize(request.getMeal_Type());  
+              Hibernate.initialize(request.getMeal_Type()); 
+              Hibernate.initialize(request.getTourSet());
+
         }
         return request;
     }
@@ -54,6 +57,8 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
               Hibernate.initialize(request.getFrom_Cities());
               Hibernate.initialize(request.getHotel_Rating());
               Hibernate.initialize(request.getMeal_Type());
+              Hibernate.initialize(request.getTourSet());
+
             }
         }
         return requestList;
@@ -71,6 +76,7 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
               Hibernate.initialize(request.getFrom_Cities());
               Hibernate.initialize(request.getHotel_Rating());
               Hibernate.initialize(request.getMeal_Type());
+              Hibernate.initialize(request.getTourSet());
             }
         } 
         return requestList;

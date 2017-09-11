@@ -64,6 +64,7 @@ public class TourServiceImpl implements TourService{
             entity.setFrom_City_Gen(tour.getFrom_City_Gen());
             entity.setTransport_Type(tour.getTransport_Type());
             entity.setHotel_ImageSet(tour.getHotel_ImageSet());
+            entity.setRequestSet(tour.getRequestSet());
             tourDao.mergeTour(entity);
         }
     }

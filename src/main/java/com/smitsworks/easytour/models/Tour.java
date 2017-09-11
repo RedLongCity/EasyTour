@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -135,6 +136,9 @@ public class Tour {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="tour",cascade=CascadeType.ALL)
     private Set<Hotel_Image> hotel_ImageSet = new HashSet<Hotel_Image>();
 
+    @ManyToMany(mappedBy="tourSet")
+    private Set<Request> requestSet = new HashSet<Request>();
+    
     public Integer getId() {
         return id;
     }
@@ -334,9 +338,15 @@ public class Tour {
     public void setFrom_Cities(From_Cities from_Cities) {
         this.from_Cities = from_Cities;
     }
-    
-    
 
+    public Set<Request> getRequestSet() {
+        return requestSet;
+    }
+
+    public void setRequestSet(Set<Request> requestSet) {
+        this.requestSet = requestSet;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

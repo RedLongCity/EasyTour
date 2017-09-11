@@ -36,6 +36,7 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
                 Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getHotel_Rating());
                 Hibernate.initialize(tour.getMeal_Type());
+                Hibernate.initialize(tour.getRequestSet());
             }
         }
         return tourList;
@@ -59,6 +60,8 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
             Hibernate.initialize(tour.getHotel_ImageSet());
             Hibernate.initialize(tour.getHotel_Rating());
             Hibernate.initialize(tour.getMeal_Type());
+            Hibernate.initialize(tour.getRequestSet());
+
         }
     }
         return tourList;
@@ -76,6 +79,8 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
                Hibernate.initialize(tour.getHotel_ImageSet()); 
                Hibernate.initialize(tour.getHotel_Rating());
                Hibernate.initialize(tour.getMeal_Type());
+               Hibernate.initialize(tour.getRequestSet());
+
         }
         return tour;
     }
@@ -97,6 +102,8 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
             Hibernate.initialize(tour.getHotel_ImageSet());
             Hibernate.initialize(tour.getHotel_Rating());
             Hibernate.initialize(tour.getMeal_Type());
+            Hibernate.initialize(tour.getRequestSet());
+
         }
         return tour;
     }

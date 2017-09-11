@@ -2,6 +2,7 @@ package com.smitsworks.easytour.models;
 
 import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
@@ -15,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -69,6 +72,12 @@ public class Request {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)
     private Set<RequestPullElement> requestPullElement = new HashSet<RequestPullElement>();
 
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinTable(name="requests_has_tours",
+            joinColumns={@JoinColumn(name="request_id")},
+            inverseJoinColumns={@JoinColumn(name="tour_id")})
+    private Set<Tour> tourSet = new HashSet<Tour>();
+    
     public Integer getId() {
         return id;
     }
@@ -132,8 +141,14 @@ public class Request {
     public void setRequestPullElement(Set<RequestPullElement> requestPullElement) {
         this.requestPullElement = requestPullElement;
     }
-    
-    
+
+    public Set<Tour> getTourSet() {
+        return tourSet;
+    }
+
+    public void setTourSet(Set<Tour> tourSet) {
+        this.tourSet = tourSet;
+    }
     
     @Override
     public int hashCode() {
