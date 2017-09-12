@@ -18,4 +18,6 @@ public interface QuartzService {
     void resumeAll();
     
     void pauseAll();
+    
+    void shutDown();
 }

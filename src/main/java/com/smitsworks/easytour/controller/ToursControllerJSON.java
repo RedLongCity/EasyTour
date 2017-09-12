@@ -67,9 +67,9 @@ public class ToursControllerJSON {
     @Autowired
     QuartzService quartzService;
             
-    @RequestMapping(value="/stopupdating",method=RequestMethod.GET)
+    @RequestMapping(value="/shutdown",method=RequestMethod.GET)
     public void stopScheduling(){
-
+        quartzService.shutDown();
     }
     
         @RequestMapping(value="/startupdating",method=RequestMethod.GET)

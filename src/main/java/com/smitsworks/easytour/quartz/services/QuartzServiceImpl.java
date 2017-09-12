@@ -106,6 +106,15 @@ public class QuartzServiceImpl implements QuartzService {
             Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void shutDown() {
+        try {
+            scheduler.shutdown();
+        } catch (SchedulerException ex) {
+            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
     
