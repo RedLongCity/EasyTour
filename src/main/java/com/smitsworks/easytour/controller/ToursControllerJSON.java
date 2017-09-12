@@ -12,7 +12,6 @@ import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Tour;
-import com.smitsworks.easytour.quartz.services.GlobalUpdatingQuartzService;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
@@ -77,7 +76,7 @@ public class ToursControllerJSON {
     public void startScheduling(){
         projectConsantsSingletone.setGlobalUpdatingDelay("0/10 * * * * ?");
         projectConsantsSingletone.setShortUpdatingDelay(2);
-        quartzService.start();
+        quartzService.resumeAll();
     }
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.quartz.jobs;
 
+import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
@@ -12,6 +13,7 @@ import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.PersistJobDataAfterExecution;
+import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
@@ -27,6 +29,9 @@ public class ShortUpdatingJob extends QuartzJobBean{
 
     private static final Logger LOG = Logger.getLogger(ShortUpdatingJob.class.getName());
 
+    @Autowired
+    QuartzService quartzService;
+    
     private RequestCommand command;
     
     @Autowired
@@ -40,6 +45,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
 //        }
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
+        quartzService.updateShortTrigger(5000, 1);
     }
     
     private RequestCommand getRequestCommand(){

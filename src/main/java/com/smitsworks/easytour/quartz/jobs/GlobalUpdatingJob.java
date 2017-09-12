@@ -2,6 +2,7 @@ package com.smitsworks.easytour.quartz.jobs;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
+import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
@@ -36,11 +37,15 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     @Autowired
     RequestPullElementService requestPullElementService;
     
+    @Autowired
+    QuartzService quartzService;
+    
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         //saveAndClearRequests();
         LOG.log(Level.INFO, "GlobalJob Doing");
         System.out.println("GlobalJob Doing");
+        quartzService.updateGlobalTrigger("0/10 * * * * ?");
     }
     
     private void saveAndClearRequests(){
