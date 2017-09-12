@@ -3,6 +3,7 @@ package com.smitsworks.easytour.quartz.jobs;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.quartz.services.QuartzService;
+import com.smitsworks.easytour.quartz.services.QuartzServiceImpl;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
@@ -12,10 +13,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.quartz.CronScheduleBuilder;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.PersistJobDataAfterExecution;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import static org.quartz.TriggerKey.triggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
@@ -45,7 +52,29 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         //saveAndClearRequests();
         LOG.log(Level.INFO, "GlobalJob Doing");
         System.out.println("GlobalJob Doing");
-        quartzService.updateGlobalTrigger("0/10 * * * * ?");
+        Scheduler scheduler = jec.getScheduler();
+                if(scheduler==null){
+           LOG.log(Level.WARNING,"Sheduler is null");
+           return;
+        }
+                Trigger oldTrigger = null;
+        try {
+            oldTrigger = scheduler.getTrigger(triggerKey("globalTrigger","quartzTriggers"));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(oldTrigger==null){
+           LOG.log(Level.WARNING,"oldTrigger is null");
+           return;
+        }
+        TriggerBuilder tb = oldTrigger.getTriggerBuilder();
+        Trigger newTrigger = tb.withSchedule(CronScheduleBuilder.
+                cronSchedule("0/10 * * * * ?")).build();
+        try {
+            scheduler.rescheduleJob(oldTrigger.getKey(), newTrigger);
+        } catch (SchedulerException ex) {
+            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void saveAndClearRequests(){

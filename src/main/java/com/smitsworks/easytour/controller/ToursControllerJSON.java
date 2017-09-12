@@ -72,10 +72,16 @@ public class ToursControllerJSON {
         quartzService.shutDown();
     }
     
-        @RequestMapping(value="/startupdating",method=RequestMethod.GET)
+    @RequestMapping(value="/stop",method=RequestMethod.GET)
+    public void pauseScheduling(){
+        quartzService.pauseAll();
+    }
+    
+    @RequestMapping(value="/startupdating",method=RequestMethod.GET)
     public void startScheduling(){
         projectConsantsSingletone.setGlobalUpdatingDelay("0/10 * * * * ?");
         projectConsantsSingletone.setShortUpdatingDelay(2);
+        quartzService.updateShortTrigger(10000, 20);
         quartzService.resumeAll();
     }
     

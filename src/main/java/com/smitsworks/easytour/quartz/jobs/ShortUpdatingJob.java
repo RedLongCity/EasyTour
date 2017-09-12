@@ -45,7 +45,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
 //        }
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
-        quartzService.updateShortTrigger(5000, 1);
+//        quartzService.updateShortTrigger(5000, 1);
     }
     
     private RequestCommand getRequestCommand(){
