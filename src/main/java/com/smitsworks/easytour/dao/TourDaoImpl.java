@@ -12,7 +12,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.smitsworks.easytour.utils.RequestHandlerUtils;
+import com.smitsworks.easytour.utils.RequestConverterUtils;
 /**
  *
  * @author redlongcity
@@ -22,7 +22,7 @@ import com.smitsworks.easytour.utils.RequestHandlerUtils;
 public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
 
     @Autowired
-    RequestHandlerUtils requestHandlerService;
+    RequestConverterUtils requestHandlerService;
     
     @Override
     public List<Tour> findAll() {

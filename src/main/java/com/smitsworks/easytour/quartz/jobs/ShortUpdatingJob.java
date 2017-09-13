@@ -3,6 +3,7 @@ package com.smitsworks.easytour.quartz.jobs;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
+import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.ArrayList;
@@ -31,9 +32,6 @@ public class ShortUpdatingJob extends QuartzJobBean{
 
     private static final Logger LOG = Logger.getLogger(ShortUpdatingJob.class.getName());
 
-    @Autowired
-    QuartzService quartzService;
-    
     private RequestCommand command;
     
     @Autowired
@@ -44,10 +42,12 @@ public class ShortUpdatingJob extends QuartzJobBean{
 //        command = getRequestCommand();
 //        if(command!=null){
 //            command.execute();
+//            projectConsantsSingletone.setGlobalDelay(true);
 //        }
         
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
+        projectConsantsSingletone.setGlobalDelay(false);
         pauseItSelf(jec);
     }
     
@@ -70,12 +70,18 @@ public class ShortUpdatingJob extends QuartzJobBean{
                 }
             }
             
+            if(command instanceof ItToursSearchBaseRequestCommand){
+                if(!command.getDone()){
+                    return command;
+                }
+            }
+            
             if(command instanceof HotSearchRequestCommand){
                if(command.getByHuman()&&!command.getDone()){
                    if(requestCommand==null){
                        requestCommand=command;
                    }else{
-                       if(requestCommand.getPriority()<command.getPriority()){
+                       if(requestCommand.getPriority()>command.getPriority()){
                            requestCommand=command;
                        }
                    }

@@ -34,7 +34,7 @@ public class TimeUtils {
     
     public UpdateSession getCurrentSession(){
         UpdateSession session = sessionService.findByUpdateTime(
-                projectConsantsSingletone.getTimeOfCurrenSession());
+                projectConsantsSingletone.getTimeOfCurrentSession());
         return session;
     }
     

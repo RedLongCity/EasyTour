@@ -2,13 +2,18 @@ package com.smitsworks.easytour.quartz.jobs;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
+import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.quartz.services.QuartzServiceImpl;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 import com.smitsworks.easytour.service.RequestPullElementService;
+import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
+import com.smitsworks.easytour.utils.ItToursHotSearchRequestHandler;
+import com.smitsworks.easytour.utils.TimeUtils;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -17,6 +22,7 @@ import org.quartz.CronScheduleBuilder;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import static org.quartz.JobKey.jobKey;
 import org.quartz.PersistJobDataAfterExecution;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -32,6 +38,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * 10.09.2017
  * class for construction pull of requests 
  */
+
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
 public class GlobalUpdatingJob extends QuartzJobBean{
@@ -45,26 +52,38 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     RequestPullElementService requestPullElementService;
     
     @Autowired
-    QuartzService quartzService;
+    UpdateSessionService sessionService;
+    
+    @Autowired
+    TimeUtils timeUtils;
+    
+    @Autowired
+    ItToursHotSearchRequestHandler handler;
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         //saveAndClearRequests();
+        updateTimeConstants();
         LOG.log(Level.INFO, "GlobalJob Doing");
         System.out.println("GlobalJob Doing");
-        Scheduler scheduler = jec.getScheduler();
-                if(scheduler==null){
-           LOG.log(Level.WARNING,"Sheduler is null");
-           return;
-        }
+        resumeShortUpdateJob(jec);
     }
     
     private void saveAndClearRequests(){
         ArrayList<RequestCommand> requestsPull = (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
         if(requestsPull==null){
             LOG.log(Level.WARNING,"GlobalUpdatingJob: requestsList is null");
+            requestsPull = new ArrayList<RequestCommand>();
+            requestsPull.add(new HotFiltersRequestCommand(false));
+            requestsPull.add(handler.getBaseRequestCommand());
             return;
         }
+        
+        UpdateSession session = new UpdateSession();
+        session.setSessionTime(projectConsantsSingletone.getTimeOfPreviousSession());
+        sessionService.saveUpdateSession(session);
+        
+        
         
         Iterator<RequestCommand> it = requestsPull.iterator();
         while(it.hasNext()){
@@ -82,6 +101,9 @@ public class GlobalUpdatingJob extends QuartzJobBean{
                 element.setDone(command.getDone());
                 element.setPriority(command.getPriority());
                 element.setRequest_pull_DateTime(command.getRequestTime());
+                element.setSession(session);
+                session.getElementSet().add(element);
+                sessionService.updateUpdateSession(session);
                 requestPullElementService.saveRequestPullElement(element);
                 if(command.getPriority()<2&&command.getByHuman()==false){
                     it.remove();
@@ -92,4 +114,28 @@ public class GlobalUpdatingJob extends QuartzJobBean{
             }
         }
     }
+    
+        private void resumeShortUpdateJob(JobExecutionContext jec){
+        Scheduler scheduler = jec.getScheduler();
+        if(scheduler==null){
+            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
+            return;
+        }
+        try {
+            scheduler.resumeJob(jobKey("shortJob","quartzJobs"));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
+        private void updateTimeConstants(){
+            projectConsantsSingletone.setTimeOfCurrentSession(
+                    timeUtils.getCurrentTime());
+            Timestamp timeOfUpdatePreviousSession = projectConsantsSingletone.
+                    getTimeOfPreviousSession();
+            if(timeOfUpdatePreviousSession==null){
+                timeOfUpdatePreviousSession=projectConsantsSingletone.getTimeOfCurrentSession();
+            }
+        }
+        
 }

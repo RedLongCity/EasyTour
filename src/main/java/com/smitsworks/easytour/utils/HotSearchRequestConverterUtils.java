@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
  * class for handling operations with ItTours Hot Search Request
  */
 @Service("requestHandlerService")
-public class HotSearchRequestHandlerUtils implements RequestHandlerUtils,ItToursParserConstants {
+public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItToursParserConstants {
 
-    private static final Logger LOG = Logger.getLogger(HotSearchRequestHandlerUtils.class.getName());
+    private static final Logger LOG = Logger.getLogger(HotSearchRequestConverterUtils.class.getName());
 
     @Override
     public List<Criterion> getCriterionsByRequest(Request request) {

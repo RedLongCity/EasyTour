@@ -11,7 +11,7 @@ import org.hibernate.criterion.Criterion;
  * 09.09.2017
  * interface for handling Request
  */
-public interface RequestHandlerUtils {
+public interface RequestConverterUtils {
     
     List<Criterion> getCriterionsByRequest(Request request);
     

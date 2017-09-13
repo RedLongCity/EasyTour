@@ -4,7 +4,6 @@ import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +26,13 @@ public class ProjectConsantsSingletone {
     
     private Request requestUpdating;//Request which are updating at the moment
     
-    private Integer shortUpdatingDelay;//Previous or Current update time
+    private Integer shortUpdatingDelay=3000;//Previous or Current update time
     
-    private String globalUpdatingDelay;//delay between global updating
+    private String globalUpdatingDelay="0/5 * * * * ?";//delay between global updating
     
     private List<RequestCommand> requestsPull;//pull for all requests
     
-    private Timestamp timeOfCurrenSession;
+    private Timestamp timeOfCurrentSession;
     
     private Timestamp timeOfPreviousSession;
     
@@ -98,12 +97,12 @@ public class ProjectConsantsSingletone {
         this.globalDelay = globalDelay;
     }
 
-    public Timestamp getTimeOfCurrenSession() {
-        return timeOfCurrenSession;
+    public Timestamp getTimeOfCurrentSession() {
+        return timeOfCurrentSession;
     }
 
-    public void setTimeOfCurrenSession(Timestamp timeOfCurrenSession) {
-        this.timeOfCurrenSession = timeOfCurrenSession;
+    public void setTimeOfCurrentSession(Timestamp timeOfCurrentSession) {
+        this.timeOfCurrentSession = timeOfCurrentSession;
     }
 
     public Timestamp getTimeOfPreviousSession() {
