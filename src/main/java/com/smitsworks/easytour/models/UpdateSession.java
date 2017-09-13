@@ -31,7 +31,6 @@ public class UpdateSession {
     private Integer id;
     
     @JsonView(TourView.class)
-    @Id
     @Column(name="session_time")
     private Timestamp sessionTime;
     
