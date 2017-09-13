@@ -36,8 +36,8 @@ public class UpdateSession {
     private Timestamp sessionTime;
     
     @JsonView(TourView.class)
-    @OneToMany(fetch=FetchType.LAZY,mappedBy="session",cascade=CascadeType.ALL)
-    private Set<RequestPullElement> elementSet = new HashSet<RequestPullElement>();
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="updateSession",cascade=CascadeType.ALL)
+    private Set<RequestPullElement> requestPullElementSet = new HashSet<RequestPullElement>();
 
     public Integer getId() {
         return id;
@@ -55,12 +55,12 @@ public class UpdateSession {
         this.sessionTime = sessionTime;
     }
 
-    public Set<RequestPullElement> getElementSet() {
-        return elementSet;
+    public Set<RequestPullElement> getRequestPullElementSet() {
+        return requestPullElementSet;
     }
 
-    public void setElementSet(Set<RequestPullElement> elementSet) {
-        this.elementSet = elementSet;
+    public void setRequestPullElementSet(Set<RequestPullElement> requestPullElementSet) {
+        this.requestPullElementSet = requestPullElementSet;
     }
 
     @Override
@@ -90,8 +90,7 @@ public class UpdateSession {
 
     @Override
     public String toString() {
-        return "UpdateSession{" + "id=" + id + ", sessionTime=" + sessionTime + ", elementSet=" + elementSet + '}';
+        return "UpdateSession{" + "id=" + id + ", sessionTime=" + sessionTime + ", requestPullElementSet=" + requestPullElementSet + '}';
     }
-    
-    
+
 }

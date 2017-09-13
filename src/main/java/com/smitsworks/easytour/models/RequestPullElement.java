@@ -34,19 +34,14 @@ public class RequestPullElement {
     private Integer id;
     
     @JsonView(TourView.class)
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="request_id",nullable=false)
-    private Request request;
-    
-    @JsonView(TourView.class)
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="session_id",nullable=false)
-    private UpdateSession session;
-    
-    @JsonView(TourView.class)
     @NotEmpty
     @Column(name="request_datetime",unique=false,nullable=false)
     private Timestamp request_pull_DateTime;
+    
+    @JsonView(TourView.class)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="request_id",nullable=false)
+    private Request request;
     
     @JsonView(TourView.class)
     @NotEmpty
@@ -62,6 +57,11 @@ public class RequestPullElement {
     @NotEmpty
     @Column(name="by_human",unique=false,nullable=false)
     private Boolean byHuman;
+    
+    @JsonView(TourView.class)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="session_id",nullable=false)
+    private UpdateSession updateSession;
 
     public Integer getId() {
         return id;
@@ -110,16 +110,13 @@ public class RequestPullElement {
         this.byHuman = byHuman;
     }
 
-    public UpdateSession getSession() {
-        return session;
+    public UpdateSession getUpdateSession() {
+        return updateSession;
     }
 
-    public void setSession(UpdateSession session) {
-        this.session = session;
+    public void setUpdateSession(UpdateSession updateSession) {
+        this.updateSession = updateSession;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
@@ -148,7 +145,7 @@ public class RequestPullElement {
 
     @Override
     public String toString() {
-        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", session=" + session + ", request_pull_DateTime=" + request_pull_DateTime + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
+        return "RequestPullElement{" + "id=" + id + ", request_pull_DateTime=" + request_pull_DateTime + ", request=" + request + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + ", updateSession=" + updateSession + '}';
     }
 
 }

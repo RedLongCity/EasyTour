@@ -28,7 +28,7 @@ public class ProjectConsantsSingletone {
     
     private Integer shortUpdatingDelay=3000;//Previous or Current update time
     
-    private String globalUpdatingDelay="0/5 * * * * ?";//delay between global updating
+    private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
     
     private List<RequestCommand> requestsPull;//pull for all requests
     

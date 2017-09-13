@@ -39,7 +39,7 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
         UpdateSession entity = sessionDao.findById(session.getId());
         if(entity!=null){
             entity.setSessionTime(session.getSessionTime());
-            entity.setElementSet(session.getElementSet());
+            entity.setRequestPullElementSet(session.getRequestPullElementSet());
             sessionDao.mergeUpdateSession(entity);
         }
     }

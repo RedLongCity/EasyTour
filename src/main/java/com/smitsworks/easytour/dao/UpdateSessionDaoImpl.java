@@ -25,7 +25,7 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
        List<UpdateSession> sessionList = crit.list();
        if(sessionList!=null){
            for(UpdateSession session:sessionList){
-               Hibernate.initialize(session.getElementSet());
+               Hibernate.initialize(session.getRequestPullElementSet());
            }
        }
        return sessionList;
@@ -35,7 +35,8 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
     public UpdateSession findById(Integer id) {
         UpdateSession session = getByKey(id);
         if(session!=null){
-            Hibernate.initialize(session.getElementSet());
+        Hibernate.initialize(session.getRequestPullElementSet());
+
         }
         return session;
     }
@@ -46,7 +47,7 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
         crit.add(Restrictions.eq("session_time",updateTime));
         UpdateSession session = (UpdateSession) crit.uniqueResult();
         if(session!=null){
-            Hibernate.initialize(session.getElementSet());
+        Hibernate.initialize(session.getRequestPullElementSet());
 
         }
         return session;

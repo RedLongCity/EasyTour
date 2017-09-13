@@ -45,7 +45,7 @@ public class RequestPullElementServiceImpl implements RequestPullElementService 
             entity.setDone(requestPullElement.getDone());
             entity.setByHuman(requestPullElement.getByHuman());
             entity.setPriority(requestPullElement.getPriority());
-            entity.setSession(requestPullElement.getSession());
+            entity.setUpdateSession(requestPullElement.getUpdateSession());
             requestPullElementDao.mergeRequestPullElement(entity);
         }
     }

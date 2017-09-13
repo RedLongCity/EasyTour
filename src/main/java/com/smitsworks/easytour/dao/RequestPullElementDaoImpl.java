@@ -32,7 +32,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){
                 Hibernate.initialize(requestPullElement.getRequest());
-                Hibernate.initialize(requestPullElement.getSession());
+                Hibernate.initialize(requestPullElement.getUpdateSession());
             }
         }
         return requestPullElementList;
@@ -46,7 +46,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
                 if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){
                 Hibernate.initialize(requestPullElement.getRequest());
-                Hibernate.initialize(requestPullElement.getSession());
+                Hibernate.initialize(requestPullElement.getUpdateSession());
 
             }
         }
@@ -62,7 +62,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){
             Hibernate.initialize(requestPullElement.getRequest());
-            Hibernate.initialize(requestPullElement.getSession());
+            Hibernate.initialize(requestPullElement.getUpdateSession());
 
             }
         }
@@ -76,8 +76,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         RequestPullElement requestPullElement = getByKey(id);
         if(requestPullElement!=null){
            Hibernate.initialize(requestPullElement.getRequest());
-           Hibernate.initialize(requestPullElement.getSession());
-
+           Hibernate.initialize(requestPullElement.getUpdateSession());
         }
         return requestPullElement;
     }
