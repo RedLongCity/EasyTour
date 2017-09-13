@@ -19,6 +19,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -39,6 +40,8 @@ public class ShortUpdatingJob extends QuartzJobBean{
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        //projectConsantsSingletone = ProjectConsantsSingletone.getInstance();
 //        command = getRequestCommand();
 //        if(command!=null){
 //            command.execute();
@@ -47,6 +50,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
         
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
+        boolean globaldelay = projectConsantsSingletone.isGlobalDelay();
         projectConsantsSingletone.setGlobalDelay(false);
         pauseItSelf(jec);
     }

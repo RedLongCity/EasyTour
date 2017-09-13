@@ -61,8 +61,9 @@ public class QuartzConfiguration {
 		stFactory.setJobDetail(jobGlobalDetailFactoryBean().getObject());
 		stFactory.setName("globalTrigger");
 		stFactory.setGroup("quartzTriggers");
-		stFactory.setCronExpression(projectConsantsSingletone.
-                        getGlobalUpdatingDelay());
+//		stFactory.setCronExpression(projectConsantsSingletone.
+//                        getGlobalUpdatingDelay());
+                stFactory.setCronExpression("0/10 * * * * ?");
 		return stFactory;
 	}
 	@Bean
