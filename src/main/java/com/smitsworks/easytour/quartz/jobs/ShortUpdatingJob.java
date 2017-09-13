@@ -50,18 +50,17 @@ public class ShortUpdatingJob extends QuartzJobBean{
         
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
-        boolean globaldelay = projectConsantsSingletone.isGlobalDelay();
         projectConsantsSingletone.setGlobalDelay(false);
         pauseItSelf(jec);
     }
     
     private RequestCommand getRequestCommand(){
-        RequestCommand requestCommand=null;
         ArrayList<RequestCommand> requestsPull = (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
                 if(requestsPull==null){
             LOG.log(Level.WARNING,"ShortUpdatingJob: requestsList is null");
             return null;
         }
+        RequestCommand requestCommand=null;
         
         Iterator<RequestCommand> it = requestsPull.iterator();
         while(it.hasNext()){
@@ -70,13 +69,13 @@ public class ShortUpdatingJob extends QuartzJobBean{
             
             if(command instanceof HotFiltersRequestCommand){
                 if(!command.getDone()){
-                    return command;
+                    return zeroingCommand(command);
                 }
             }
             
             if(command instanceof ItToursSearchBaseRequestCommand){
                 if(!command.getDone()){
-                    return command;
+                    return zeroingCommand(command);
                 }
             }
             
@@ -92,7 +91,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
                    projectConsantsSingletone.setRequestUpdating(
                            hotCommand.getRequest());
-                   return requestCommand;
+                   return zeroingCommand(requestCommand);
                }else{
                    if(!command.getDone()){
                        if(requestCommand==null){
@@ -105,15 +104,15 @@ public class ShortUpdatingJob extends QuartzJobBean{
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
                    projectConsantsSingletone.setRequestUpdating(
                            hotCommand.getRequest());
-                   return requestCommand; 
+                   return zeroingCommand(requestCommand); 
                    }
                } 
             }
         }
-        return requestCommand;
+        return zeroingCommand(requestCommand);
     }
     
-    public void pauseItSelf(JobExecutionContext jec){
+    private void pauseItSelf(JobExecutionContext jec){
         Scheduler scheduler = jec.getScheduler();
         if(scheduler==null){
             LOG.log(Level.WARNING,"ShortJob: scheduler is null");
@@ -124,5 +123,12 @@ public class ShortUpdatingJob extends QuartzJobBean{
         } catch (SchedulerException ex) {
             Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private RequestCommand zeroingCommand(RequestCommand requestCommand){
+        RequestCommand command = requestCommand;
+        command.setDone(Boolean.TRUE);
+        command.setPriority(1);
+        return command;
     }
 }
