@@ -7,7 +7,7 @@ package com.smitsworks.easytour.requestcommands;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.service.HotSearchRequestHandlerService;
+import com.smitsworks.easytour.utils.HotSearchRequestHandlerUtils;
 import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.ItToursParserConstants;
@@ -40,7 +40,7 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     ItToursHotToursSearchParser parser;
     
     @Autowired
-    HotSearchRequestHandlerService handlerService;
+    HotSearchRequestHandlerUtils handlerService;
 
     public HotSearchRequestCommand() {
     }

@@ -33,6 +33,10 @@ public class ProjectConsantsSingletone {
     
     private List<RequestCommand> requestsPull;//pull for all requests
     
+    private Timestamp timeOfCurrenSession;
+    
+    private Timestamp timeOfPreviousSession;
+    
     public static ProjectConsantsSingletone getInstance(){
         ProjectConsantsSingletone localInstance = instance;
         if(localInstance==null){
@@ -94,10 +98,21 @@ public class ProjectConsantsSingletone {
         this.globalDelay = globalDelay;
     }
 
-    
-    @Override
-    public String toString() {
-        return "ProjectConsantsSingletone{" + "filtersUpdate=" + filtersUpdate + ", requestUpdating=" + requestUpdating + ", shortUpdatingDelay=" + shortUpdatingDelay + ", globalUpdatingDelay=" + globalUpdatingDelay + ", requestsPull=" + requestsPull + '}';
+    public Timestamp getTimeOfCurrenSession() {
+        return timeOfCurrenSession;
     }
+
+    public void setTimeOfCurrenSession(Timestamp timeOfCurrenSession) {
+        this.timeOfCurrenSession = timeOfCurrenSession;
+    }
+
+    public Timestamp getTimeOfPreviousSession() {
+        return timeOfPreviousSession;
+    }
+
+    public void setTimeOfPreviousSession(Timestamp timeOfPreviousSession) {
+        this.timeOfPreviousSession = timeOfPreviousSession;
+    }
+    
     
 }

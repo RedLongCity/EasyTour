@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.service;
+package com.smitsworks.easytour.utils;
 
 import com.smitsworks.easytour.models.Request;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.hibernate.criterion.Criterion;
  * 09.09.2017
  * interface for handling Request
  */
-public interface RequestHandlerService {
+public interface RequestHandlerUtils {
     
     List<Criterion> getCriterionsByRequest(Request request);
     

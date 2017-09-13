@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.service;
+package com.smitsworks.easytour.utils;
 
 import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
  * class for handling operations with ItTours Hot Search Request
  */
 @Service("requestHandlerService")
-public class HotSearchRequestHandlerService implements RequestHandlerService,ItToursParserConstants {
+public class HotSearchRequestHandlerUtils implements RequestHandlerUtils,ItToursParserConstants {
 
-    private static final Logger LOG = Logger.getLogger(HotSearchRequestHandlerService.class.getName());
+    private static final Logger LOG = Logger.getLogger(HotSearchRequestHandlerUtils.class.getName());
 
     @Override
     public List<Criterion> getCriterionsByRequest(Request request) {

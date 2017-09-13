@@ -3,7 +3,6 @@ package com.smitsworks.easytour.dao;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
-import com.smitsworks.easytour.service.RequestHandlerService;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Criteria;
@@ -13,6 +12,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.smitsworks.easytour.utils.RequestHandlerUtils;
 /**
  *
  * @author redlongcity
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
 
     @Autowired
-    RequestHandlerService requestHandlerService;
+    RequestHandlerUtils requestHandlerService;
     
     @Override
     public List<Tour> findAll() {
