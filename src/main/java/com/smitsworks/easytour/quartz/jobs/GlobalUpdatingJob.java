@@ -57,24 +57,6 @@ public class GlobalUpdatingJob extends QuartzJobBean{
            LOG.log(Level.WARNING,"Sheduler is null");
            return;
         }
-                Trigger oldTrigger = null;
-        try {
-            oldTrigger = scheduler.getTrigger(triggerKey("globalTrigger","quartzTriggers"));
-        } catch (SchedulerException ex) {
-            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(oldTrigger==null){
-           LOG.log(Level.WARNING,"oldTrigger is null");
-           return;
-        }
-        TriggerBuilder tb = oldTrigger.getTriggerBuilder();
-        Trigger newTrigger = tb.withSchedule(CronScheduleBuilder.
-                cronSchedule("0/10 * * * * ?")).build();
-        try {
-            scheduler.rescheduleJob(oldTrigger.getKey(), newTrigger);
-        } catch (SchedulerException ex) {
-            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void saveAndClearRequests(){

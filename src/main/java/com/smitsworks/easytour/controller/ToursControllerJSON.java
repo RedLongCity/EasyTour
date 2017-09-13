@@ -85,6 +85,26 @@ public class ToursControllerJSON {
         quartzService.resumeAll();
     }
     
+    @RequestMapping(value="/stopshort",method=RequestMethod.GET)
+    public void pauseShort(){
+        quartzService.pauseJob("shortJob", "quartzJobs");
+    }
+    
+    @RequestMapping(value="/stopglobal",method=RequestMethod.GET)
+    public void pauseGlobal(){
+        quartzService.pauseJob("globalJob", "quartzJobs");
+    }
+    
+    @RequestMapping(value="/resumeshort",method=RequestMethod.GET)
+    public void resumeShort(){
+        quartzService.resumeJob("shortJob", "quartzJobs");
+    }
+    
+    @RequestMapping(value="/resumeglobal",method=RequestMethod.GET)
+    public void resumeGlobal(){
+        quartzService.resumeJob("globalJob", "quartzJobs");
+    }
+    
     @RequestMapping(value="/filters", method=RequestMethod.GET)
     public void getFilters(){
         

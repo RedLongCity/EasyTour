@@ -8,6 +8,7 @@ package com.smitsworks.easytour.quartz.services;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.CronScheduleBuilder;
+import static org.quartz.JobKey.jobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
@@ -80,7 +81,32 @@ public class QuartzServiceImpl implements QuartzService {
             Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    @Override
+    public void pauseJob(String jobName,String jobGroup){
+        if(scheduler==null){
+           LOG.log(Level.WARNING,"Sheduler is null");
+           return;
+        }
+        try {
+            scheduler.pauseJob(jobKey(jobName,jobGroup));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    @Override
+    public void resumeJob(String jobName,String jobGroup){
+        if(scheduler==null){
+           LOG.log(Level.WARNING,"Sheduler is null");
+        return;
+        }
+        try {
+            scheduler.resumeJob(jobKey(jobName,jobGroup));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void resumeAll() {
         if(scheduler==null){

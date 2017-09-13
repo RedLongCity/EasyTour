@@ -39,6 +39,11 @@ public class RequestPullElement {
     private Request request;
     
     @JsonView(TourView.class)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="session_id",nullable=false)
+    private UpdateSession session;
+    
+    @JsonView(TourView.class)
     @NotEmpty
     @Column(name="request_datetime",unique=false,nullable=false)
     private Timestamp request_pull_DateTime;
@@ -104,6 +109,15 @@ public class RequestPullElement {
     public void setByHuman(Boolean byHuman) {
         this.byHuman = byHuman;
     }
+
+    public UpdateSession getSession() {
+        return session;
+    }
+
+    public void setSession(UpdateSession session) {
+        this.session = session;
+    }
+    
     
     
 
@@ -134,7 +148,7 @@ public class RequestPullElement {
 
     @Override
     public String toString() {
-        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", request_pull_DateTime=" + request_pull_DateTime + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
+        return "RequestPullElement{" + "id=" + id + ", request=" + request + ", session=" + session + ", request_pull_DateTime=" + request_pull_DateTime + ", done=" + done + ", priority=" + priority + ", byHuman=" + byHuman + '}';
     }
 
 }

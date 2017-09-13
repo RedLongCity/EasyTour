@@ -38,9 +38,8 @@ public class QuartzConfiguration {
 	public SimpleTriggerFactoryBean simpleTriggerFactoryBean(){
 		SimpleTriggerFactoryBean stFactory = new SimpleTriggerFactoryBean();
 		stFactory.setJobDetail(jobShortDetailFactoryBean().getObject());
-		stFactory.setStartDelay(2000);
-		stFactory.setRepeatInterval(3000);
-		stFactory.setRepeatCount(1000);
+		stFactory.setStartDelay(1000);
+		stFactory.setRepeatInterval(5000);
                 stFactory.setGroup("quartzTriggers");
                 stFactory.setName("shortTrigger");
 		return stFactory;
@@ -70,7 +69,7 @@ public class QuartzConfiguration {
 	public CronTriggerFactoryBean cronTriggerFactoryBean(){
 		CronTriggerFactoryBean stFactory = new CronTriggerFactoryBean();
 		stFactory.setJobDetail(jobGlobalDetailFactoryBean().getObject());
-		//stFactory.setStartDelay(3000);
+		stFactory.setStartDelay(1000);
 		stFactory.setName("globalTrigger");
 		stFactory.setGroup("quartzTriggers");
 		stFactory.setCronExpression("0/5 * * * * ?");

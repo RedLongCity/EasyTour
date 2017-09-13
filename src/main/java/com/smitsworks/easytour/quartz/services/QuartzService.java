@@ -15,6 +15,10 @@ public interface QuartzService {
     void updateGlobalTrigger(
             String cronExpressions);
     
+    void pauseJob(String jobName,String jobGroup);
+    
+    void resumeJob(String jobName,String jobGroup);
+    
     void resumeAll();
     
     void pauseAll();

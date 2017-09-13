@@ -12,8 +12,10 @@ import java.util.logging.Logger;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import static org.quartz.JobKey.jobKey;
 import org.quartz.PersistJobDataAfterExecution;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
@@ -43,9 +45,10 @@ public class ShortUpdatingJob extends QuartzJobBean{
 //        if(command!=null){
 //            command.execute();
 //        }
+        
         LOG.log(Level.INFO, "ShortJob Doing");
         System.out.println("ShortJob Doing");
-//        quartzService.updateShortTrigger(5000, 1);
+        pauseItSelf(jec);
     }
     
     private RequestCommand getRequestCommand(){
@@ -98,5 +101,18 @@ public class ShortUpdatingJob extends QuartzJobBean{
             }
         }
         return requestCommand;
+    }
+    
+    public void pauseItSelf(JobExecutionContext jec){
+        Scheduler scheduler = jec.getScheduler();
+        if(scheduler==null){
+            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
+            return;
+        }
+        try {
+            scheduler.pauseJob(jobKey("shortJob","quartzJobs"));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
