@@ -1,7 +1,6 @@
 package com.smitsworks.easytour.parsers;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.springframework.stereotype.Service;
 
 /**
  *

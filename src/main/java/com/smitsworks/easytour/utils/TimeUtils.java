@@ -43,4 +43,14 @@ public class TimeUtils {
                 projectConsantsSingletone.getTimeOfPreviousSession());
         return session;
     }
+    
+    public void updateTimeConstants(){
+        projectConsantsSingletone.setTimeOfCurrentSession(
+            getCurrentTime());
+        Timestamp timeOfUpdatePreviousSession = projectConsantsSingletone.
+            getTimeOfPreviousSession();
+        if(timeOfUpdatePreviousSession==null){
+            timeOfUpdatePreviousSession=projectConsantsSingletone.getTimeOfCurrentSession();
+        }
+    }
 }
