@@ -58,8 +58,12 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     }
 
     @Override
+    public void IncreasePriority() {
+    }
+    
+
+    @Override
     public void setPriority(Integer priority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

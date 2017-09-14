@@ -3,6 +3,7 @@ package com.smitsworks.easytour.utils;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.UpdateSession;
+import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommandHandler;
@@ -13,6 +14,7 @@ import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,9 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     
     @Autowired
     TimeUtils timeUtils;
+    
+    @Autowired
+    QuartzService quartzService;
     
     @Override
     public RequestCommand getNextCommand() {
@@ -86,6 +91,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
                    projectConsantsSingletone.setRequestUpdating(
                            hotCommand.getRequest());
+                   commandHandler.removeUnvaluatedTours(requestCommand);
                    return zeroingCommand(requestCommand);
                }else{
                    if(!command.getDone()){
@@ -99,11 +105,13 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
                    projectConsantsSingletone.setRequestUpdating(
                            hotCommand.getRequest());
+                   commandHandler.removeUnvaluatedTours(requestCommand);
                    return zeroingCommand(requestCommand); 
                    }
                } 
             }
         }
+        commandHandler.removeUnvaluatedTours(requestCommand);
         return zeroingCommand(requestCommand);
     }
 
@@ -113,6 +121,9 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         command.setDone(Boolean.FALSE);
         command.setRequestTime(timeUtils.getCurrentTime());
         projectConsantsSingletone.getRequestsPull().add(command);
+        if(!projectConsantsSingletone.isGlobalDelay()){
+            quartzService.resumeJob("shortJob","quartzJobs");
+        }
     }
 
     @Override
@@ -129,8 +140,6 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         UpdateSession session = new UpdateSession();
         session.setSessionTime(projectConsantsSingletone.getTimeOfPreviousSession());
         sessionService.saveUpdateSession(session);
-        
-        
         
         Iterator<RequestCommand> it = requestsPull.iterator();
         while(it.hasNext()){
@@ -172,6 +181,39 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
             }
         }
     }
+
+    @Override
+    public boolean isRequestInPull(Request request) {
+        ArrayList<RequestCommand> commandList = 
+                (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
+        Iterator it = commandList.iterator();
+        while(it.hasNext()){
+            RequestCommand command = (RequestCommand) it.next();
+            if(command instanceof HotSearchRequestCommand){
+                if(((HotSearchRequestCommand) command).getRequest().equals(request)){
+                    command.IncreasePriority();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isRequestInPreviousPull(Request request) {
+        UpdateSession previousSession = sessionService.getPreviousSession();
+        Set<RequestPullElement> elementSet = previousSession.getRequestPullElementSet();
+        Iterator<RequestPullElement> it = elementSet.iterator();
+        while(it.hasNext()){
+            RequestPullElement element = it.next();
+            if(element.getRequest().equals(request)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
     
     private RequestCommand zeroingCommand(RequestCommand requestCommand){
         RequestCommand command = requestCommand;

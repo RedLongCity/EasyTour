@@ -12,6 +12,8 @@ import java.util.List;
 public interface RequestService {
 
 Request findById(Integer id);
+
+Request findByFields(Request request);
     
 void saveRequest(Request request);
 

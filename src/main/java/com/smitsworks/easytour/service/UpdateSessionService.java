@@ -17,6 +17,8 @@ public interface UpdateSessionService {
     
     UpdateSession findByUpdateTime(Timestamp updateTime);
     
+    UpdateSession getPreviousSession();
+    
     void saveUpdateSession(UpdateSession session);
     
     void updateUpdateSession(UpdateSession session);//lol... nice name of method dude

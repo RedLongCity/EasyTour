@@ -26,7 +26,7 @@ public class ProjectConsantsSingletone {
     
     private Request requestUpdating;//Request which are updating at the moment
     
-    private Integer shortUpdatingDelay=4000;//Previous or Current update time
+    private long shortUpdatingDelay=4000;//Previous or Current update time
     
     private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
     
@@ -65,11 +65,11 @@ public class ProjectConsantsSingletone {
         this.requestUpdating = requestUpdating;
     }
 
-    public Integer getShortUpdatingDelay() {
+    public long getShortUpdatingDelay() {
         return shortUpdatingDelay;
     }
 
-    public void setShortUpdatingDelay(Integer shortUpdatingDelay) {
+    public void setShortUpdatingDelay(long shortUpdatingDelay) {
         this.shortUpdatingDelay = shortUpdatingDelay;
     }
 

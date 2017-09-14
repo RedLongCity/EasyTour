@@ -1,15 +1,8 @@
 package com.smitsworks.easytour.quartz.jobs;
 
-import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommandHandler;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
-import com.smitsworks.easytour.utils.RequestsPullUtilsImpl;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.DisallowConcurrentExecution;

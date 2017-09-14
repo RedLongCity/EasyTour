@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.utils;
 
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 
 /**
@@ -16,4 +17,7 @@ public interface RequestsPullUtils {
     
     void clearRequestsPull();
     
+    boolean isRequestInPull(Request request);
+    
+    boolean isRequestInPreviousPull(Request request);
 }

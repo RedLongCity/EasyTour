@@ -67,7 +67,7 @@ public class Request {
     
     @JsonView(TourView.class)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="meal_type_id", nullable=false)
+    @JoinColumn(name="meal_type_id",unique=false,nullable=true)
     private Meal_Type meal_Type;
     
     @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)

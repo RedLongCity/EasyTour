@@ -2,6 +2,7 @@ package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.dao.UpdateSessionDao;
 import com.smitsworks.easytour.models.UpdateSession;
+import com.smitsworks.easytour.utils.TimeUtils;
 import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
     @Autowired
     UpdateSessionDao sessionDao;
     
+    @Autowired
+    TimeUtils utils;
+    
     @Override
     public UpdateSession findById(Integer id) {
        return sessionDao.findById(id);
@@ -27,6 +31,11 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
     @Override
     public UpdateSession findByUpdateTime(Timestamp updateTime) {
         return sessionDao.findsessionByTime(updateTime);
+    }
+
+    @Override
+    public UpdateSession getPreviousSession() {
+        return sessionDao.findsessionByTime(utils.getTimeOfPreviousSession());
     }
 
     @Override

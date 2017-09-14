@@ -2,6 +2,7 @@ package com.smitsworks.easytour.utils;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.responsecommands.ResponseCommand;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
 
 public interface RequestHandler {
     
-    void handleRequest(Request request);
+    ResponseCommand handleRequest(Request request);
     
     ItToursSearchBaseRequestCommand getBaseRequestCommand();
 }

@@ -1,27 +1,7 @@
 package com.smitsworks.easytour.quartz.jobs;
 
-import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.models.RequestPullElement;
-import com.smitsworks.easytour.models.Tour;
-import com.smitsworks.easytour.models.UpdateSession;
-import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommandHandler;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
-import com.smitsworks.easytour.service.RequestPullElementService;
-import com.smitsworks.easytour.service.TourService;
-import com.smitsworks.easytour.service.UpdateSessionService;
-import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
-import com.smitsworks.easytour.utils.ItToursHotSearchRequestHandler;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
 import com.smitsworks.easytour.utils.TimeUtils;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.DisallowConcurrentExecution;

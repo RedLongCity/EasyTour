@@ -69,6 +69,12 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     }
 
     @Override
+    public void IncreasePriority() {
+        this.priority++;
+    }
+    
+
+    @Override
     public Boolean getDone() {
         return done;
     }

@@ -54,6 +54,11 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
         this.priority = priority;
     }
 
+    @Override
+    public void IncreasePriority() {
+        this.priority++;
+    }
+    
     public Boolean getDone() {
         return done;
     }

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * 09.09.2017
  * class for handling operations with ItTours Hot Search Request
  */
-@Service("requestHandlerService")
+@Service
 public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(HotSearchRequestConverterUtils.class.getName());

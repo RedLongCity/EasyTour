@@ -27,4 +27,6 @@ public interface RequestCommand {
     void setRequestTime(Timestamp time);
     
     Timestamp getRequestTime();
+    
+    void IncreasePriority();
 }

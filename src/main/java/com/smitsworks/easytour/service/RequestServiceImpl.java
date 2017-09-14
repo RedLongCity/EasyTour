@@ -25,6 +25,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public Request findByFields(Request request) {
+        return requestDao.findRequestByFields(request);
+    }
+    
+
+    @Override
     public void saveRequest(Request request) {
         requestDao.saveRequest(request);
     }
