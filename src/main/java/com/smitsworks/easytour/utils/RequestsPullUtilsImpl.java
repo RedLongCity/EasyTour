@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.utils;
 
+import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.UpdateSession;

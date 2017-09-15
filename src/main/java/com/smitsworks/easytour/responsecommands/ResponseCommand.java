@@ -8,8 +8,8 @@ import com.smitsworks.easytour.models.Response;
  * 14/09/2017
  * interface for generation Response configurators
  */
-public interface ResponseCommand {
+public interface ResponseCommand<T> {
     
-    Response execute();
+    T execute();
     
 }

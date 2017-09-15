@@ -7,12 +7,13 @@ import java.util.Objects;
  *
  * @author redlongcity
  * 14/09/2017
- * class for incapsulating response to client
+ * class for incapsulating ItTours Hot Search response to client
  */
 public class Response {
     
     private Long comeBackDelay;
     private List<Tour> tourList;
+    private Request request;
 
     public Response(Long comeBackDelay, List<Tour> tourList) {
         this.comeBackDelay = comeBackDelay;
@@ -35,11 +36,20 @@ public class Response {
         this.tourList = tourList;
     }
 
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.comeBackDelay);
-        hash = 29 * hash + Objects.hashCode(this.tourList);
+        hash = 59 * hash + Objects.hashCode(this.comeBackDelay);
+        hash = 59 * hash + Objects.hashCode(this.tourList);
+        hash = 59 * hash + Objects.hashCode(this.request);
         return hash;
     }
 
@@ -61,13 +71,17 @@ public class Response {
         if (!Objects.equals(this.tourList, other.tourList)) {
             return false;
         }
+        if (!Objects.equals(this.request, other.request)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Response{" + "comeBackDelay=" + comeBackDelay + ", tourList=" + tourList + '}';
+        return "Response{" + "comeBackDelay=" + comeBackDelay + ", tourList=" + tourList + ", request=" + request + '}';
     }
+    
     
     
 }

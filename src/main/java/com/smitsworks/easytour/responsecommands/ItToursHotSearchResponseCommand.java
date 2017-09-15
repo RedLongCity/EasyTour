@@ -4,20 +4,18 @@ import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Response;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.service.TourService;
-import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author redlongcity
  * 14/09/2017
- * class for configuration response command
+ * class for configuration ItTours Hot Search response command
  */
-public class ItToursHotSearchResponseCommand implements ResponseCommand{
+
+public class ItToursHotSearchResponseCommand implements ResponseCommand<Response>{
 
     private static final Logger LOG = Logger.getLogger(ItToursHotSearchResponseCommand.class.getName());
 
@@ -38,6 +36,7 @@ public class ItToursHotSearchResponseCommand implements ResponseCommand{
         if(request!=null){
         List<Tour> tourList = tourService.findToursByRequest(request);
         response.setTourList(tourList);
+        response.setRequest(request);
         }
         response.setComeBackDelay(comeBack);
         return response;

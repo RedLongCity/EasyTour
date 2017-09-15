@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.utils;
+package com.smitsworks.easytour.requesthandlers;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
@@ -12,6 +12,8 @@ import com.smitsworks.easytour.responsecommands.ResponseCommand;
  */
 
 public interface RequestHandler {
+    
+    ResponseCommand handleFiltersRequest();
     
     ResponseCommand handleSearchRequest(Request request);
     

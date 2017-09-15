@@ -1,13 +1,17 @@
-package com.smitsworks.easytour.utils;
+package com.smitsworks.easytour.requesthandlers;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.responsecommands.ItToursHotFiltersResponseCommand;
 import com.smitsworks.easytour.responsecommands.ItToursHotSearchResponseCommand;
 import com.smitsworks.easytour.responsecommands.ResponseCommand;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
+import com.smitsworks.easytour.utils.ComeBackUtils;
+import com.smitsworks.easytour.utils.RequestsPullUtils;
+import com.smitsworks.easytour.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +41,13 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
     
     @Autowired
     ComeBackUtils backUtils;
+
+    @Override
+    public ResponseCommand handleFiltersRequest() {
+        return new ItToursHotFiltersResponseCommand();
+    }
+    
+    
     
     @Override
     public ResponseCommand handleSearchRequest(Request request) {
