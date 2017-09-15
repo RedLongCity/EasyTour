@@ -22,6 +22,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -56,12 +57,10 @@ public class Request {
     private String hotel_Rating;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="night_from",unique=false,nullable=false)
     private Integer night_From;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="night_till",unique=false,nullable=false)
     private Integer night_Till;
     

@@ -299,7 +299,9 @@ public class ToursNodeParser implements NodeParser {
                 }    
                 }
             Request request = projectConsantsSingletone.getRequestUpdating();
+            if(request!=null){
             tour.getRequestSet().add(request);
+            }
             tourService.saveTour(tour);
     } 
         return true;

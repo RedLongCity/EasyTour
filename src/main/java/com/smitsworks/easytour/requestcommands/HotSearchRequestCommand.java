@@ -53,12 +53,12 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     
     @Override
     public void execute() {
-        try {
-            rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
-                    getURLByRequest(request));
-        } catch (IOException ex) {
-            Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
+//                    getURLByRequest(request));
+//        } catch (IOException ex) {
+//            Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         projectConsantsSingletone.setRequestUpdating(request);
         parser.extractTours(rootNode);
     }

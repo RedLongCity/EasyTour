@@ -47,8 +47,6 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         return new ItToursHotFiltersResponseCommand();
     }
     
-    
-    
     @Override
     public ResponseCommand handleSearchRequest(Request request) {
         ResponseCommand responseCommand = null;
@@ -103,9 +101,9 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         request.setNight_From(2);
         request.setNight_Till(7);
         Request entity = requestService.findByFields(request);
-        if(entity==null){
-            requestService.saveRequest(request);
-        }
+//        if(entity==null){
+//            requestService.saveRequest(request);
+//        }
         ItToursSearchBaseRequestCommand command = new ItToursSearchBaseRequestCommand(
         request,1,false,timeUtils.getCurrentTime());
         return command;

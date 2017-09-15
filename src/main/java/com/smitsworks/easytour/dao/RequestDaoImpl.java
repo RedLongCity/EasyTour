@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.dao;
 
+import com.smitsworks.easytour.models.Country;
+import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Request;
 import java.sql.Timestamp;
 import java.util.List;
@@ -85,18 +87,24 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
     @Override
     public Request findRequestByFields(Request request) {
         Criteria crit = createCriteria();
+        if(request.getCountry()!=null){
         crit.add(Restrictions.eq("country_id", 
                 request.getCountry().getId()));
+        }
+        if(request.getFrom_Cities()!=null){
         crit.add(Restrictions.eq("from_city_id", 
                 request.getFrom_Cities().getId()));
-        crit.add(Restrictions.eq("hotel_rating",
+        }
+        crit.add(Restrictions.eq("hotel_Rating",
                 request.getHotel_Rating()));
-        crit.add(Restrictions.eq("night_from", 
+        crit.add(Restrictions.eq("night_From", 
                 request.getNight_From()));
-        crit.add(Restrictions.eq("night_till", 
+        crit.add(Restrictions.eq("night_Till", 
                 request.getNight_Till()));
-        crit.add(Restrictions.eq("meal_type_id", 
+        if(request.getMeal_Type()!=null){
+        crit.add(Restrictions.eq("meal_Type", 
                 request.getMeal_Type().getId()));
+        }
         Request entity = (Request) crit.uniqueResult();
         if(entity!=null){
               Hibernate.initialize(entity.getCountry());
