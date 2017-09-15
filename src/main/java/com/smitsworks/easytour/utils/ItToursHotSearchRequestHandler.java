@@ -3,6 +3,7 @@ package com.smitsworks.easytour.utils;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.requestcommands.RequestCommand;
 import com.smitsworks.easytour.responsecommands.ItToursHotSearchResponseCommand;
 import com.smitsworks.easytour.responsecommands.ResponseCommand;
 import com.smitsworks.easytour.service.RequestService;
@@ -38,7 +39,7 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
     ComeBackUtils backUtils;
     
     @Override
-    public ResponseCommand handleRequest(Request request) {
+    public ResponseCommand handleSearchRequest(Request request) {
         ResponseCommand responseCommand = null;
         Request entity = requestService.findByFields(request);
         if(entity==null){
@@ -50,13 +51,39 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
             backUtils.calculate(command));
             return responseCommand;
         }
-        if(!pullUtils.isRequestInPull(request)){
-            if(pullUtils.isRequestInPreviousPull(request)){
-                
+        RequestCommand requestCommand = pullUtils.getCommandByRequest(request);
+        if(requestCommand==null){
+            if(!pullUtils.isRequestInPreviousPull(request)){
+            HotSearchRequestCommand command = new HotSearchRequestCommand(
+            request,1,false,true);
+            pullUtils.addRequestCommandToPull(command);
+            responseCommand = new ItToursHotSearchResponseCommand(null,
+            backUtils.calculate(command));
+            return responseCommand; 
             }
+            HotSearchRequestCommand command = new HotSearchRequestCommand(
+            request,1,false,true);
+            pullUtils.addRequestCommandToPull(command);
+            responseCommand = new ItToursHotSearchResponseCommand(request,
+            backUtils.calculate(command));
+            return responseCommand; 
         }
+        requestCommand.setByHuman(Boolean.TRUE);
+        if(!requestCommand.getDone()){
+            if(!pullUtils.isRequestInPreviousPull(request)){
+            responseCommand = new ItToursHotSearchResponseCommand(null,
+            backUtils.calculate(requestCommand));
+            return responseCommand;
+            }
+            responseCommand = new ItToursHotSearchResponseCommand(request,
+            backUtils.calculate(requestCommand));
+            return responseCommand;
+        }
+        responseCommand = new ItToursHotSearchResponseCommand(null,
+            backUtils.calculate(requestCommand));
         return responseCommand;
     }
+    
 
     @Override
     public ItToursSearchBaseRequestCommand getBaseRequestCommand() {

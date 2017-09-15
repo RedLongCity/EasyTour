@@ -27,6 +27,9 @@ public class ComeBackUtils {
     
     public Long calculate(RequestCommand requestCommand){
         long delay=0;
+        if(requestCommand.getDone()){
+            return delay;
+        }
         ArrayList<RequestCommand> commandList = 
                 (ArrayList<RequestCommand>) constants.getRequestsPull();
         Iterator<RequestCommand> it = commandList.iterator();

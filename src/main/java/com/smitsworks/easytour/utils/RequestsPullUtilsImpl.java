@@ -116,6 +116,24 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     }
 
     @Override
+    public RequestCommand getCommandByRequest(Request request) {
+        ArrayList<RequestCommand> requestsPull = 
+                (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
+        Iterator<RequestCommand> it = requestsPull.iterator();
+        while(it.hasNext()){
+            RequestCommand command = it.next();
+            if(command instanceof HotSearchRequestCommand){
+                if(((HotSearchRequestCommand) command).getRequest().equals(request)){
+                    return command;
+                }
+            }
+    }
+        return null;
+    }
+    
+    
+
+    @Override
     public void addRequestCommandToPull(RequestCommand command) {
         command.setPriority(getNextPriority());
         command.setDone(Boolean.FALSE);

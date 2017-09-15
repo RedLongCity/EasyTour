@@ -13,7 +13,7 @@ import com.smitsworks.easytour.responsecommands.ResponseCommand;
 
 public interface RequestHandler {
     
-    ResponseCommand handleRequest(Request request);
+    ResponseCommand handleSearchRequest(Request request);
     
     ItToursSearchBaseRequestCommand getBaseRequestCommand();
 }

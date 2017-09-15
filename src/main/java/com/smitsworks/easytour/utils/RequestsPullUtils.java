@@ -13,6 +13,8 @@ public interface RequestsPullUtils {
     
     RequestCommand getNextCommand();
     
+    RequestCommand getCommandByRequest(Request request);
+    
     void addRequestCommandToPull(RequestCommand command);
     
     void clearRequestsPull();
