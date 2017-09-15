@@ -33,6 +33,7 @@ public class QuartzConfiguration {
                         getShortUpdatingDelay());
                 stFactory.setGroup("quartzTriggers");
                 stFactory.setName("shortTrigger");
+                stFactory.setStartDelay(15000);
 		return stFactory;
 	}
 	@Bean
@@ -63,6 +64,7 @@ public class QuartzConfiguration {
 		stFactory.setGroup("quartzTriggers");
 		stFactory.setCronExpression(projectConsantsSingletone.
                         getGlobalUpdatingDelay());
+                stFactory.setStartDelay(10000);
 		return stFactory;
 	}
 	@Bean

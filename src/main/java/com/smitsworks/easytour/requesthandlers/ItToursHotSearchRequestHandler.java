@@ -102,6 +102,10 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         request.setHotel_Rating("3:78");
         request.setNight_From(2);
         request.setNight_Till(7);
+        Request entity = requestService.findByFields(request);
+        if(entity==null){
+            requestService.saveRequest(request);
+        }
         ItToursSearchBaseRequestCommand command = new ItToursSearchBaseRequestCommand(
         request,1,false,timeUtils.getCurrentTime());
         return command;

@@ -112,7 +112,7 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     @Override
     public Tour findByKey(String key) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("tour_key",key));
+        crit.add(Restrictions.eq("key",key));
         Tour tour = (Tour)crit.uniqueResult();
         if(tour!=null){
             Hibernate.initialize(tour.getCountry());

@@ -1,10 +1,19 @@
 package com.smitsworks.easytour.requestcommands;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
+import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
+import com.smitsworks.easytour.utils.HttpUtils;
+import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.ItToursParserConstants;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -17,10 +26,20 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
 
     private static final Logger LOG = Logger.getLogger(ItToursSearchBaseRequestCommand.class.getName());
 
+    private JsonNode rootNode;
     private Request request;
     private Integer priority;
     private Boolean done;
     private Timestamp requestTime;
+    
+    @Autowired
+    HotSearchRequestConverterUtils converter;
+    
+    @Autowired
+    ItToursHotToursSearchParser parser;
+    
+    @Autowired
+    ProjectConsantsSingletone projectConsantsSingletone;
 
     public ItToursSearchBaseRequestCommand() {
     }
@@ -35,7 +54,15 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+                try {
+            rootNode = HttpUtils.getJsonNodeFromUrl(converter.
+                    getURLByRequest(request));
+        } catch (IOException ex) {
+            Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        projectConsantsSingletone.setRequestUpdating(request);
+        parser.extractTours(rootNode);
     }
 
     public Request getRequest() {

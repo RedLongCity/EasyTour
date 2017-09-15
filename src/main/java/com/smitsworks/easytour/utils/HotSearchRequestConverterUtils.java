@@ -4,7 +4,6 @@ import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.utils.ItToursParserConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +23,10 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
 
     private static final Logger LOG = Logger.getLogger(HotSearchRequestConverterUtils.class.getName());
 
+    public HotSearchRequestConverterUtils() {
+    }
+
+    
     @Override
     public List<Criterion> getCriterionsByRequest(Request request) {
         List<Criterion> criterionsList = new ArrayList<Criterion>();
@@ -120,6 +123,7 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
             String meal_Type_Id = meal_Type.getId();
             URL=URL.concat("meal_type="+meal_Type_Id+"&");
         }
+        URL=URL.concat("items_per_page=100&hotel_image=1");
         return URL;
     }
     

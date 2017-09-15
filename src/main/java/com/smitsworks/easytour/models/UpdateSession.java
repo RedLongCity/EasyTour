@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,11 +29,12 @@ public class UpdateSession {
     
     @JsonView(TourView.class)
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="session_id",nullable=false,unique=true)
     private Integer id;
     
     @JsonView(TourView.class)
-    @Column(name="session_time")
+    @Column(name="session_time",nullable=false,unique=false)
     private Timestamp sessionTime;
     
     @JsonView(TourView.class)

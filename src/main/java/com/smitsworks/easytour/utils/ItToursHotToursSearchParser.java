@@ -2,16 +2,8 @@ package com.smitsworks.easytour.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.smitsworks.easytour.models.Country;
-import com.smitsworks.easytour.models.Currency;
-import com.smitsworks.easytour.models.Hotel_Image;
-import com.smitsworks.easytour.models.Price;
-import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.parsers.ToursNodeParser;
 import com.smitsworks.easytour.service.TourService;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

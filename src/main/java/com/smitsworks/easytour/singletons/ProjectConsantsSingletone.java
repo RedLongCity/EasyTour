@@ -3,6 +3,7 @@ package com.smitsworks.easytour.singletons;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.requestcommands.RequestCommand;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,17 @@ public class ProjectConsantsSingletone {
     
     private static volatile ProjectConsantsSingletone instance;
     
-    private boolean globalDelay;//for regulation access to out database
+    private boolean globalDelay=false;//for regulation access to out database
     
-    private boolean filtersUpdate;//consist Country, From_Cities updating etc.
+    private boolean filtersUpdate=false;//consist Country, From_Cities updating etc.
     
     private Request requestUpdating;//Request which are updating at the moment
     
     private long shortUpdatingDelay=10000;//Previous or Current update time
     
-    private String globalUpdatingDelay="0 0/1 * * * ?";//delay between global updating
+    private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
     
-    private List<RequestCommand> requestsPull;//pull for all requests
+    private List<RequestCommand> requestsPull=new ArrayList<RequestCommand>();//pull for all requests
     
     private Timestamp timeOfCurrentSession;
     
@@ -98,18 +99,30 @@ public class ProjectConsantsSingletone {
     }
 
     public Timestamp getTimeOfCurrentSession() {
+        if(this.timeOfCurrentSession==null){
+            timeOfCurrentSession = new Timestamp(System.currentTimeMillis());
+        }
         return timeOfCurrentSession;
     }
 
     public void setTimeOfCurrentSession(Timestamp timeOfCurrentSession) {
+        if(this.timeOfCurrentSession==null){
+            timeOfCurrentSession = new Timestamp(System.currentTimeMillis());
+        }
         this.timeOfCurrentSession = timeOfCurrentSession;
     }
 
     public Timestamp getTimeOfPreviousSession() {
+        if(this.timeOfPreviousSession==null){
+            this.timeOfPreviousSession = new Timestamp(System.currentTimeMillis());
+        }
         return timeOfPreviousSession;
     }
 
     public void setTimeOfPreviousSession(Timestamp timeOfPreviousSession) {
+        if(this.timeOfPreviousSession==null){
+            this.timeOfPreviousSession = new Timestamp(System.currentTimeMillis());
+        }
         this.timeOfPreviousSession = timeOfPreviousSession;
     }
     

@@ -45,12 +45,8 @@ public class TimeUtils {
     }
     
     public void updateTimeConstants(){
-        projectConsantsSingletone.setTimeOfCurrentSession(
-            getCurrentTime());
-        Timestamp timeOfUpdatePreviousSession = projectConsantsSingletone.
-            getTimeOfPreviousSession();
-        if(timeOfUpdatePreviousSession==null){
-            timeOfUpdatePreviousSession=projectConsantsSingletone.getTimeOfCurrentSession();
-        }
+        projectConsantsSingletone.setTimeOfPreviousSession(
+                projectConsantsSingletone.getTimeOfCurrentSession());
+        projectConsantsSingletone.setTimeOfCurrentSession(getCurrentTime());
     }
 }

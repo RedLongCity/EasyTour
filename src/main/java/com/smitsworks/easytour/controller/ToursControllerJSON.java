@@ -12,19 +12,23 @@ import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Tour;
+import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.quartz.services.QuartzService;
+import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
+import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import com.smitsworks.easytour.service.TourService;
+import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
+import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +70,30 @@ public class ToursControllerJSON {
     
     @Autowired
     QuartzService quartzService;
+    
+    @Autowired
+    UpdateSessionService service;
+    
+    @Autowired
+    ItToursHotSearchRequestHandler requestHandler;
+    
+    @Autowired
+    ItToursSearchBaseRequestCommand command;
+    
+    @Autowired
+    HotSearchRequestConverterUtils converter;
+    
+    @Autowired
+    ItToursHotToursSearchParser parser;
             
+    @RequestMapping(value="/do",method=RequestMethod.GET)
+    public void doSomething(){
+        UpdateSession session = new UpdateSession();
+        session.setSessionTime(new Timestamp(System.currentTimeMillis()));
+        service.saveUpdateSession(session);
+    }
+
+    
     @RequestMapping(value="/shutdown",method=RequestMethod.GET)
     public void stopScheduling(){
         quartzService.shutDown();
@@ -107,13 +134,14 @@ public class ToursControllerJSON {
     
     @RequestMapping(value="/filters", method=RequestMethod.GET)
     public void getFilters(){
-        
+        HotFiltersRequestCommand command = new HotFiltersRequestCommand();
+        command.execute();
     }
     
     @RequestMapping(value="/tours", method=RequestMethod.GET)
     public ResponseEntity<Void> getTours(){
-        //searchParser.extractTours(1);
-        
+        ItToursSearchBaseRequestCommand command = requestHandler.getBaseRequestCommand();
+        command.execute();
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     

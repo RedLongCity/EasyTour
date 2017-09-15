@@ -34,7 +34,7 @@ public class HotSearchRequestCommandHandler implements RequestCommandHandler{
         Request request = ((HotSearchRequestCommand) requestCommand).getRequest();
                    Set<Tour> tourSet = request.getTourSet();
             if(tourSet==null){
-               LOG.log(Level.WARNING,"GlobalUpdatingJob: tourSet is null");
+               LOG.log(Level.WARNING,"HotSearchRequestCommandHandler: tourSet is null");
             }
             Iterator it = tourSet.iterator();
             while(it.hasNext()){

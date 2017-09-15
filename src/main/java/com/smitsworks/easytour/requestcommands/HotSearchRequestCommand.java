@@ -2,6 +2,7 @@ package com.smitsworks.easytour.requestcommands;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
@@ -36,6 +37,9 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     
     @Autowired
     HotSearchRequestConverterUtils handlerService;
+    
+    @Autowired
+    ProjectConsantsSingletone projectConsantsSingletone;
 
     public HotSearchRequestCommand() {
     }
@@ -55,6 +59,7 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         } catch (IOException ex) {
             Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
+        projectConsantsSingletone.setRequestUpdating(request);
         parser.extractTours(rootNode);
     }
 

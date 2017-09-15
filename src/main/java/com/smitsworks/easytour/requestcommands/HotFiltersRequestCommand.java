@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -27,6 +28,8 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     
     private JsonNode rootNode;
     private Boolean done;
+    private Integer priority;
+    private Timestamp requestTime;
 
     public HotFiltersRequestCommand() {
     }
@@ -38,6 +41,7 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     
     @Override
     public void execute() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
         try {
             rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
                     api_showcases_filters);
@@ -60,17 +64,15 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     @Override
     public void IncreasePriority() {
     }
-    
 
-    @Override
-    public void setPriority(Integer priority) {
-    }
-
-    @Override
     public Integer getPriority() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return priority;
     }
 
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+    
     @Override
     public void setByHuman(Boolean byHuman) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -81,14 +83,12 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setRequestTime(Timestamp time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Timestamp getRequestTime() {
+        return requestTime;
     }
 
-    @Override
-    public Timestamp getRequestTime() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setRequestTime(Timestamp requestTime) {
+        this.requestTime = requestTime;
     }
 
     

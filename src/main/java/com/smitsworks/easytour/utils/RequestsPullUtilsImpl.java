@@ -57,7 +57,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     public RequestCommand getNextCommand() {
         ArrayList<RequestCommand> requestsPull = (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
             if(requestsPull==null){
-        LOG.log(Level.WARNING,"RequestsPullUtilsImpl: requestsList is null");
+        LOG.log(Level.WARNING,"getNextCommand: requestsList is null");
         return null;
         }
         RequestCommand requestCommand=null;
@@ -111,9 +111,11 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                    }
                } 
             }
-        }
+        }if(requestCommand!=null){
         commandHandler.removeUnvaluatedTours(requestCommand);
         return zeroingCommand(requestCommand);
+        }
+        return requestCommand;
     }
 
     @Override
@@ -148,18 +150,18 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     @Override
     public void clearRequestsPull() {
         ArrayList<RequestCommand> requestsPull = (ArrayList<RequestCommand>) projectConsantsSingletone.getRequestsPull();
-        if(requestsPull==null){
-            LOG.log(Level.WARNING,"RequestsPullUtilsImpl: requestsList is null");
-            requestsPull = new ArrayList<RequestCommand>();
-            requestsPull.add(new HotFiltersRequestCommand(false));
-            requestsPull.add(handler.getBaseRequestCommand());
+        if(requestsPull==null||requestsPull.isEmpty()){
+            LOG.log(Level.WARNING,"clearRequestsPull: requestsList is null");
+            addRequestCommandToPull(new HotFiltersRequestCommand(false));
+            addRequestCommandToPull(handler.getBaseRequestCommand());
             return;
         }
         
         UpdateSession session = new UpdateSession();
         session.setSessionTime(projectConsantsSingletone.getTimeOfPreviousSession());
-        sessionService.saveUpdateSession(session);
         
+        sessionService.saveUpdateSession(session);
+
         Iterator<RequestCommand> it = requestsPull.iterator();
         while(it.hasNext()){
             
@@ -242,7 +244,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     }
     
     private Integer getNextPriority(){
-        Integer priority = null;
+        Integer priority = 0;
         ArrayList<RequestCommand> commandList = (ArrayList<RequestCommand>) projectConsantsSingletone.
                 getRequestsPull();
         Iterator<RequestCommand> it = commandList.iterator();
