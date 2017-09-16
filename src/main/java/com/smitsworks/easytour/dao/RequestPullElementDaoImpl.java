@@ -27,7 +27,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     @Override
     public List<RequestPullElement> findAll() {
         Criteria crit = createCriteria();
-        crit.addOrder(Order.asc("request_datetime"));
+        crit.addOrder(Order.asc("request_pull_DateTime"));
         List<RequestPullElement> requestPullElementList = crit.list();
         if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){
@@ -41,7 +41,7 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     @Override
     public List<RequestPullElement> findByDate(Timestamp request_DateTime) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("request_datetime", request_DateTime));
+        crit.add(Restrictions.eq("request_pull_DateTime", request_DateTime));
         List<RequestPullElement> requestPullElementList = crit.list();
                 if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){
@@ -56,8 +56,8 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     @Override
     public List<RequestPullElement> findByDatesInterval(Timestamp dateFrom, Timestamp dateTill) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.le("request_datetime",dateTill));
-        crit.add(Restrictions.ge("request_datetime",dateFrom));
+        crit.add(Restrictions.le("request_pull_DateTime",dateTill));
+        crit.add(Restrictions.ge("request_pull_DateTime",dateFrom));
         List<RequestPullElement> requestPullElementList = crit.list();
         if(requestPullElementList!=null){
             for(RequestPullElement requestPullElement:requestPullElementList){

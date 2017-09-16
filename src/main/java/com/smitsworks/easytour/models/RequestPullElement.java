@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *
@@ -34,7 +35,6 @@ public class RequestPullElement {
     private Integer id;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="request_datetime",unique=false,nullable=false)
     private Timestamp request_pull_DateTime;
     
@@ -44,17 +44,14 @@ public class RequestPullElement {
     private Request request;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="done",unique=false,nullable=false)
     private Boolean done;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="priority",unique=false,nullable=false)
     private Integer priority;
     
     @JsonView(TourView.class)
-    @NotEmpty
     @Column(name="by_human",unique=false,nullable=false)
     private Boolean byHuman;
     

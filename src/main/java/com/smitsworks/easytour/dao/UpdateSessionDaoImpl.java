@@ -48,7 +48,6 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
         UpdateSession session = (UpdateSession) crit.uniqueResult();
         if(session!=null){
         Hibernate.initialize(session.getRequestPullElementSet());
-
         }
         return session;
     }

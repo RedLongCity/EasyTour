@@ -12,6 +12,7 @@ import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.quartz.jobs.ShortUpdatingJob;
@@ -24,6 +25,7 @@ import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
+import com.smitsworks.easytour.service.RequestPullElementService;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
@@ -79,13 +81,37 @@ public class ToursControllerJSON {
     
     @Autowired
     RequestService requestService;
+    
+    @Autowired
+    RequestPullElementService elementService;
+    
+    @Autowired
+    UpdateSessionService sessionService;
             
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
         Request request = new Request();
-        request.setNight_From(1);
-        request.setNight_Till(7);
+        request.setNight_From(2);
+        request.setNight_Till(3);
         request.setHotel_Rating("3:78");
+        Request entity = requestService.findByFields(request);
+        if(entity==null){
+            return;
+        }
+        UpdateSession session = new UpdateSession();
+        session.setSessionTime(new Timestamp(System.currentTimeMillis()));
+        sessionService.saveUpdateSession(session);
+        UpdateSession entitySession = sessionService.findByUpdateTime(session.getSessionTime());
+        RequestPullElement element = new RequestPullElement();
+        element.setByHuman(Boolean.TRUE);
+        element.setDone(Boolean.TRUE);
+        element.setPriority(1);
+        element.setRequest_pull_DateTime(new Timestamp(System.currentTimeMillis()));
+        element.setRequest(requestService.findByFields(request));
+        element.setUpdateSession(entitySession);
+        elementService.saveRequestPullElement(element);
+        session.getRequestPullElementSet().add(element);
+        sessionService.updateUpdateSession(session);
 //        requestService.deleteAllRequests();
         requestHandler.handleSearchRequest(request);
     }

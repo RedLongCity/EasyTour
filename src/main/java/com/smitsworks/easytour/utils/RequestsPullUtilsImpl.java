@@ -185,9 +185,9 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                 element.setPriority(command.getPriority());
                 element.setRequest_pull_DateTime(command.getRequestTime());
                 element.setUpdateSession(session);
+                requestPullElementService.saveRequestPullElement(element);
                 session.getRequestPullElementSet().add(element);
                 sessionService.updateUpdateSession(session);
-                requestPullElementService.saveRequestPullElement(element);
                 if(command.getPriority()<2&&command.getByHuman()==false){
                     commandHandler.removeUnvaluatedTours(command);
                     it.remove();
