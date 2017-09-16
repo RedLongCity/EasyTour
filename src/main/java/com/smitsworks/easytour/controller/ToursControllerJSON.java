@@ -32,6 +32,7 @@ import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
+import com.smitsworks.easytour.utils.TimeUtils;
 import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,9 @@ public class ToursControllerJSON {
     
     @Autowired
     UpdateSessionService sessionService;
+    
+    @Autowired
+    TimeUtils timeUtils;
             
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
@@ -99,7 +103,7 @@ public class ToursControllerJSON {
             return;
         }
         UpdateSession session = new UpdateSession();
-        session.setSessionTime(new Timestamp(System.currentTimeMillis()));
+        session.setSessionTime(timeUtils.getCurrentTime());
         sessionService.saveUpdateSession(session);
         UpdateSession entitySession = sessionService.findByUpdateTime(session.getSessionTime());
         RequestPullElement element = new RequestPullElement();

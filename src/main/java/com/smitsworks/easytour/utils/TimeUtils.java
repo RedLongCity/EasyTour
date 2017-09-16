@@ -4,6 +4,8 @@ import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,11 @@ public class TimeUtils {
     ProjectConsantsSingletone projectConsantsSingletone;
     
     public Timestamp getCurrentTime(){
-        Timestamp time = new Timestamp(System.currentTimeMillis());
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.MILLISECOND, 0);
+        Timestamp time = new Timestamp(cal.getTimeInMillis());
         return time;
     }
     
