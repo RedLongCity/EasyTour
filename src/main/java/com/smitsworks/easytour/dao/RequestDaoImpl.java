@@ -20,7 +20,7 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
     @Override
     public List<Request> findAll() {
         Criteria crit = createCriteria();
-        crit.addOrder(Order.asc("request_datetime"));
+        crit.addOrder(Order.asc("id"));
         List<Request> requestList = crit.list();
         if(requestList!=null){
             for(Request request:requestList){
@@ -49,50 +49,14 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
     }
 
     @Override
-    public List<Request> findByDate(Timestamp request_DateTime) {
-        Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("request_datetime", request_DateTime));
-        List<Request> requestList = crit.list();
-        if(requestList!=null){
-            for(Request request:requestList){
-              Hibernate.initialize(request.getCountry());
-              Hibernate.initialize(request.getFrom_Cities());
-              Hibernate.initialize(request.getHotel_Rating());
-              Hibernate.initialize(request.getMeal_Type());
-              Hibernate.initialize(request.getTourSet());
-
-            }
-        }
-        return requestList;
-    }
-
-    @Override
-    public List<Request> findByDatesInterval(Timestamp dateFrom, Timestamp dateTill) {
-        Criteria crit = createCriteria();
-        crit.add(Restrictions.le("request_datetime",dateTill));
-        crit.add(Restrictions.ge("request_datetime",dateFrom));
-        List<Request> requestList = crit.list();
-        if(requestList!=null){
-            for(Request request:requestList){
-              Hibernate.initialize(request.getCountry());
-              Hibernate.initialize(request.getFrom_Cities());
-              Hibernate.initialize(request.getHotel_Rating());
-              Hibernate.initialize(request.getMeal_Type());
-              Hibernate.initialize(request.getTourSet());
-            }
-        } 
-        return requestList;
-        }
-
-    @Override
     public Request findRequestByFields(Request request) {
         Criteria crit = createCriteria();
         if(request.getCountry()!=null){
-        crit.add(Restrictions.eq("country_id", 
+        crit.add(Restrictions.eq("country", 
                 request.getCountry().getId()));
         }
         if(request.getFrom_Cities()!=null){
-        crit.add(Restrictions.eq("from_city_id", 
+        crit.add(Restrictions.eq("from_Cities", 
                 request.getFrom_Cities().getId()));
         }
         crit.add(Restrictions.eq("hotel_Rating",

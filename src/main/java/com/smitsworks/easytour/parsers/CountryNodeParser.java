@@ -38,8 +38,11 @@ public class CountryNodeParser implements NodeParser{
                 LOG.log(Level.WARNING,"CountryNode: id node is missing");
                 return false;
             }
-            country.setId(node.asText());
-            
+            String id = node.asText();
+            if(countryService.findById(id)!=null){
+                continue;
+            }
+            country.setId(id);
             node=countriesNode.get(i).path("name");
             if(node.isMissingNode()){
                 LOG.log(Level.WARNING,"CountryNode: name node is missing");

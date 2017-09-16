@@ -11,8 +11,10 @@ import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.models.UpdateSession;
+import com.smitsworks.easytour.quartz.jobs.ShortUpdatingJob;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
@@ -22,6 +24,7 @@ import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
+import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
@@ -43,12 +46,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/json")
 public class ToursControllerJSON {
-
-    @Autowired
-    ItToursHotToursFiltersParser filterParser;
-    
-    @Autowired
-    ItToursHotToursSearchParser searchParser;
     
     @Autowired
     CountryService countryService;
@@ -66,13 +63,7 @@ public class ToursControllerJSON {
     TourService tourService;
     
     @Autowired
-    ProjectConsantsSingletone projectConsantsSingletone;
-    
-    @Autowired
     QuartzService quartzService;
-    
-    @Autowired
-    UpdateSessionService service;
     
     @Autowired
     ItToursHotSearchRequestHandler requestHandler;
@@ -85,14 +76,19 @@ public class ToursControllerJSON {
     
     @Autowired
     ItToursHotToursSearchParser parser;
+    
+    @Autowired
+    RequestService requestService;
             
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
-        UpdateSession session = new UpdateSession();
-        session.setSessionTime(new Timestamp(System.currentTimeMillis()));
-        service.saveUpdateSession(session);
+        Request request = new Request();
+        request.setNight_From(1);
+        request.setNight_Till(7);
+        request.setHotel_Rating("3:78");
+//        requestService.deleteAllRequests();
+        requestHandler.handleSearchRequest(request);
     }
-
     
     @RequestMapping(value="/shutdown",method=RequestMethod.GET)
     public void stopScheduling(){
@@ -106,10 +102,6 @@ public class ToursControllerJSON {
     
     @RequestMapping(value="/startupdating",method=RequestMethod.GET)
     public void startScheduling(){
-        projectConsantsSingletone.setGlobalUpdatingDelay("0/10 * * * * ?");
-        projectConsantsSingletone.setShortUpdatingDelay(2);
-        quartzService.updateShortTrigger(10000, 20);
-        quartzService.resumeAll();
     }
     
     @RequestMapping(value="/stopshort",method=RequestMethod.GET)

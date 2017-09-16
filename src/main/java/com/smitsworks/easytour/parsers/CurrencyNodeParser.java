@@ -39,7 +39,11 @@ public class CurrencyNodeParser implements NodeParser{
                 LOG.log(Level.WARNING,"CurrencyNode: id node is missing");
                 return false;
             }
-            currency.setId(node.asText());
+            String id = node.asText();
+            if(currencyService.findById(id)!=null){
+                continue;
+            }
+            currency.setId(id);
             
             node=currencyNode.get(i).path("name");
             if(node.isMissingNode()){

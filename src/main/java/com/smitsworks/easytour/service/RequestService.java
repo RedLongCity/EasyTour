@@ -25,11 +25,6 @@ void deleteRequest(Request request);
 
 List<Request> findAll();
 
-List<Request> findByDate(Timestamp request_DateTime);
-
-List<Request> findByDateInterval(Timestamp dateFrom,
-        Timestamp dateTill);
-
 void deleteAllRequests();
 
 }

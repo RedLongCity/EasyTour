@@ -21,7 +21,7 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
     @Override
     public List<UpdateSession> findAll() {
        Criteria crit = createCriteria(); 
-       crit.addOrder(Order.asc("session_time"));
+       crit.addOrder(Order.asc("sessionTime"));
        List<UpdateSession> sessionList = crit.list();
        if(sessionList!=null){
            for(UpdateSession session:sessionList){
@@ -44,7 +44,7 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
     @Override
     public UpdateSession findsessionByTime(Timestamp updateTime) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("session_time",updateTime));
+        crit.add(Restrictions.eq("sessionTime",updateTime));
         UpdateSession session = (UpdateSession) crit.uniqueResult();
         if(session!=null){
         Hibernate.initialize(session.getRequestPullElementSet());

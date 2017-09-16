@@ -23,6 +23,8 @@ import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,8 @@ public class ToursNodeParser implements NodeParser {
             LOG.log(Level.WARNING,"OffersNode: offersNode is missing");
             return false;
         }
+        Request request = projectConsantsSingletone.getRequestUpdating();
+        Set<Tour> tourSet = new HashSet<Tour>();
         for(int i=0;i<offersNode.size();i++){
                 JsonNode indexNode = offersNode.get(i);
                 if(indexNode.isMissingNode()){
@@ -86,13 +90,13 @@ public class ToursNodeParser implements NodeParser {
                 String key = node.asText();
                 Tour entity = tourService.findByKey(key);
                 if(entity!=null){
-                    Request request = projectConsantsSingletone.getRequestUpdating();
                     if(request==null){
                         LOG.log(Level.WARNING,"OffersNode: request is missing");
                         return false;  
                     }
                     entity.getRequestSet().add(request);
                     tourService.updateTour(entity);
+                    tourSet.add(entity);
                     continue;
                 }
                 tour.setKey(key);
@@ -298,12 +302,14 @@ public class ToursNodeParser implements NodeParser {
                     tour.getHotel_ImageSet().add(hotel_Image);
                 }    
                 }
-            Request request = projectConsantsSingletone.getRequestUpdating();
             if(request!=null){
             tour.getRequestSet().add(request);
             }
+            tourSet.add(tour);
             tourService.saveTour(tour);
     } 
+        request.setTourSet(tourSet);
+        requestService.updateRequest(request);
         return true;
     }
     

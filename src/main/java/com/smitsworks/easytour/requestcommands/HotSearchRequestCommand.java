@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -53,12 +54,13 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     
     @Override
     public void execute() {
-//        try {
-//            rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
-//                    getURLByRequest(request));
-//        } catch (IOException ex) {
-//            Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        try {
+            rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
+                    getURLByRequest(request));
+        } catch (IOException ex) {
+            Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
         projectConsantsSingletone.setRequestUpdating(request);
         parser.extractTours(rootNode);
     }

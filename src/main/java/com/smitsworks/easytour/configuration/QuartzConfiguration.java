@@ -64,7 +64,7 @@ public class QuartzConfiguration {
 		stFactory.setGroup("quartzTriggers");
 		stFactory.setCronExpression(projectConsantsSingletone.
                         getGlobalUpdatingDelay());
-                stFactory.setStartDelay(10000);
+                stFactory.setStartDelay(5000);
 		return stFactory;
 	}
 	@Bean

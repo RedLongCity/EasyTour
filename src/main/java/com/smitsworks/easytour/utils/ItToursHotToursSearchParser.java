@@ -50,7 +50,7 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                 LOG.log(Level.WARNING, "offersNode is Missing");
                 return false;
             }
-            tourService.deleteAllTours();//Reorginize!
+//            tourService.deleteAllTours();//Reorginize!
             if(!toursNodeParser.parseNode(offersNode)){
                LOG.log(Level.WARNING,"ToursNodeParser: toursNode Parser returned false");
                return false;

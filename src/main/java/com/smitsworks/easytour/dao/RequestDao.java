@@ -16,11 +16,6 @@ public interface RequestDao {
     
     Request findRequestByFields(Request request);
     
-    List<Request> findByDate(Timestamp request_DateTime);
-    
-    List<Request> findByDatesInterval(Timestamp dateFrom,
-            Timestamp dateTill);
-    
     void saveRequest(Request request);
     
     void mergeRequest(Request request);

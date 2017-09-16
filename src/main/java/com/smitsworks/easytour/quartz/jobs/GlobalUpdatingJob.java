@@ -36,11 +36,12 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
-      //  LOG.log(Level.INFO, "GlobalJob Doing");
+        LOG.log(Level.INFO, "GlobalJob Doing");
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
-//        timeUtils.updateTimeConstants();
-//        requestsPullUtils.clearRequestsPull();
+        timeUtils.updateTimeConstants();
+        requestsPullUtils.clearRequestsPull();
         resumeShortUpdateJob(jec);
+        pauseItSelf(jec);
     }
     
         private void resumeShortUpdateJob(JobExecutionContext jec){
@@ -51,6 +52,18 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         }
         try {
             scheduler.resumeJob(jobKey("shortJob","quartzJobs"));
+        } catch (SchedulerException ex) {
+            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+            private void pauseItSelf(JobExecutionContext jec){
+        Scheduler scheduler = jec.getScheduler();
+        if(scheduler==null){
+            LOG.log(Level.WARNING,"GlobalUpdatingJob: scheduler is null");
+            return;
+        }
+        try {
+            scheduler.pauseJob(jobKey("globalJob","quartzJobs"));
         } catch (SchedulerException ex) {
             Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
         }

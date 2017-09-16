@@ -90,8 +90,6 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                        }
                    }
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
-                   projectConsantsSingletone.setRequestUpdating(
-                           hotCommand.getRequest());
                    commandHandler.removeUnvaluatedTours(requestCommand);
                    return zeroingCommand(requestCommand);
                }else{
@@ -104,8 +102,6 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                            }
                        }
                    HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
-                   projectConsantsSingletone.setRequestUpdating(
-                           hotCommand.getRequest());
                    commandHandler.removeUnvaluatedTours(requestCommand);
                    return zeroingCommand(requestCommand); 
                    }
@@ -223,6 +219,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     @Override
     public boolean isRequestInPreviousPull(Request request) {
         UpdateSession previousSession = sessionService.getPreviousSession();
+        if(previousSession!=null){
         Set<RequestPullElement> elementSet = previousSession.getRequestPullElementSet();
         Iterator<RequestPullElement> it = elementSet.iterator();
         while(it.hasNext()){
@@ -231,6 +228,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                 return true;
             }
         }
+    }
         return false;
     }
     

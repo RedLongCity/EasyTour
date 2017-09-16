@@ -39,7 +39,11 @@ public class Hotel_RatingNodeParser implements NodeParser{
                 LOG.log(Level.WARNING,"Hotel_Rating: id node is missing");
                 return false; 
             }
-            hotel_Rating.setId(node.asText());
+            String id = node.asText();
+            if(hotel_RatingService.findById(id)!=null){
+                continue;
+            }
+            hotel_Rating.setId(id);
             
             node=hotel_RatingNode.get(i).path("name");
                 if(node.isMissingNode()){

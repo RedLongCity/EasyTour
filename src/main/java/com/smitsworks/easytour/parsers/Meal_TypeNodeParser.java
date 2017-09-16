@@ -40,7 +40,11 @@ public class Meal_TypeNodeParser implements NodeParser {
                 LOG.log(Level.WARNING,"Meal_TypeNode: id node is missing");
                 return false;
             }
-            meal_Type.setId(node.asText());
+            String id = node.asText();
+            if(meal_TypeService.findById(id)!=null){
+                continue;
+            }
+            meal_Type.setId(id);
             
             node=meal_TypeNode.get(i).path("name");
             if(node.isMissingNode()){

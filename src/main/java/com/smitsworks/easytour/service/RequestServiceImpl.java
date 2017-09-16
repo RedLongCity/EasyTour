@@ -80,16 +80,6 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> findByDate(Timestamp request_DateTime) {
-        return requestDao.findByDate(request_DateTime);
-    }
-
-    @Override
-    public List<Request> findByDateInterval(Timestamp dateFrom, Timestamp dateTill) {
-        return requestDao.findByDatesInterval(dateFrom, dateTill);
-    }
-
-    @Override
     public void deleteAllRequests() {
         List<Request> requestList = requestDao.findAll();
         if(requestList!=null){
@@ -98,5 +88,4 @@ public class RequestServiceImpl implements RequestService {
             }
         }
     }
-    
 }

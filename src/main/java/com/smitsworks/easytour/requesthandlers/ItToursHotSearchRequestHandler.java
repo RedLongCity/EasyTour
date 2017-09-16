@@ -53,42 +53,43 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         Request entity = requestService.findByFields(request);
         if(entity==null){
             requestService.saveRequest(request);
+            Request entityRequest = requestService.findByFields(request);
             HotSearchRequestCommand command = new HotSearchRequestCommand(
-            request,1,false,true);
+            entityRequest,1,false,true);
             pullUtils.addRequestCommandToPull(command);
             responseCommand = new ItToursHotSearchResponseCommand(null,
             backUtils.calculate(command));
             return responseCommand;
         }
-        RequestCommand requestCommand = pullUtils.getCommandByRequest(request);
+        RequestCommand requestCommand = pullUtils.getCommandByRequest(entity);
         if(requestCommand==null){
-            if(!pullUtils.isRequestInPreviousPull(request)){
+            if(!pullUtils.isRequestInPreviousPull(entity)){
             HotSearchRequestCommand command = new HotSearchRequestCommand(
-            request,1,false,true);
+            entity,1,false,true);
             pullUtils.addRequestCommandToPull(command);
             responseCommand = new ItToursHotSearchResponseCommand(null,
             backUtils.calculate(command));
             return responseCommand; 
             }
             HotSearchRequestCommand command = new HotSearchRequestCommand(
-            request,1,false,true);
+            entity,1,false,true);
             pullUtils.addRequestCommandToPull(command);
-            responseCommand = new ItToursHotSearchResponseCommand(request,
+            responseCommand = new ItToursHotSearchResponseCommand(entity,
             backUtils.calculate(command));
             return responseCommand; 
         }
         requestCommand.setByHuman(Boolean.TRUE);
         if(!requestCommand.getDone()){
-            if(!pullUtils.isRequestInPreviousPull(request)){
+            if(!pullUtils.isRequestInPreviousPull(entity)){
             responseCommand = new ItToursHotSearchResponseCommand(null,
             backUtils.calculate(requestCommand));
             return responseCommand;
             }
-            responseCommand = new ItToursHotSearchResponseCommand(request,
+            responseCommand = new ItToursHotSearchResponseCommand(entity,
             backUtils.calculate(requestCommand));
             return responseCommand;
         }
-        responseCommand = new ItToursHotSearchResponseCommand(null,
+        responseCommand = new ItToursHotSearchResponseCommand(entity,
             backUtils.calculate(requestCommand));
         return responseCommand;
     }
@@ -101,11 +102,12 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         request.setNight_From(2);
         request.setNight_Till(7);
         Request entity = requestService.findByFields(request);
-//        if(entity==null){
-//            requestService.saveRequest(request);
-//        }
+        if(entity==null){
+            requestService.saveRequest(request);
+            entity = requestService.findByFields(request);
+        }
         ItToursSearchBaseRequestCommand command = new ItToursSearchBaseRequestCommand(
-        request,1,false,timeUtils.getCurrentTime());
+        entity,1,false,timeUtils.getCurrentTime());
         return command;
     }
     
