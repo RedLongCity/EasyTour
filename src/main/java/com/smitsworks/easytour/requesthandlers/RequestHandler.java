@@ -1,7 +1,7 @@
 package com.smitsworks.easytour.requesthandlers;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.requestcommands.RequestCommand;
 import com.smitsworks.easytour.responsecommands.ResponseCommand;
 
 /**
@@ -13,9 +13,7 @@ import com.smitsworks.easytour.responsecommands.ResponseCommand;
 
 public interface RequestHandler {
     
-    ResponseCommand handleFiltersRequest();
+    ResponseCommand handleRequest(Request request);
     
-    ResponseCommand handleSearchRequest(Request request);
-    
-    ItToursSearchBaseRequestCommand getBaseRequestCommand();
+    RequestCommand getBaseRequestCommand();
 }

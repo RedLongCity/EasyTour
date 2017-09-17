@@ -89,9 +89,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                            requestCommand=command;
                        }
                    }
-                   HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
-                   commandHandler.removeUnvaluatedTours(requestCommand);
-                   return zeroingCommand(requestCommand);
+                   continue;
                }else{
                    if(!command.getDone()){
                        if(requestCommand==null){
@@ -101,9 +99,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
                                requestCommand=command;
                            }
                        }
-                   HotSearchRequestCommand hotCommand = (HotSearchRequestCommand)requestCommand;
-                   commandHandler.removeUnvaluatedTours(requestCommand);
-                   return zeroingCommand(requestCommand); 
+                       continue;
                    }
                } 
             }
@@ -123,15 +119,15 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
             RequestCommand command = it.next();
             if(command instanceof HotSearchRequestCommand){
                 if(((HotSearchRequestCommand) command).getRequest().equals(request)){
+                   if(command.getDone()){
                     command.IncreasePriority();
+                   }
                     return command;
                 }
             }
     }
         return null;
     }
-    
-    
 
     @Override
     public void addRequestCommandToPull(RequestCommand command) {
@@ -249,9 +245,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         Iterator<RequestCommand> it = commandList.iterator();
         while(it.hasNext()){
             RequestCommand command = it.next();
-            if(priority==null){
-                priority=command.getPriority();
-            }else{
+            if(!command.getDone()){
                 if(priority<command.getPriority()){
                     priority = command.getPriority();
                 }

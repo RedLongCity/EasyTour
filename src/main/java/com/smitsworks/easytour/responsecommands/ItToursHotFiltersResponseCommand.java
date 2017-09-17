@@ -27,6 +27,8 @@ public class ItToursHotFiltersResponseCommand implements ResponseCommand<Filters
 
     private static final Logger LOG = Logger.getLogger(ItToursHotFiltersResponseCommand.class.getName());
 
+    private Long delay;
+    
     @Autowired
     CountryService countryService;
     
@@ -45,9 +47,19 @@ public class ItToursHotFiltersResponseCommand implements ResponseCommand<Filters
     public ItToursHotFiltersResponseCommand() {
     }
 
+    public ItToursHotFiltersResponseCommand(long delay) {
+        this.delay = delay;
+    }
+    
     @Override
     public FiltersResponse execute() {
-        FiltersResponse response=null;
+        FiltersResponse response=new FiltersResponse();
+        
+        if(delay!=null){
+            response.setDelay(delay);
+            return response;
+        }
+        
         List<Country> countryList = countryService.findAll();
         List<From_Cities> from_CitiesList = from_CititesService.findAll();
         List<Hotel_Rating> hotel_RatingList = hotel_RatingService.findAll();

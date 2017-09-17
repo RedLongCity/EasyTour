@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class FiltersResponse {
     
+    private Long delay;
     private List<Country> countriesList;
     private List<From_Cities> from_CititesList;
     private List<Hotel_Rating> hotel_RatingList;
@@ -57,9 +58,18 @@ public class FiltersResponse {
         this.currencyList = currencyList;
     }
 
+    public Long getDelay() {
+        return delay;
+    }
+
+    public void setDelay(Long delay) {
+        this.delay = delay;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.delay);
         hash = 97 * hash + Objects.hashCode(this.countriesList);
         hash = 97 * hash + Objects.hashCode(this.from_CititesList);
         hash = 97 * hash + Objects.hashCode(this.hotel_RatingList);
@@ -80,6 +90,9 @@ public class FiltersResponse {
             return false;
         }
         final FiltersResponse other = (FiltersResponse) obj;
+        if (!Objects.equals(this.delay, other.delay)) {
+            return false;
+        }
         if (!Objects.equals(this.countriesList, other.countriesList)) {
             return false;
         }
@@ -100,9 +113,7 @@ public class FiltersResponse {
 
     @Override
     public String toString() {
-        return "FiltersResponse{" + "countriesList=" + countriesList + ", from_CititesList=" + from_CititesList + ", hotel_RatingList=" + hotel_RatingList + ", meal_TypeList=" + meal_TypeList + ", currencyList=" + currencyList + '}';
+        return "FiltersResponse{" + "delay=" + delay + ", countriesList=" + countriesList + ", from_CititesList=" + from_CititesList + ", hotel_RatingList=" + hotel_RatingList + ", meal_TypeList=" + meal_TypeList + ", currencyList=" + currencyList + '}';
     }
-    
-    
     
 }

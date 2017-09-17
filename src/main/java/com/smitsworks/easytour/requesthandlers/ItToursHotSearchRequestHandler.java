@@ -23,9 +23,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ItToursHotSearchRequestHandler implements RequestHandler{
-
-    @Autowired
-    ItToursSearchBaseRequestCommand itToursSearchBaseRequestCommand;
     
     @Autowired
     TimeUtils timeUtils;
@@ -34,21 +31,13 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
     RequestService requestService;
     
     @Autowired
-    ProjectConsantsSingletone constants;
-    
-    @Autowired
     RequestsPullUtils pullUtils;
     
     @Autowired
     ComeBackUtils backUtils;
 
     @Override
-    public ResponseCommand handleFiltersRequest() {
-        return new ItToursHotFiltersResponseCommand();
-    }
-    
-    @Override
-    public ResponseCommand handleSearchRequest(Request request) {
+    public ResponseCommand handleRequest(Request request) {
         ResponseCommand responseCommand = null;
         Request entity = requestService.findByFields(request);
         if(entity==null){//Request does not in request database

@@ -1,26 +1,27 @@
 package com.smitsworks.easytour.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.smitsworks.easytour.utils.ItToursHotToursFiltersParser;
 import org.springframework.http.ResponseEntity;
 import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.Hotel_RatingView;
 import com.smitsworks.easytour.JsonView.TourView;
 import com.smitsworks.easytour.models.Country;
+import com.smitsworks.easytour.models.FiltersResponse;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.models.RequestPullElement;
+import com.smitsworks.easytour.models.Response;
 import com.smitsworks.easytour.models.Tour;
-import com.smitsworks.easytour.models.UpdateSession;
-import com.smitsworks.easytour.quartz.jobs.ShortUpdatingJob;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
 import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.requesthandlers.ItToursHotFiltersRequestHandler;
 import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
+import com.smitsworks.easytour.responsecommands.ResponseCommand;
+import com.smitsworks.easytour.responsehandlers.ItToursHotFiltersResponseHandler;
+import com.smitsworks.easytour.responsehandlers.ItToursHotSearchResponseHandler;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
@@ -29,11 +30,9 @@ import com.smitsworks.easytour.service.RequestPullElementService;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
-import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.TimeUtils;
-import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,9 +68,6 @@ public class ToursControllerJSON {
     QuartzService quartzService;
     
     @Autowired
-    ItToursHotSearchRequestHandler requestHandler;
-    
-    @Autowired
     ItToursSearchBaseRequestCommand command;
     
     @Autowired
@@ -91,6 +87,18 @@ public class ToursControllerJSON {
     
     @Autowired
     TimeUtils timeUtils;
+    
+    @Autowired
+    ItToursHotSearchRequestHandler searchRequestHandler;
+    
+    @Autowired
+    ItToursHotSearchResponseHandler searchResponseHandler;
+    
+    @Autowired
+    ItToursHotFiltersRequestHandler filtersRequestHandler;
+    
+    @Autowired
+    ItToursHotFiltersResponseHandler filtersResponseHandler;
             
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
@@ -102,7 +110,7 @@ public class ToursControllerJSON {
         request.setNight_From(2);
         request.setNight_Till(4);
         request.setHotel_Rating("3:78");
-        requestHandler.handleSearchRequest(request);
+        searchRequestHandler.handleRequest(request);
     }
     
     @RequestMapping(value="/anotherdo",method=RequestMethod.GET)
@@ -111,7 +119,7 @@ public class ToursControllerJSON {
         request.setNight_From(2);
         request.setNight_Till(4);
         request.setHotel_Rating("3:78");
-        requestHandler.handleSearchRequest(request);
+        searchRequestHandler.handleRequest(request);
     }
     
     @RequestMapping(value="/shutdown",method=RequestMethod.GET)
@@ -148,17 +156,32 @@ public class ToursControllerJSON {
         quartzService.resumeJob("globalJob", "quartzJobs");
     }
     
-    @RequestMapping(value="/filters", method=RequestMethod.GET)
-    public void getFilters(){
-        HotFiltersRequestCommand command = new HotFiltersRequestCommand();
-        command.execute();
+    @RequestMapping(value="/getfilters", method=RequestMethod.GET)
+    public ResponseEntity<FiltersResponse> getFilters(){
+        ResponseCommand command = filtersRequestHandler.handleRequest(new Request());
+        FiltersResponse response = filtersResponseHandler.executeResponseCommand(command);
+        if(response==null){
+            return new ResponseEntity<FiltersResponse>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<FiltersResponse>(response,HttpStatus.OK);
     }
     
-    @RequestMapping(value="/tours", method=RequestMethod.GET)
-    public ResponseEntity<Void> getTours(){
-        ItToursSearchBaseRequestCommand command = requestHandler.getBaseRequestCommand();
-        command.execute();
-        return new ResponseEntity<Void>(HttpStatus.OK);
+    @RequestMapping(value="/gettours", method=RequestMethod.GET)
+    public ResponseEntity<Response> getTours(){
+        Request request = new Request();
+        Country country = countryService.findById("318");
+        request.setCountry(country);
+        From_Cities from_Citites = from_CitiesService.findById("2014");
+        request.setFrom_Cities(from_Citites);
+        request.setNight_From(2);
+        request.setNight_Till(4);
+        request.setHotel_Rating("3:78");
+        ResponseCommand command = searchRequestHandler.handleRequest(request);
+        Response response = searchResponseHandler.executeResponseCommand(command);
+        if(response==null){
+            return new ResponseEntity<Response>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Response>(response,HttpStatus.OK);
     }
     
     @JsonView(TourView.class)
