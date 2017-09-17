@@ -39,15 +39,15 @@ public class ShortUpdatingJob extends QuartzJobBean{
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         LOG.log(Level.INFO, "ShortJob Doing");
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
-        command = pullUtils.getNextCommand();
-        if(command!=null){
-            command.execute();
-            projectConsantsSingletone.setGlobalDelay(true);
-        }else{
-        projectConsantsSingletone.setGlobalDelay(false);
+//        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+//        command = pullUtils.getNextCommand();
+//        if(command!=null){
+//            command.execute();
+//            projectConsantsSingletone.setGlobalDelay(true);
+//        }else{
+//        projectConsantsSingletone.setGlobalDelay(false);
         pauseItSelf(jec);
-    }
+//    }
     }
     
     
