@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.models.Hotel_Image;
+import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface Hotel_ImageService {
     
     List<Hotel_Image> findAll();
     
-    List<Hotel_Image> findByToursId(Integer id);
+    List<Hotel_Image> findByTour(Tour tour);
     
     void deleteAllHotel_Image();
     

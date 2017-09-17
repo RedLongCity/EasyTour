@@ -41,7 +41,7 @@ public class PriceDaoImpl extends AbstractDao<Integer,Price> implements PriceDao
     @Override
     public List<Price> findByToursId(Integer id) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("tour_id", id));
+        crit.add(Restrictions.eq("tour", id));
         List<Price> priceList = crit.list();
         if(priceList!=null){
             for(Price price:priceList){

@@ -4,12 +4,14 @@ import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.service.Hotel_RatingService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +28,8 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
     public HotSearchRequestConverterUtils() {
     }
 
+    @Autowired
+    Hotel_RatingService service;
     
     @Override
     public List<Criterion> getCriterionsByRequest(Request request) {
@@ -33,14 +37,12 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
         
         Country country = request.getCountry();
         if(country!=null){
-            String country_Id = country.getId();
-            criterionsList.add(Restrictions.eq("country_id", country_Id));
+            criterionsList.add(Restrictions.eq("country", country));
         }
         
         From_Cities from_Cities = request.getFrom_Cities();
         if(from_Cities!=null){
-            String from_Cities_Id = from_Cities.getId();
-            criterionsList.add(Restrictions.eq("from_city_id", from_Cities_Id));
+            criterionsList.add(Restrictions.eq("from_Cities", from_Cities));
         }
         
         String hotel_Rating = request.getHotel_Rating();
@@ -53,8 +55,9 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
             LOG.log(Level.WARNING,"RequestHandlerService: hotel_RatingsArray too short");
             return criterionsList; 
         }
-        criterionsList.add(Restrictions.between("hotel_rating_id", 
-                hotel_RatingsArray[0], hotel_RatingsArray[1]));
+        criterionsList.add(Restrictions.between("hotel_Rating", 
+                service.findById(hotel_RatingsArray[0]),
+                service.findById(hotel_RatingsArray[1])));
         
         Integer night_From = request.getNight_From();
         if(night_From==null){
@@ -72,8 +75,7 @@ public class HotSearchRequestConverterUtils implements RequestConverterUtils,ItT
         
         Meal_Type meal_Type = request.getMeal_Type();
         if(meal_Type!=null){
-            String meal_Type_Id = meal_Type.getId();
-            criterionsList.add(Restrictions.eq("meal_type_id", meal_Type_Id));
+            criterionsList.add(Restrictions.eq("meal_Type", meal_Type));
         }
         
         return criterionsList;

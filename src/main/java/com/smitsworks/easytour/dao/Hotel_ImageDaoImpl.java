@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.dao;
 
 import com.smitsworks.easytour.models.Hotel_Image;
+import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -37,9 +38,9 @@ public class Hotel_ImageDaoImpl extends AbstractDao<Integer,Hotel_Image> impleme
     }
 
     @Override
-    public List<Hotel_Image> findByToursId(Integer id) {
+    public List<Hotel_Image> findByTour(Tour tour) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("tour_id",id));
+        crit.add(Restrictions.eq("tour",tour));
         List<Hotel_Image> hotel_ImageList = crit.list();
         if(hotel_ImageList!=null){
             for(Hotel_Image hotel_Image:hotel_ImageList){

@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.dao;
 
 import com.smitsworks.easytour.models.Hotel_Image;
+import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public interface Hotel_ImageDao {
     
     Hotel_Image findById(Integer id);
     
-    List<Hotel_Image> findByToursId(Integer id);
+    List<Hotel_Image> findByTour(Tour tour);
     
     void save(Hotel_Image hotel_Image);
     

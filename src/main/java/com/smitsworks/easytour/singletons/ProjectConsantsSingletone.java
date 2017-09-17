@@ -29,7 +29,7 @@ public class ProjectConsantsSingletone {
     
     private Request requestUpdating;//Request which are updating at the moment
     
-    private long shortUpdatingDelay=30000;//Previous or Current update time
+    private long shortUpdatingDelay=20000;//Previous or Current update time
     
     private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
     

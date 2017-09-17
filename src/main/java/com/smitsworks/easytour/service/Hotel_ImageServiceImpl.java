@@ -2,6 +2,7 @@ package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.dao.Hotel_ImageDao;
 import com.smitsworks.easytour.models.Hotel_Image;
+import com.smitsworks.easytour.models.Tour;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,8 @@ public class Hotel_ImageServiceImpl implements Hotel_ImageService{
     }
 
     @Override
-    public List<Hotel_Image> findByToursId(Integer id) {
-        return hotel_ImageDao.findByToursId(id);
+    public List<Hotel_Image> findByTour(Tour tour) {
+        return hotel_ImageDao.findByTour(tour);
     }
 
     @Override

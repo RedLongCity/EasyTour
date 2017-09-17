@@ -53,11 +53,15 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
         Criteria crit = createCriteria();
         if(request.getCountry()!=null){
         crit.add(Restrictions.eq("country", 
-                request.getCountry().getId()));
+                request.getCountry()));
+        }else{
+            crit.add(Restrictions.isNull("country"));
         }
         if(request.getFrom_Cities()!=null){
         crit.add(Restrictions.eq("from_Cities", 
-                request.getFrom_Cities().getId()));
+                request.getFrom_Cities()));
+        }else{
+            crit.add(Restrictions.isNull("from_Cities"));
         }
         crit.add(Restrictions.eq("hotel_Rating",
                 request.getHotel_Rating()));
@@ -67,7 +71,9 @@ public class RequestDaoImpl extends AbstractDao<Integer,Request> implements Requ
                 request.getNight_Till()));
         if(request.getMeal_Type()!=null){
         crit.add(Restrictions.eq("meal_Type", 
-                request.getMeal_Type().getId()));
+                request.getMeal_Type()));
+        }else{
+            crit.add(Restrictions.isNull("meal_Type"));
         }
         Request entity = (Request) crit.uniqueResult();
         if(entity!=null){

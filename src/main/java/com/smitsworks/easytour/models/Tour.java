@@ -2,7 +2,6 @@ package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.JsonView.TourView;
-import java.time.LocalDate;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,8 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
