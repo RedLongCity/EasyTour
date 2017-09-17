@@ -135,7 +135,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
 
     @Override
     public void addRequestCommandToPull(RequestCommand command) {
-        command.setPriority(getNextPriority());
+        command.setPriority(getNextPriority(command));
         command.setDone(Boolean.FALSE);
         command.setRequestTime(timeUtils.getCurrentTime());
         projectConsantsSingletone.getRequestsPull().add(command);
@@ -242,7 +242,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         return command;
     }
     
-    private Integer getNextPriority(){
+    private Integer getNextPriority(RequestCommand requestCommand){
         Integer priority = 0;
         ArrayList<RequestCommand> commandList = (ArrayList<RequestCommand>) projectConsantsSingletone.
                 getRequestsPull();
