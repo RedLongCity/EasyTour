@@ -95,28 +95,22 @@ public class ToursControllerJSON {
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
         Request request = new Request();
+        Country country = countryService.findById("318");
+        request.setCountry(country);
+        From_Cities from_Citites = from_CitiesService.findById("2014");
+        request.setFrom_Cities(from_Citites);
         request.setNight_From(2);
-        request.setNight_Till(3);
+        request.setNight_Till(4);
         request.setHotel_Rating("3:78");
-        Request entity = requestService.findByFields(request);
-        if(entity==null){
-            return;
-        }
-        UpdateSession session = new UpdateSession();
-        session.setSessionTime(timeUtils.getCurrentTime());
-        sessionService.saveUpdateSession(session);
-        UpdateSession entitySession = sessionService.findByUpdateTime(session.getSessionTime());
-        RequestPullElement element = new RequestPullElement();
-        element.setByHuman(Boolean.TRUE);
-        element.setDone(Boolean.TRUE);
-        element.setPriority(1);
-        element.setRequest_pull_DateTime(new Timestamp(System.currentTimeMillis()));
-        element.setRequest(requestService.findByFields(request));
-        element.setUpdateSession(entitySession);
-        elementService.saveRequestPullElement(element);
-        session.getRequestPullElementSet().add(element);
-        sessionService.updateUpdateSession(session);
-//        requestService.deleteAllRequests();
+        requestHandler.handleSearchRequest(request);
+    }
+    
+    @RequestMapping(value="/anotherdo",method=RequestMethod.GET)
+    public void doSomethingAnother(){
+        Request request = new Request();
+        request.setNight_From(2);
+        request.setNight_Till(4);
+        request.setHotel_Rating("3:78");
         requestHandler.handleSearchRequest(request);
     }
     

@@ -123,6 +123,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
             RequestCommand command = it.next();
             if(command instanceof HotSearchRequestCommand){
                 if(((HotSearchRequestCommand) command).getRequest().equals(request)){
+                    command.IncreasePriority();
                     return command;
                 }
             }
@@ -139,7 +140,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         command.setRequestTime(timeUtils.getCurrentTime());
         projectConsantsSingletone.getRequestsPull().add(command);
         if(!projectConsantsSingletone.isGlobalDelay()){
-            quartzService.resumeJob("shortJob","quartzJobs");
+            //quartzService.resumeJob("shortJob","quartzJobs");
         }
     }
 
