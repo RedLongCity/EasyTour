@@ -7,6 +7,7 @@ import com.smitsworks.easytour.service.TourService;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -32,7 +33,8 @@ public class ItToursHotSearchResponseCommand implements ResponseCommand<Response
     
     @Override
     public Response execute() {
-        Response response=null;
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        Response response= new Response();
         if(request!=null){
         List<Tour> tourList = tourService.findToursByRequest(request);
         response.setTourList(tourList);

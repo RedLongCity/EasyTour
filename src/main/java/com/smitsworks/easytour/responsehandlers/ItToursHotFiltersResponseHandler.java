@@ -4,6 +4,7 @@ import com.smitsworks.easytour.models.FiltersResponse;
 import com.smitsworks.easytour.responsecommands.ResponseCommand;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
  * 15/09/2017
  * class for handling response command for It Tours Hot Filters
  */
+@Service
 public class ItToursHotFiltersResponseHandler implements ResponseHandler<FiltersResponse>{
 
     private static final Logger LOG = Logger.getLogger(ItToursHotFiltersResponseHandler.class.getName());

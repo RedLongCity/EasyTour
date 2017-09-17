@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,10 +21,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="currencys")
 public class Currency {
     
+    @JsonView(TourView.class)
     @Id
     @Column(name="currency_id",unique=true,nullable=false)
     private String id;
-    
+
+    @JsonView(TourView.class)
     @NotEmpty
     @Column(name="name",unique=false,nullable=false)
     private String name;

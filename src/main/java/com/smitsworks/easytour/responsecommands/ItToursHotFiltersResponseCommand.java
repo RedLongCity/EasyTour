@@ -15,6 +15,7 @@ import com.smitsworks.easytour.service.Meal_TypeService;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -53,6 +54,7 @@ public class ItToursHotFiltersResponseCommand implements ResponseCommand<Filters
     
     @Override
     public FiltersResponse execute() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
         FiltersResponse response=new FiltersResponse();
         
         if(delay!=null){

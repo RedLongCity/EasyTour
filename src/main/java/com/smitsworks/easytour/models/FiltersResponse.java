@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,11 +13,22 @@ import java.util.Objects;
  */
 public class FiltersResponse {
     
+    @JsonView(TourView.class)
     private Long delay;
+    
+    @JsonView(TourView.class)
     private List<Country> countriesList;
+    
+    @JsonView(TourView.class)
     private List<From_Cities> from_CititesList;
+
+    @JsonView(TourView.class)
     private List<Hotel_Rating> hotel_RatingList;
+
+    @JsonView(TourView.class)
     private List<Meal_Type> meal_TypeList;
+
+    @JsonView(TourView.class)
     private List<Currency> currencyList;
 
     public List<Country> getCountriesList() {

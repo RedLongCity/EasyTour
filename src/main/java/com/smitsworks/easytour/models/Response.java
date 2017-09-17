@@ -1,5 +1,7 @@
 package com.smitsworks.easytour.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.TourView;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,9 +13,18 @@ import java.util.Objects;
  */
 public class Response {
     
+    
+    @JsonView(TourView.class)
     private Long comeBackDelay;
+
+    @JsonView(TourView.class)
     private List<Tour> tourList;
+
+    @JsonView(TourView.class)
     private Request request;
+
+    public Response() {
+    }
 
     public Response(Long comeBackDelay, List<Tour> tourList) {
         this.comeBackDelay = comeBackDelay;

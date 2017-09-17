@@ -156,6 +156,7 @@ public class ToursControllerJSON {
         quartzService.resumeJob("globalJob", "quartzJobs");
     }
     
+    @JsonView(CountryView.class)
     @RequestMapping(value="/getfilters", method=RequestMethod.GET)
     public ResponseEntity<FiltersResponse> getFilters(){
         ResponseCommand command = filtersRequestHandler.handleRequest(new Request());
@@ -166,6 +167,7 @@ public class ToursControllerJSON {
         return new ResponseEntity<FiltersResponse>(response,HttpStatus.OK);
     }
     
+    @JsonView(TourView.class)
     @RequestMapping(value="/gettours", method=RequestMethod.GET)
     public ResponseEntity<Response> getTours(){
         Request request = new Request();
