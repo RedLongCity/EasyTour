@@ -13,7 +13,6 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
