@@ -419,6 +419,110 @@
         <button type="button" ng-click="ctrl.fetchRequest(id)" class="btn btn-success custom-width">Edit</button>         
         <h4>Request: {{ctrl.request}}</h4> 
 </div>
+                                    
+                                    <!--Tours-->
+        
+        <div class="card mb-4" ng-controller="TourController as ctrl">
+    <div class="card-block">
+            <h3 class="card-title">Tours</h3>
+
+            <div class="dropdown card-title-btn-container">
+                    <button class="btn btn-sm btn-subtle" type="button"><em class="fa fa-list-ul"></em> View All</button>
+
+                    <button class="btn btn-sm btn-subtle dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><em class="fa fa-cog"></em></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#"><em class="fa fa-search mr-1"></em> More info</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-thumb-tack mr-1"></em> Pin Window</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-remove mr-1"></em> Close Window</a></div>
+            </div>
+
+            <div class="table-responsive">
+                    <table class="table table-striped">
+                            <thead>
+                                    <tr>
+                                            <th>ID.</th>
+                                            
+                                            <th>Key</th>
+
+                                            <th>Type</th>
+                                            
+                                            <th>Coutry ID</th>
+                                            
+                                            <th>Region</th>
+                                            
+                                            <th>Hotel Id</th>
+                                            
+                                            <th>Hotel</th>
+                                            
+                                            <th>Hotel Rating</th>
+                                            
+                                            <th>Meal Type</th>
+                                            
+                                            <th>Room Type</th>
+                                            
+                                            <th>Adult Amount</th>
+                                            
+                                            <th>Child Amount</th>
+                                            
+                                            <th>Accomodation</th>
+                                            
+                                            <th>Duration</th>
+                                            
+                                            <th>Date From</th>
+                                            
+                                            <th>City ID</th>
+                                            
+                                            <th>Transport Type</th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="t in ctrl.tours">
+
+                                    <td><span ng-bind="t.id"></span></td>
+
+                                    <td><span ng-bind="t.key"></span></td>
+                                    
+                                    <td><span ng-bind="t.type"></span></td>
+                                    
+                                    <td><span ng-bind="t.country.id"></span></td>
+                                    
+                                    <td><span ng-bind="t.region"></span></td>
+                                    
+                                    <td><span ng-bind="t.hotel_id"></span></td>
+                                    
+                                    <td><span ng-bind="t.hotel"></span></td>
+                                    
+                                    <td><span ng-bind="t.hotel_Rating.id"></span></td>
+
+                                    <td><span ng-bind="t.meal_Type.id"></span></td>
+
+                                    <td><span ng-bind="t.room_Type"></span></td>
+
+                                    <td><span ng-bind="t.adult_Amount"></span></td>
+                                    
+                                    <td><span ng-bind="t.child_Amount"></span></td>
+                                    
+                                    <td><span ng-bind="t.accomodation"></span></td>
+
+                                    <td><span ng-bind="t.duration"></span></td>
+
+                                    <td><span ng-bind="t.date_From"></span></td>
+                                    
+                                    <td><span ng-bind="t.from_Cities.id"></span></td>
+
+                                    <td><span ng-bind="t.transport_Type."></span></td>
+
+                                    </tr>
+                            </tbody>
+                    </table>
+            </div>
+    </div>
+            
+            <label>Id :</label><input type="number" ng-model="id" placeholder="Enter id"/>
+        <button type="button" ng-click="ctrl.fetchTour(id)" class="btn btn-success custom-width">Edit</button>         
+        <h4>Tour: {{ctrl.tour}}</h4> 
+</div>
                                             
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
@@ -439,5 +543,7 @@
       <script src="<c:url value='/static/js/controller/session_controller.js' />"></script>
       <script src="<c:url value='/static/js/service/request_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/request_controller.js' />"></script>
+      <script src="<c:url value='/static/js/service/tour_service.js' />"></script>
+      <script src="<c:url value='/static/js/controller/tour_controller.js' />"></script>
 </body>
 </html>

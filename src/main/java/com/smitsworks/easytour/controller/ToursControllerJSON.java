@@ -42,6 +42,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -144,12 +145,12 @@ public class ToursControllerJSON {
     @JsonView(TourView.class)
     @RequestMapping(value="/gettours", method=RequestMethod.GET)
     public ResponseEntity<Response> getTours(
-            @PathVariable("country") String country_Id,
-            @PathVariable("from_city") String from_Cities_Id,
-            @PathVariable("hotel_rating") String hotel_Rating,
-            @PathVariable("night_from") Integer nightFrom,
-            @PathVariable("night_till") Integer nightTill,
-            @PathVariable("meal_type") String meal_Type_Id
+            @RequestParam(value="country",required=false) String country_Id,
+            @RequestParam(value="from_city",required=false) String from_Cities_Id,
+            @RequestParam("hotel_rating") String hotel_Rating,
+            @RequestParam("night_from") Integer nightFrom,
+            @RequestParam("night_till") Integer nightTill,
+            @RequestParam(value="meal_type",required=false) String meal_Type_Id
             ){
         Request request = new Request();
         
@@ -192,14 +193,23 @@ public class ToursControllerJSON {
     }
     
     @JsonView(TourView.class)
-    @RequestMapping(value="/hottours",method=RequestMethod.GET)
-    public ResponseEntity<List<Tour>> getHotTours(){
+    @RequestMapping(value="/tour",method=RequestMethod.GET)
+    public ResponseEntity<List<Tour>> getAllTours(){
     List<Tour> tourList = tourService.findAll();
     if(tourList==null){
         return new ResponseEntity<List<Tour>>(HttpStatus.NO_CONTENT);
     }
     return new ResponseEntity<List<Tour>>(tourList,HttpStatus.OK);
 }
+    @JsonView(TourView.class)
+    @RequestMapping(value="/tour/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Tour> getTour(@PathVariable("id") Integer id){
+        Tour tour = tourService.findById(id);
+        if(tour==null){
+            return new ResponseEntity<Tour>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Tour>(tour,HttpStatus.OK);
+    }
     
     @JsonView(CountryView.class)
     @RequestMapping(value="/country",method=RequestMethod.GET)
