@@ -1,7 +1,3 @@
-//App.factory('PullElement', ['$resource', function ($resource) {
-//    return $resource('http://localhost:8084/EasyTour/json/element/:id');
-//}]);
-
 App.factory('PullElement', ['$http', '$q', function($http, $q){
         
     var SERVER_URL = 'http://localhost:8084/EasyTour/json/element/';    
@@ -15,7 +11,7 @@ App.factory('PullElement', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while fetching users');
+                        console.error('Error while fetching element');
                         return $q.reject(errResponse);
                     }
             );
@@ -29,7 +25,7 @@ App.factory('PullElement', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while getting user');
+                        console.error('Error while getting element');
                         return $q.reject(errResponse);
                     }
             );
