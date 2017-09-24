@@ -57,5 +57,5 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                                 }
                       );
                   };
-            self.fetchAllTours();
+            //self.fetchAllTours();
       }]);

@@ -511,7 +511,7 @@
                                     
                                     <td><span ng-bind="t.from_Cities.id"></span></td>
 
-                                    <td><span ng-bind="t.transport_Type."></span></td>
+                                    <td><span ng-bind="t.transport_Type"></span></td>
 
                                     </tr>
                             </tbody>
@@ -522,6 +522,8 @@
             <label>Id :</label><input type="number" ng-model="id" placeholder="Enter id"/>
         <button type="button" ng-click="ctrl.fetchTour(id)" class="btn btn-success custom-width">Edit</button>         
         <h4>Tour: {{ctrl.tour}}</h4> 
+        <button type="button" ng-click="ctrl.fetchTourByRequest('318','2014','3:78','2','7','388')" class="btn btn-success custom-width">GetTours</button>         
+
 </div>
                                             
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>

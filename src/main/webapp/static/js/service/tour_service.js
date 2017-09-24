@@ -32,13 +32,13 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
         },
         
     fetchByRequest:function(country_id,from_city_id,hotel_rating,night_from,night_till,meal_type_id){
-        return $http.get('http://localhost:8084/EasyTour/json/gettours/'+
+        return $http.get('http://localhost:8084/EasyTour/json/gettours'+
                 '?country='+country_id+
                 '&from_city='+from_city_id+
                 '&hotel_rating='+hotel_rating+
-                'night_from='+night_from+
-                'night_till='+night_till+
-                'meal_type+'+meal_type_id).then(
+                '&night_from='+night_from+
+                '&night_till='+night_till+
+                '&meal_type='+meal_type_id).then(
                 function(response){
                         return response.data;
                     }, 
