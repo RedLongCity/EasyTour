@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.smitsworks.easytour.JsonView.RequsetPullElementView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -55,7 +56,7 @@ public class RequestPullElement {
     @Column(name="by_human",unique=false,nullable=false)
     private Boolean byHuman;
     
-    @JsonView(TourView.class)
+    @JsonView(RequsetPullElementView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="session_id",nullable=false)
     private UpdateSession updateSession;

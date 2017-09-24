@@ -5,24 +5,26 @@ import org.springframework.http.ResponseEntity;
 import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.Hotel_RatingView;
+import com.smitsworks.easytour.JsonView.RequsetPullElementView;
 import com.smitsworks.easytour.JsonView.TourView;
 import com.smitsworks.easytour.models.Country;
+import com.smitsworks.easytour.models.Currency;
 import com.smitsworks.easytour.models.FiltersResponse;
 import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Hotel_Rating;
 import com.smitsworks.easytour.models.Meal_Type;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.Response;
 import com.smitsworks.easytour.models.Tour;
 import com.smitsworks.easytour.quartz.services.QuartzService;
-import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
 import com.smitsworks.easytour.requesthandlers.ItToursHotFiltersRequestHandler;
 import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
 import com.smitsworks.easytour.responsecommands.ResponseCommand;
 import com.smitsworks.easytour.responsehandlers.ItToursHotFiltersResponseHandler;
 import com.smitsworks.easytour.responsehandlers.ItToursHotSearchResponseHandler;
 import com.smitsworks.easytour.service.CountryService;
+import com.smitsworks.easytour.service.CurrencyService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import com.smitsworks.easytour.service.Meal_TypeService;
@@ -30,12 +32,11 @@ import com.smitsworks.easytour.service.RequestPullElementService;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
-import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
-import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.TimeUtils;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,25 +57,19 @@ public class ToursControllerJSON {
     From_CitiesService from_CitiesService;
     
     @Autowired
-    Hotel_RatingService hotel_ratingService;
+    Hotel_RatingService hotel_RatingService;
     
     @Autowired
     Meal_TypeService meal_TypeService;
+    
+    @Autowired
+    CurrencyService currencyService;
     
     @Autowired
     TourService tourService;
     
     @Autowired
     QuartzService quartzService;
-    
-    @Autowired
-    ItToursSearchBaseRequestCommand command;
-    
-    @Autowired
-    HotSearchRequestConverterUtils converter;
-    
-    @Autowired
-    ItToursHotToursSearchParser parser;
     
     @Autowired
     RequestService requestService;
@@ -122,30 +117,6 @@ public class ToursControllerJSON {
         searchRequestHandler.handleRequest(request);
     }
     
-    @RequestMapping(value="/shutdown",method=RequestMethod.GET)
-    public void stopScheduling(){
-        quartzService.shutDown();
-    }
-    
-    @RequestMapping(value="/stop",method=RequestMethod.GET)
-    public void pauseScheduling(){
-        quartzService.pauseAll();
-    }
-    
-    @RequestMapping(value="/startupdating",method=RequestMethod.GET)
-    public void startScheduling(){
-    }
-    
-    @RequestMapping(value="/stopshort",method=RequestMethod.GET)
-    public void pauseShort(){
-        quartzService.pauseJob("shortJob", "quartzJobs");
-    }
-    
-    @RequestMapping(value="/stopglobal",method=RequestMethod.GET)
-    public void pauseGlobal(){
-        quartzService.pauseJob("globalJob", "quartzJobs");
-    }
-    
     @RequestMapping(value="/resumeshort",method=RequestMethod.GET)
     public void resumeShort(){
         quartzService.resumeJob("shortJob", "quartzJobs");
@@ -169,15 +140,46 @@ public class ToursControllerJSON {
     
     @JsonView(TourView.class)
     @RequestMapping(value="/gettours", method=RequestMethod.GET)
-    public ResponseEntity<Response> getTours(){
+    public ResponseEntity<Response> getTours(
+            @PathVariable("country") String country_Id,
+            @PathVariable("from_city") String from_Cities_Id,
+            @PathVariable("hotel_rating") String hotel_Rating,
+            @PathVariable("night_from") Integer nightFrom,
+            @PathVariable("night_till") Integer nightTill,
+            @PathVariable("meal_type") String meal_Type_Id
+            ){
         Request request = new Request();
-        Country country = countryService.findById("318");
+        
+        if(country_Id!=null){
+        Country country = countryService.findById(country_Id);
         request.setCountry(country);
-        From_Cities from_Citites = from_CitiesService.findById("2014");
+        }
+        
+        if(from_Cities_Id!=null){
+        From_Cities from_Citites = from_CitiesService.findById(from_Cities_Id);
         request.setFrom_Cities(from_Citites);
-        request.setNight_From(2);
-        request.setNight_Till(4);
-        request.setHotel_Rating("3:78");
+        }
+        
+        if(hotel_Rating==null){
+            return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
+        }
+        request.setHotel_Rating(hotel_Rating);
+        
+        if(nightFrom==null){
+            return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
+        }
+        request.setNight_From(nightFrom);
+        
+        if(nightTill==null){
+            return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
+        }
+        request.setNight_Till(nightTill);
+        
+        if(meal_Type_Id!=null){
+            Meal_Type meal_Type = meal_TypeService.findById(meal_Type_Id);
+            request.setMeal_Type(meal_Type);
+        }
+        
         ResponseCommand command = searchRequestHandler.handleRequest(request);
         Response response = searchResponseHandler.executeResponseCommand(command);
         if(response==null){
@@ -195,17 +197,30 @@ public class ToursControllerJSON {
     }
     return new ResponseEntity<List<Tour>>(tourList,HttpStatus.OK);
 }
+    
     @JsonView(CountryView.class)
-    @RequestMapping(value="/getcountriesforfilter",method=RequestMethod.GET)
-    public ResponseEntity<List<Country>> getCountriesForFilter(){
+    @RequestMapping(value="/country",method=RequestMethod.GET)
+    public ResponseEntity<List<Country>> getCountries(){
         List<Country> countryList = countryService.findAll();
         if(countryList==null){
             return new ResponseEntity<List<Country>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Country>>(countryList,HttpStatus.OK);
     }
+    
+    @JsonView(CountryView.class)
+    @RequestMapping(value="/country/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Country> getCountry(@PathVariable("id") String id){
+        Country country = countryService.findById(id);
+        if(country==null){
+            return new ResponseEntity<Country>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Country>(country,HttpStatus.OK);
+    }
+
+    
     @JsonView(From_CitiesView.class)
-    @RequestMapping(value="/getcitiesforfilters",method=RequestMethod.GET)
+    @RequestMapping(value="/city",method=RequestMethod.GET)
     public ResponseEntity<List<From_Cities>> getFrom_CitiesForFilter(){
         List<From_Cities> from_CitiesList = from_CitiesService.findAll();
         if(from_CitiesList==null){
@@ -213,17 +228,40 @@ public class ToursControllerJSON {
         }
         return new ResponseEntity<List<From_Cities>>(from_CitiesList,HttpStatus.OK);
     } 
+    
+    @JsonView(From_CitiesView.class)
+    @RequestMapping(value="city/{id}",method=RequestMethod.GET)
+    public ResponseEntity<From_Cities> getCity(@PathVariable("id") String id){
+        From_Cities city = from_CitiesService.findById(id);
+        if(city==null){
+            return new ResponseEntity<From_Cities>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<From_Cities>(city,HttpStatus.OK);
+    }
+    
     @JsonView(Hotel_RatingView.class)
-    @RequestMapping(value="/gethotelratingsforfiters",method=RequestMethod.GET)
-    public ResponseEntity<List<Hotel_Rating>> getHotel_RatingsForFilters(){
-        List<Hotel_Rating> hotel_RatingList = hotel_ratingService.findAll();
+    @RequestMapping(value="/hotelrating",method=RequestMethod.GET)
+    public ResponseEntity<List<Hotel_Rating>> getHotelRatings(){
+        List<Hotel_Rating> hotel_RatingList = hotel_RatingService.findAll();
         if(hotel_RatingList==null){
             return new ResponseEntity<List<Hotel_Rating>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Hotel_Rating>>(hotel_RatingList,HttpStatus.OK);
     }
+    
+    @JsonView(Hotel_RatingView.class)
+    @RequestMapping(value="/hotelrating/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Hotel_Rating> getHotelRating(
+            @PathVariable("id") String id){
+        Hotel_Rating rating = hotel_RatingService.findById(id);
+        if(rating==null){
+            return new ResponseEntity<Hotel_Rating>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Hotel_Rating>(rating,HttpStatus.OK);
+    }
+    
     @JsonView(TourView.class)
-    @RequestMapping(value="/getmealtypesforfilter",method=RequestMethod.GET)
+    @RequestMapping(value="/getmealtypes",method=RequestMethod.GET)
     public ResponseEntity<List<Meal_Type>> getMeal_TypesForFilter(){
        List<Meal_Type> meal_TypeList = meal_TypeService.findAll();
        if(meal_TypeList==null){
@@ -232,4 +270,35 @@ public class ToursControllerJSON {
        return new ResponseEntity<List<Meal_Type>>(meal_TypeList,HttpStatus.OK);
     }
     
+    @JsonView(TourView.class)
+    @RequestMapping(value="/getcurrencies",method=RequestMethod.GET)
+    public ResponseEntity<List<Currency>> getCurrencies(){
+        List<Currency> currencyList = currencyService.findAll();
+        if(currencyList==null){
+            return new ResponseEntity<List<Currency>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Currency>>(currencyList,HttpStatus.OK);
+    }
+    
+    @JsonView(RequsetPullElementView.class)
+    @RequestMapping(value="/element",method=RequestMethod.GET)
+    public ResponseEntity<List<RequestPullElement>> getPullElements(){
+        List<RequestPullElement> elementList = elementService.findAll();
+        if(elementList==null){
+            return new ResponseEntity<List<RequestPullElement>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<RequestPullElement>>(elementList,HttpStatus.OK);
+    }
+
+    @JsonView(RequsetPullElementView.class)
+    @RequestMapping(value="/element/{id}",method=RequestMethod.GET)
+    public ResponseEntity<RequestPullElement> getPullElement(
+            @PathVariable("id") Integer id){
+       RequestPullElement element = elementService.findById(id);
+       if(element==null){
+           return new ResponseEntity<RequestPullElement>(HttpStatus.NO_CONTENT);
+       }
+       return new ResponseEntity<RequestPullElement>(element,HttpStatus.OK);
+    }
+
 }

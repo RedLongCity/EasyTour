@@ -2,6 +2,7 @@ package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.smitsworks.easytour.JsonView.TourView;
+import com.smitsworks.easytour.JsonView.UpdateSessionView;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class UpdateSession {
     @Column(name="session_time",nullable=false,unique=false)
     private Timestamp sessionTime;
     
-    @JsonView(TourView.class)
+    @JsonView(UpdateSessionView.class)
     @OneToMany(fetch=FetchType.LAZY,mappedBy="updateSession",cascade=CascadeType.ALL)
     private Set<RequestPullElement> requestPullElementSet = new HashSet<RequestPullElement>();
 
