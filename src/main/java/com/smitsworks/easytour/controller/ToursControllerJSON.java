@@ -7,6 +7,7 @@ import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.Hotel_RatingView;
 import com.smitsworks.easytour.JsonView.RequsetPullElementView;
 import com.smitsworks.easytour.JsonView.TourView;
+import com.smitsworks.easytour.JsonView.UpdateSessionView;
 import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.Currency;
 import com.smitsworks.easytour.models.FiltersResponse;
@@ -17,6 +18,7 @@ import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.Response;
 import com.smitsworks.easytour.models.Tour;
+import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.requesthandlers.ItToursHotFiltersRequestHandler;
 import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
@@ -320,5 +322,25 @@ public class ToursControllerJSON {
        }
        return new ResponseEntity<RequestPullElement>(element,HttpStatus.OK);
     }
+    
+    @JsonView(UpdateSessionView.class)
+    @RequestMapping(value="/session",method=RequestMethod.GET)
+    public ResponseEntity<List<UpdateSession>> getSessions(){
+        List<UpdateSession> sessionList = sessionService.findAll();
+        if(sessionService==null){
+            return new ResponseEntity<List<UpdateSession>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<UpdateSession>>(sessionList,HttpStatus.OK);
+    }
 
+    @JsonView(UpdateSessionView.class)
+    @RequestMapping(value="/session/{id}",method=RequestMethod.GET)
+    public ResponseEntity<UpdateSession> getSession(
+            @PathVariable("id") Integer id){
+        UpdateSession session = sessionService.findById(id);
+        if(session==null){
+            return new ResponseEntity<UpdateSession>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<UpdateSession>(session,HttpStatus.OK);
+    }
 }

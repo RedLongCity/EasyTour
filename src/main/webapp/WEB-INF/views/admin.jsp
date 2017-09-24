@@ -310,6 +310,51 @@
         <button type="button" ng-click="ctrl.fetchCurrency(id)" class="btn btn-success custom-width">Edit</button>         
         <h4>Currency: {{ctrl.currency}}</h4> 
 </div> 
+                                        
+                                    <!--Sessions-->
+        
+        <div class="card mb-4" ng-controller="SessionController as ctrl">
+    <div class="card-block">
+            <h3 class="card-title">Sessions</h3>
+
+            <div class="dropdown card-title-btn-container">
+                    <button class="btn btn-sm btn-subtle" type="button"><em class="fa fa-list-ul"></em> View All</button>
+
+                    <button class="btn btn-sm btn-subtle dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><em class="fa fa-cog"></em></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#"><em class="fa fa-search mr-1"></em> More info</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-thumb-tack mr-1"></em> Pin Window</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-remove mr-1"></em> Close Window</a></div>
+            </div>
+
+            <div class="table-responsive">
+                    <table class="table table-striped">
+                            <thead>
+                                    <tr>
+                                            <th>ID.</th>
+
+                                            <th>Session Time</th>
+                                            
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="s in ctrl.sessions">
+
+                                    <td><span ng-bind="s.id"></span></td>
+
+                                    <td><span ng-bind="s.sessionTime"></span></td>
+
+                                    </tr>
+                            </tbody>
+                    </table>
+            </div>
+    </div>
+            
+            <label>Id :</label><input type="number" ng-model="id" placeholder="Enter id"/>
+        <button type="button" ng-click="ctrl.fetchSession(id)" class="btn btn-success custom-width">Edit</button>         
+        <h4>Session: {{ctrl.session}}</h4> 
+</div> 
                                             
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
@@ -326,5 +371,7 @@
       <script src="<c:url value='/static/js/controller/meal_type_controller.js' />"></script>
       <script src="<c:url value='/static/js/service/currency_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/currency_controller.js' />"></script>
+      <script src="<c:url value='/static/js/service/session_service.js' />"></script>
+      <script src="<c:url value='/static/js/controller/session_controller.js' />"></script>
 </body>
 </html>

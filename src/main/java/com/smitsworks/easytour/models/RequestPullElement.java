@@ -39,7 +39,7 @@ public class RequestPullElement {
     @Column(name="request_datetime",unique=false,nullable=false)
     private Timestamp request_pull_DateTime;
     
-    @JsonView(TourView.class)
+    @JsonView(RequsetPullElementView.class)
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="request_id",nullable=false)
     private Request request;
