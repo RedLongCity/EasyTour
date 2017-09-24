@@ -73,7 +73,15 @@
                     </table>
             </div>
     </div>
+            
+            <label>Id :</label><input type="number" ng-model="id" placeholder="Enter id"/>
+        <button type="button" ng-click="ctrl.fetchElement(id)" class="btn btn-success custom-width">Edit</button>         
+        <h4>Element: {{ctrl.element}}</h4> 
+  
+            
 </div>
+        
+        
     
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>

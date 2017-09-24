@@ -261,8 +261,8 @@ public class ToursControllerJSON {
     }
     
     @JsonView(TourView.class)
-    @RequestMapping(value="/getmealtypes",method=RequestMethod.GET)
-    public ResponseEntity<List<Meal_Type>> getMeal_TypesForFilter(){
+    @RequestMapping(value="/mealtype",method=RequestMethod.GET)
+    public ResponseEntity<List<Meal_Type>> getMealTypes(){
        List<Meal_Type> meal_TypeList = meal_TypeService.findAll();
        if(meal_TypeList==null){
            return new ResponseEntity<List<Meal_Type>>(HttpStatus.NO_CONTENT);
@@ -271,13 +271,33 @@ public class ToursControllerJSON {
     }
     
     @JsonView(TourView.class)
-    @RequestMapping(value="/getcurrencies",method=RequestMethod.GET)
+    @RequestMapping(value="/mealtype/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Meal_Type> getMealType(@PathVariable("id") String id){
+        Meal_Type mealType = meal_TypeService.findById(id);
+        if(mealType==null){
+            return new ResponseEntity<Meal_Type>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Meal_Type>(mealType,HttpStatus.OK);
+    }
+    
+    @JsonView(TourView.class)
+    @RequestMapping(value="/currency",method=RequestMethod.GET)
     public ResponseEntity<List<Currency>> getCurrencies(){
         List<Currency> currencyList = currencyService.findAll();
         if(currencyList==null){
             return new ResponseEntity<List<Currency>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Currency>>(currencyList,HttpStatus.OK);
+    }
+    
+    @JsonView(TourView.class)
+    @RequestMapping(value="/currency/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Currency> getCurrency(@PathVariable("id") String id){
+        Currency currency = currencyService.findById(id);
+        if(currency==null){
+            return new ResponseEntity<Currency>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Currency>(currency,HttpStatus.OK);
     }
     
     @JsonView(RequsetPullElementView.class)
