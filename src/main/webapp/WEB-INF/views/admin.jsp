@@ -355,6 +355,70 @@
         <button type="button" ng-click="ctrl.fetchSession(id)" class="btn btn-success custom-width">Edit</button>         
         <h4>Session: {{ctrl.session}}</h4> 
 </div> 
+                                    
+                                    <!--Requests-->
+        
+        <div class="card mb-4" ng-controller="RequestController as ctrl">
+    <div class="card-block">
+            <h3 class="card-title">Requests</h3>
+
+            <div class="dropdown card-title-btn-container">
+                    <button class="btn btn-sm btn-subtle" type="button"><em class="fa fa-list-ul"></em> View All</button>
+
+                    <button class="btn btn-sm btn-subtle dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><em class="fa fa-cog"></em></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#"><em class="fa fa-search mr-1"></em> More info</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-thumb-tack mr-1"></em> Pin Window</a>
+                        <a class="dropdown-item" href="#"><em class="fa fa-remove mr-1"></em> Close Window</a></div>
+            </div>
+
+            <div class="table-responsive">
+                    <table class="table table-striped">
+                            <thead>
+                                    <tr>
+                                            <th>ID.</th>
+
+                                            <th>Coutry ID</th>
+                                            
+                                            <th>City ID</th>
+                                            
+                                            <th>Hotel Rating</th>
+                                            
+                                            <th>Night From</th>
+                                            
+                                            <th>Night Till</th>
+                                            
+                                            <th>Meal Type</th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="r in ctrl.requests">
+
+                                    <td><span ng-bind="r.id"></span></td>
+
+                                    <td><span ng-bind="r.country.id"></span></td>
+                                    
+                                    <td><span ng-bind="r.from_Cities.id"></span></td>
+                                    
+                                    <td><span ng-bind="r.hotel_Rating"></span></td>
+                                    
+                                    <td><span ng-bind="r.night_From"></span></td>
+                                    
+                                    <td><span ng-bind="r.night_Till"></span></td>
+                                    
+                                    <td><span ng-bind="r.meal_Type"></span></td>
+
+                                    </tr>
+                            </tbody>
+                    </table>
+            </div>
+    </div>
+            
+            <label>Id :</label><input type="number" ng-model="id" placeholder="Enter id"/>
+        <button type="button" ng-click="ctrl.fetchRequest(id)" class="btn btn-success custom-width">Edit</button>         
+        <h4>Request: {{ctrl.request}}</h4> 
+</div>
                                             
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
@@ -373,5 +437,7 @@
       <script src="<c:url value='/static/js/controller/currency_controller.js' />"></script>
       <script src="<c:url value='/static/js/service/session_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/session_controller.js' />"></script>
+      <script src="<c:url value='/static/js/service/request_service.js' />"></script>
+      <script src="<c:url value='/static/js/controller/request_controller.js' />"></script>
 </body>
 </html>

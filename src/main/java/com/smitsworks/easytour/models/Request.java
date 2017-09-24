@@ -72,7 +72,6 @@ public class Request {
     @OneToMany(fetch=FetchType.LAZY,mappedBy="request",cascade=CascadeType.ALL)
     private Set<RequestPullElement> requestPullElement = new HashSet<RequestPullElement>();
 
-    @JsonView(RequestView.class)
     @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name="requests_has_tours",
             joinColumns={@JoinColumn(name="request_id")},

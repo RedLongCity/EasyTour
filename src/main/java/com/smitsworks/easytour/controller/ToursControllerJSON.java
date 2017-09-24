@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.From_CitiesView;
 import com.smitsworks.easytour.JsonView.Hotel_RatingView;
+import com.smitsworks.easytour.JsonView.RequestView;
 import com.smitsworks.easytour.JsonView.RequsetPullElementView;
 import com.smitsworks.easytour.JsonView.TourView;
 import com.smitsworks.easytour.JsonView.UpdateSessionView;
@@ -342,5 +343,25 @@ public class ToursControllerJSON {
             return new ResponseEntity<UpdateSession>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<UpdateSession>(session,HttpStatus.OK);
+    }
+    
+    @JsonView(RequestView.class)
+    @RequestMapping(value="/request",method=RequestMethod.GET)
+    public ResponseEntity<List<Request>> getRequests(){
+        List<Request> requestList = requestService.findAll();
+        if(requestList==null){
+            return new ResponseEntity<List<Request>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Request>>(requestList,HttpStatus.OK);
+    }
+
+    @JsonView(RequestView.class)
+    @RequestMapping(value="/request/{id}",method=RequestMethod.GET)
+    public ResponseEntity<Request> getRequest(@PathVariable("id") Integer id){
+        Request request = requestService.findById(id);
+        if(request==null){
+            return new ResponseEntity<Request>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Request>(request,HttpStatus.OK);
     }
 }
