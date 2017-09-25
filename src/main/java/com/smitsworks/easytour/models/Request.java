@@ -1,8 +1,6 @@
 package com.smitsworks.easytour.models;
 
-import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.smitsworks.easytour.JsonView.CountryView;
 import com.smitsworks.easytour.JsonView.RequestView;
 import com.smitsworks.easytour.JsonView.TourView;
 import java.util.HashSet;
@@ -22,7 +20,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  *

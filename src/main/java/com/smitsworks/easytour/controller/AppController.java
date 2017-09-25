@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AppController {
     
     @RequestMapping(value="/admin",method=RequestMethod.GET)
-    public String listTours(){
+    public String getAdminPage(){
         return "admin";
     }
     
+    @RequestMapping(value="/search",method=RequestMethod.GET)
+    public String getSearchPage(){
+        return "search";
+    }
 }
