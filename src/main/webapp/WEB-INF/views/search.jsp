@@ -85,80 +85,87 @@
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Tours</h3>
                                                                     
+                                                                    <!--<div class="btn-group" role="group" ng-controller="DateController">
+                                                                        <div clas s="input-group date">
+                                                                            <input type="text" class="form-control" ng-model="constants.date" id="from_date" placeholder="Date from: dd/mm/yyyy"><span class="input-group-addon"><i class="carpet"></i></span>
+                                                                        </div>
+                                                                    </div>-->
+                                                                    
+                                                                    <div class="btn-group btn-lg" role="group" >
                                                                         <div class="btn-group" ng-controller="CountryController as countryctrl">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
                                                                                 <em class="fa fa-globe fa-lg"></em> <span ng-bind="constants.but_country"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <div ng-repeat="c in countryctrl.countries">
-                                                                                    <button class="dropdown-item" ng-click="constants.but_country=c.name"><span ng-bind="c.name"></span></button>
+                                                                                    <button class="dropdown-item" ng-click="constants.but_country=c.name; constants.country_id=c.id">
+                                                                                        <span ng-bind="c.name"></span></button>
                                                                                 </div>
                                                                             </div>
-                                                                            
                                                                         </div>
                                                                     
+                                                                        
                                                                         <div class="btn-group" ng-controller="CitiesController as cityctrl">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
                                                                                 <em class="fa fa-globe fa-lg"></em> <span ng-bind="constants.but_city"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <div ng-repeat="c in cityctrl.cities">
-                                                                                    <button class="dropdown-item" ng-click="constants.but_city=c.name"><span ng-bind="c.name"></span></button>
+                                                                                    <button class="dropdown-item" ng-click="constants.but_city=c.name; constants.city_id=c.id">
+                                                                                        <span ng-bind="c.name"></span></button>
                                                                                 </div>
                                                                             </div>
                                                                             
                                                                         </div>
                                                                     
+                                                                            
                                                                         <div class="btn-group">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
                                                                                 <em class="fa fa-star-half-o fa-lg" aria-hidden="true"></em> <span ng-bind="constants.but_rating"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <div ng-repeat="c in constants.ratings_array_face">
-                                                                                    <button class="dropdown-item" ng-click="constants.but_rating=c"><span ng-bind="c"></span></button>
+                                                                                    <button class="dropdown-item" ng-click="constants.but_rating=c;constants.hotel_rating=$index">
+                                                                                        <span ng-bind="c"></span></button>
                                                                                 </div>
                                                                             </div>
                                                                             
                                                                         </div>
-                                                                    
+                                                                    </div>
+                                                                    <div class="btn-group btn-lg" role="group" >
                                                                         <div class="btn-group">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
                                                                                 <em class="fa fa-clock-o fa-lg" aria-hidden="true"></em> <span ng-bind="constants.but_duration"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <div ng-repeat="c in constants.duration_array_face">
-                                                                                    <button class="dropdown-item" ng-click="constants.but_duration=c"><span ng-bind="c"></span></button>
+                                                                                    <button class="dropdown-item" ng-click="constants.but_duration=c;constants.duration_from=$index;
+                                                                                            constants.duration_till=$index">
+                                                                                        <span ng-bind="c"></span></button>
                                                                                 </div>
                                                                             </div>
-                                                                            
                                                                         </div>
-                                                                       
+                                                                        
                                                                         <div class="btn-group" ng-controller="MealTypeController as mealctrl">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
                                                                                 <em class="fa fa-cutlery fa-lg" aria-hidden="true"></em> <span ng-bind="constants.but_mealtype"></span>
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <div ng-repeat="c in mealctrl.mealtypes">
-                                                                                    <button class="dropdown-item" ng-click="constants.but_mealtype=c.name_full"><span ng-bind="c.name_full"></span></button>
+                                                                                    <button class="dropdown-item" ng-click="constants.but_mealtype=c.name_full;constants.meal_type_id=c.id">
+                                                                                        <span ng-bind="c.name_full"></span></button>
                                                                                 </div>
                                                                             </div>
                                                                             
                                                                         </div>
-                                                                        
-                                                                        <div class="btn-group">
-                                                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                                                <em class="fa fa-globe fa-lg"></em> <span ng-bind="constants.but_mealtype"></span>
-                                                                            </button>
-                                                                            <div class="dropdown-menu">
-                                                                                    <div class="dropdown-item" ><span id="calendar"></span></div>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    
-                                                                            <button type="button" class="btn btn-sm btn-success" >
+
+                                                                        <button type="button" class="btn btn-sm btn-success" ng-click="ctrl.fetchTourByRequest(constants.getRequest())">
                                                                                 <em class="fa fa-search fa-lg"></em> Search
-                                                                            </button>
-                                                                            
+                                                                        </button>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    <h4>{{constants.request}}</h4>
 
                                                                     <div class="divider"></div>
                                                                     
@@ -281,6 +288,7 @@
     <script src="<c:url value='/static/js/controller/from_cities_controller.js' />"></script>
     <script src="<c:url value='/static/js/service/meal_type_service.js' />"></script>
     <script src="<c:url value='/static/js/controller/meal_type_controller.js' />"></script>
+    <script src="<c:url value='/static/js/controller/date_controller.js' />"></script>
     <script>
 	    window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");

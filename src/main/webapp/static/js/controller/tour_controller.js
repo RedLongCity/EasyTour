@@ -9,7 +9,11 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           child_Amount:'',accomodation:'',duration:'',
           date_From:'',currency_id:'',currency_Symbol:'',
           prices:'',price_Old:'',price_Change_Percent:'',
-          from_Cities:'',from_City_Gen:'',transport_Type:''};     
+          from_Cities:'',from_City_Gen:'',transport_Type:''}; 
+      
+          self.request={country_id:null,from_city_id:null,
+          hotel_rating:"3:78",night_from:"2",
+          night_till:"7",meal_type_id:null};
                
           self.fetchAllTours = function(){
               Tour.fetchAll()
@@ -35,20 +39,14 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                        );
           };
           
-          self.fetchTourByRequest = function(
-                  country_id,
-                  from_city_id,
-                  hotel_rating,
-                  night_from,
-                  night_till,
-                  meal_type_id){
+          self.fetchTourByRequest = function(request){
                       Tour.fetchByRequest(
-                  country_id,
-                  from_city_id,
-                  hotel_rating,
-                  night_from,
-                  night_till,
-                  meal_type_id).then(
+                  request.country_id,
+                  request.from_city_id,
+                  request.hotel_rating,
+                  request.night_from,
+                  request.night_till,
+                  request.meal_type_id).then(
                                function(d) {
                                     self.tour = d;
                                },
