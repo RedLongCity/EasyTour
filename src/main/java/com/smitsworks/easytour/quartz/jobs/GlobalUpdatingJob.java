@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.quartz.jobs;
 
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
 import com.smitsworks.easytour.utils.TimeUtils;
 import java.util.logging.Level;
@@ -34,10 +35,14 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     @Autowired
     TimeUtils timeUtils;
     
+    @Autowired
+    ProjectConsantsSingletone constants;
+    
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
-        LOG.log(Level.INFO, "GlobalJob Doing");
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        LOG.log(Level.INFO, "GlobalJob Doing");
+        constants.setGlobalRun(true);
         timeUtils.updateTimeConstants();
         requestsPullUtils.clearRequestsPull();
         resumeShortUpdateJob(jec);
@@ -57,6 +62,7 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         }
     }
             private void pauseItSelf(JobExecutionContext jec){
+        constants.setGlobalRun(false);
         Scheduler scheduler = jec.getScheduler();
         if(scheduler==null){
             LOG.log(Level.WARNING,"GlobalUpdatingJob: scheduler is null");

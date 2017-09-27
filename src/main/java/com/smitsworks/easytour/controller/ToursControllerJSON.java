@@ -35,8 +35,9 @@ import com.smitsworks.easytour.service.RequestPullElementService;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
-import com.smitsworks.easytour.utils.TimeUtils;
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,7 +87,7 @@ public class ToursControllerJSON {
     UpdateSessionService sessionService;
     
     @Autowired
-    TimeUtils timeUtils;
+    ProjectConsantsSingletone constatns;
     
     @Autowired
     ItToursHotSearchRequestHandler searchRequestHandler;
@@ -122,14 +123,20 @@ public class ToursControllerJSON {
         searchRequestHandler.handleRequest(request);
     }
     
-    @RequestMapping(value="/resumeshort",method=RequestMethod.GET)
-    public void resumeShort(){
-        quartzService.resumeJob("shortJob", "quartzJobs");
+    @RequestMapping(value="/getstatuses",method=RequestMethod.GET)
+    public ResponseEntity<List<Boolean>> getStatus(){
+        List<Boolean> statusesList = new ArrayList<Boolean>();
+        statusesList.add(constatns.isShorRun());
+        statusesList.add(constatns.isGlobalRun());
+        return new ResponseEntity<List<Boolean>>(statusesList,HttpStatus.OK);
     }
     
-    @RequestMapping(value="/resumeglobal",method=RequestMethod.GET)
-    public void resumeGlobal(){
-        quartzService.resumeJob("globalJob", "quartzJobs");
+    @RequestMapping(value="/getdelays",method=RequestMethod.GET)
+    public ResponseEntity<List<String>> getDelays(){
+        List<String> delaysList = new ArrayList<String>();
+        delaysList.add(String.valueOf(constatns.getShortUpdatingDelay()));
+        delaysList.add(constatns.getGlobalUpdatingDelay());
+        return new ResponseEntity<List<String>>(delaysList,HttpStatus.OK);
     }
     
     @JsonView(CountryView.class)

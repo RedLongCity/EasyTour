@@ -31,8 +31,12 @@ public class ProjectConsantsSingletone {
     
     private long shortUpdatingDelay=20000;//Previous or Current update time
     
+    private boolean shortRun=true;//indicator for short job running
+    
     private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
     
+    private boolean globalRun=true;//indicator for global job running
+
     private List<RequestCommand> requestsPull=new ArrayList<RequestCommand>();//pull for all requests
     
     private Timestamp timeOfCurrentSession;
@@ -129,6 +133,22 @@ public class ProjectConsantsSingletone {
             this.timeOfPreviousSession = timeUtils.getCurrentTime();
         }
         this.timeOfPreviousSession = timeOfPreviousSession;
+    }
+
+    public boolean isShorRun() {
+        return shortRun;
+    }
+
+    public void setShorRun(boolean isShorRun) {
+        this.shortRun = isShorRun;
+    }
+
+    public boolean isGlobalRun() {
+        return globalRun;
+    }
+
+    public void setGlobalRun(boolean isGlobalRunning) {
+        this.globalRun = isGlobalRunning;
     }
     
     

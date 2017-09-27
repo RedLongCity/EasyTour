@@ -38,8 +38,9 @@ public class ShortUpdatingJob extends QuartzJobBean{
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
-        LOG.log(Level.INFO, "ShortJob Doing");
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        LOG.log(Level.INFO, "ShortJob Doing");
+        projectConsantsSingletone.setShorRun(true);
         command = pullUtils.getNextCommand();
         if(command!=null){
             command.execute();
@@ -54,6 +55,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
     
     private void pauseItSelf(JobExecutionContext jec){
         Scheduler scheduler = jec.getScheduler();
+        projectConsantsSingletone.setShorRun(false);
         if(scheduler==null){
             LOG.log(Level.WARNING,"ShortJob: scheduler is null");
             return;

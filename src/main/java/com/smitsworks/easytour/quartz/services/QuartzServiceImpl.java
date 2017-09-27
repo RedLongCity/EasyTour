@@ -5,6 +5,7 @@
  */
 package com.smitsworks.easytour.quartz.services;
 
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.CronScheduleBuilder;

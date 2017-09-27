@@ -2,7 +2,6 @@
  
 App.controller('ConstantsController', ['$scope',function($scope) {
           var self = this;
-          var coun=4;
           self.but_country='Country';
           self.but_city='City';
           self.but_duration='Duration';
@@ -60,9 +59,6 @@ App.controller('ConstantsController', ['$scope',function($scope) {
               return self.request;
           };
           
-          self.double=function(value){return value*2;};
-          
-          self.Id=function(){return coun};
       }]);
 
 
