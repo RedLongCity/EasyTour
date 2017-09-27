@@ -19,7 +19,7 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
               Tour.fetchAll()
                   .then(
                                function(d) {
-                                    self.tours = d;
+                                   self.tours = d;
                                },
                                 function(errResponse){
                                     console.error('Error while fetching tours');

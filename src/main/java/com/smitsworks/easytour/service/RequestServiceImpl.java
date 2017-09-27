@@ -78,7 +78,7 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> findAll() {
         return requestDao.findAll();
     }
-
+    
     @Override
     public void deleteAllRequests() {
         List<Request> requestList = requestDao.findAll();

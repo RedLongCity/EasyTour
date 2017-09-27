@@ -23,4 +23,9 @@ public class AppController {
     public String getSearchPage(){
         return "search";
     }
+    
+    @RequestMapping(value="/statistics",method=RequestMethod.GET)
+    public String getStatisticsPage(){
+        return "statistics";
+    }
 }

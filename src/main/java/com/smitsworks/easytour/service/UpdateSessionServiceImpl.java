@@ -31,6 +31,13 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
     }
 
     @Override
+    public List<UpdateSession> findByDates(Timestamp dateFrom, Timestamp dateTill) {
+        return sessionDao.findByDates(dateFrom, dateTill);
+    }
+
+    
+    
+    @Override
     public UpdateSession findByUpdateTime(Timestamp updateTime) {
         return sessionDao.findsessionByTime(updateTime);
     }

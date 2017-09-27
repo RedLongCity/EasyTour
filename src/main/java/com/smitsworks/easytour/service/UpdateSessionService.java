@@ -17,6 +17,9 @@ public interface UpdateSessionService {
     
     UpdateSession findByUpdateTime(Timestamp updateTime);
     
+    List<UpdateSession> findByDates(Timestamp dateFrom,
+            Timestamp dateTill);
+    
     UpdateSession getPreviousSession();
     
     void saveUpdateSession(UpdateSession session);

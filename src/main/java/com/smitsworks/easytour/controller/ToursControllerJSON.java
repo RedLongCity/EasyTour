@@ -36,6 +36,7 @@ import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.utils.TimeUtils;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -334,6 +335,18 @@ public class ToursControllerJSON {
        return new ResponseEntity<RequestPullElement>(element,HttpStatus.OK);
     }
     
+    @JsonView(RequsetPullElementView.class)
+    @RequestMapping(value="/getelements",method=RequestMethod.GET)
+    public ResponseEntity<List<RequestPullElement>> getElementsByDate(
+            @RequestParam("datefrom") Timestamp dateFrom,
+            @RequestParam("dateTill") Timestamp dateTill){
+        List<RequestPullElement> elementsList = elementService.findByDateInterval(dateFrom,dateTill);
+        if(elementsList==null){
+            return new ResponseEntity<List<RequestPullElement>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<RequestPullElement>>(elementsList,HttpStatus.OK);
+    }
+    
     @JsonView(UpdateSessionView.class)
     @RequestMapping(value="/session",method=RequestMethod.GET)
     public ResponseEntity<List<UpdateSession>> getSessions(){
@@ -355,6 +368,19 @@ public class ToursControllerJSON {
         return new ResponseEntity<UpdateSession>(session,HttpStatus.OK);
     }
     
+    @JsonView(UpdateSessionView.class)
+    @RequestMapping(value="/getsessions",method=RequestMethod.GET)
+    public ResponseEntity<List<UpdateSession>> getSessionsByDates(
+            @RequestParam("datefrom") Timestamp dateFrom,
+            @RequestParam("datetill") Timestamp dateTill){
+        List<UpdateSession> sessionList=sessionService.findByDates(dateFrom, dateTill);
+        if(sessionList==null){
+            return new ResponseEntity<List<UpdateSession>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<UpdateSession>>(sessionList,HttpStatus.OK);
+    }
+
+    
     @JsonView(RequestView.class)
     @RequestMapping(value="/request",method=RequestMethod.GET)
     public ResponseEntity<List<Request>> getRequests(){
@@ -374,4 +400,5 @@ public class ToursControllerJSON {
         }
         return new ResponseEntity<Request>(request,HttpStatus.OK);
     }
+    
 }

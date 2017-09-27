@@ -44,10 +44,8 @@
 
                     <ul class="nav nav-pills flex-column sidebar-nav">
                             <li class="nav-item"><a class="nav-link active" href="http://localhost:8084/EasyTour/search"><em class="fa fa-search" aria-hidden="true"></em> Searching <span class="sr-only">(current)</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href="widgets.html"><em class="fa fa-bar-chart"></em> Statistics</a></li>
+                            <li class="nav-item"><a class="nav-link" href="http://localhost:8084/EasyTour/statistics"><em class="fa fa-bar-chart"></em> Statistics</a></li>
                             <li class="nav-item"><a class="nav-link" href="charts.html"><em class="fa fa-cogs" aria-hidden="true"></em> Settings</a></li>
-                            <li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li>
-                            <li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li>
                     </ul>
 
                     <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a></nav>
@@ -158,15 +156,19 @@
                                                                             </div>
                                                                             
                                                                         </div>
-
+                                                                    </div>
+                                                                    <div class="btn-group" role="group">
+                                                                        
+                                                                        <button type="button" class="btn btn-sm btn-danger" ng-click="ctrl.fetchAllTours()">
+                                                                                <em class="fa fa-search fa-lg"></em> Find All
+                                                                        </button>
+                                                                        
                                                                         <button type="button" class="btn btn-sm btn-success" ng-click="ctrl.fetchTourByRequest(constants.getRequest())">
                                                                                 <em class="fa fa-search fa-lg"></em> Search
                                                                         </button>
+                                                                        
                                                                     </div>
                                                                     
-                                                                    
-                                                                    <h4>{{constants.request}}</h4>
-
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
@@ -240,7 +242,7 @@
 
                                                                                         <td><span ng-bind="t.duration"></span></td>
 
-                                                                                        <td><span ng-bind="t.date_From"></span></td>
+                                                                                        <td><span ng-bind="t.date_From | date:'dd/MM/yyyy'"></span></td>
 
                                                                                         <td><span ng-bind="t.from_Cities.name"></span></td>
 
