@@ -83,27 +83,33 @@
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Sessions</h3>
                                                                     
+                                                                    <div ng-controller="TimeController as time">
                                                                     <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-danger">
+                                                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                                                    ng-click="ctrl.fetchAllSessions()">
                                                                                 <em class="fa fa-search fa-lg"></em> All
                                                                             </button>
                                                                         
-                                                                            <button type="button" class="btn btn-sm btn-primary">
+                                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                                    ng-click="ctrl.fetchElementsByDates(time.getBeforeMonth(),time.getNow())">
                                                                                 <em class="fa fa-search fa-lg"></em> Month
                                                                             </button>
                                                                             
                                                                        </div>  
                                                                     
                                                                        <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-primary">
+                                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                                    ng-click="ctrl.fetchElementsByDates(time.getBeforeWeek(),time.getNow())">
                                                                                 <em class="fa fa-search fa-lg" aria-hidden="true"></em> Week
                                                                             </button>
                                                                             
-                                                                            <button type="button" class="btn btn-sm btn-success">
+                                                                            <button type="button" class="btn btn-sm btn-success"
+                                                                                    ng-click="ctrl.fetchElementsByDates(time.getToday(),time.getNow())">
                                                                                 <em class="fa fa-search fa-lg" aria-hidden="true"></em> Today
                                                                             </button>
                                                                         
-                                                                       </div>   
+                                                                       </div> 
+                                                                    </div>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -111,6 +117,8 @@
                                                                      <table class="table table-striped">
                                                                             <thead>
                                                                                     <tr>
+                                                                                            <th>#</th>
+                                                                                        
                                                                                             <th>ID.</th>
 
                                                                                             <th>Session Time</th>
@@ -120,10 +128,12 @@
 
                                                                             <tbody>
                                                                                 <tr ng-repeat="s in ctrl.sessions">
+                                                                                    
+                                                                                    <td><span ng-bind="$index"></span></td>
 
                                                                                     <td><span ng-bind="s.id"></span></td>
 
-                                                                                    <td><span ng-bind="s.sessionTime | date:'dd/MM/yyyy'"></span></td>
+                                                                                    <td><span ng-bind="s.sessionTime | date:'dd/MM/yyyy-HH-mm-ss'"></span></td>
 
                                                                                     </tr>
                                                                             </tbody>
@@ -138,35 +148,43 @@
                                                     <div class="card mb-4">
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Pull Elements</h3>
-                                                                    
+                                                                    <div ng-controller="TimeController as time">
+                                                                        
                                                                     <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-danger">
+                                                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                                                    ng-click="ctrl.fetchAllElements()">
                                                                                 <em class="fa fa-search fa-lg"></em> All
                                                                             </button>
                                                                         
-                                                                            <button type="button" class="btn btn-sm btn-primary">
-                                                                                <em class="fa fa-search fa-lg"></em> Month
+                                                                        <button type="button" class="btn btn-sm btn-primary" 
+                                                                                ng-click="ctrl.fetchElementsByDates(time.getBeforeMonth(),time.getNow())">
+                                                                                <em class="fa fa-search fa-lg"></em>Month
                                                                             </button>
                                                                             
                                                                        </div>  
                                                                     
                                                                        <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-primary">
-                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em> Week
+                                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                                    ng-click="ctrl.fetchElementsByDates(time.getBeforeWeek(),time.getNow())">
+                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em>Week
                                                                             </button>
                                                                             
-                                                                            <button type="button" class="btn btn-sm btn-success">
-                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em> Today
+                                                                            <button type="button" class="btn btn-sm btn-success"
+                                                                                    ng-click="ctrl.fetchElementsByDates(time.getToday(),time.getNow())">
+                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em>Day
                                                                             </button>
                                                                         
                                                                        </div>   
-                                                                    
+                                                                        
+                                                                    </div>
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                                <th>#</th>
+                                                                                            
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Date Time</th>
@@ -185,10 +203,12 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="e in ctrl.elements">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="e.id"></span></td>
 
-                                                                                        <td><span ng-bind="e.request_pull_DateTime | date:'dd/MM/yyyy'"></span></td>
+                                                                                        <td><span ng-bind="e.request_pull_DateTime | date:'dd/MM/yyyy-HH-mm-ss '"></span></td>
 
                                                                                         <td><span ng-bind="e.request.id"></span></td>
 
@@ -206,7 +226,6 @@
                                                                     </div>
                                                             </div>
                                                     </div>
-
                                             </div>
                                         
                                     </section>
@@ -228,6 +247,8 @@
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                                <th>#</th>
+                                                                                                
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Name</th>
@@ -237,6 +258,8 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="c in ctrl.countries">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="c.id"></span></td>
 
@@ -263,6 +286,9 @@
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                            
+                                                                                                <th>#</th>
+                                                                                            
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Name</th>
@@ -272,6 +298,8 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="c in ctrl.cities">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="c.id"></span></td>
 
@@ -299,6 +327,8 @@
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                                <th>#</th>
+                                                                                            
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Coutry ID</th>
@@ -317,6 +347,8 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="r in ctrl.requests">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="r.id"></span></td>
 
@@ -359,6 +391,8 @@
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                                <th>#</th>
+                                                                                            
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Name</th>
@@ -368,6 +402,8 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="c in ctrl.currencies">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="c.id"></span></td>
 
@@ -385,7 +421,7 @@
 
                                                     <div class="card mb-4">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Cites</h3>
+                                                                    <h3 class="card-title">Meal Types</h3>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -393,6 +429,8 @@
                                                                         <table class="table table-striped">
                                                                                 <thead>
                                                                                         <tr>
+                                                                                                <th>#</th>
+                                                                                            
                                                                                                 <th>ID.</th>
 
                                                                                                 <th>Name</th>
@@ -403,6 +441,8 @@
 
                                                                                 <tbody>
                                                                                     <tr ng-repeat="r in ctrl.mealtypes">
+                                                                                        
+                                                                                        <td><span ng-bind="$index"></span></td>
 
                                                                                         <td><span ng-bind="r.id"></span></td>
 
@@ -424,28 +464,6 @@
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Hotel Ratings</h3>
                                                                     
-                                                                    <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-danger">
-                                                                                <em class="fa fa-search fa-lg"></em> All
-                                                                            </button>
-                                                                        
-                                                                            <button type="button" class="btn btn-sm btn-primary">
-                                                                                <em class="fa fa-search fa-lg"></em> Month
-                                                                            </button>
-                                                                            
-                                                                       </div>  
-                                                                    
-                                                                       <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-primary">
-                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em> Week
-                                                                            </button>
-                                                                            
-                                                                            <button type="button" class="btn btn-sm btn-success">
-                                                                                <em class="fa fa-search fa-lg" aria-hidden="true"></em> Today
-                                                                            </button>
-                                                                        
-                                                                       </div>   
-                                                                    
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
@@ -453,6 +471,8 @@
                                                                             <table class="table table-striped">
                                                                                     <thead>
                                                                                             <tr>
+                                                                                                    <th>#</th>
+                                                                                                
                                                                                                     <th>ID.</th>
 
                                                                                                     <th>Name</th>
@@ -463,6 +483,8 @@
                                                                                     <tbody>
                                                                                         <tr ng-repeat="r in ctrl.ratings">
 
+                                                                                            <td><span ng-bind="$index"></span></td>
+                                                                                            
                                                                                             <td><span ng-bind="r.id"></span></td>
 
                                                                                             <td><span ng-bind="r.name"></span></td>
@@ -518,6 +540,7 @@
       <script src="<c:url value='/static/js/controller/session_controller.js' />"></script>
       <script src="<c:url value='/static/js/service/request_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/request_controller.js' />"></script>
+      <script src="<c:url value='/static/js/controller/time_controller.js' />"></script>
     <script>
 	    window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");

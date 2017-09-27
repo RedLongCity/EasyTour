@@ -338,9 +338,11 @@ public class ToursControllerJSON {
     @JsonView(RequsetPullElementView.class)
     @RequestMapping(value="/getelements",method=RequestMethod.GET)
     public ResponseEntity<List<RequestPullElement>> getElementsByDate(
-            @RequestParam("datefrom") Timestamp dateFrom,
-            @RequestParam("dateTill") Timestamp dateTill){
-        List<RequestPullElement> elementsList = elementService.findByDateInterval(dateFrom,dateTill);
+            @RequestParam("datefrom") Long dateFrom,
+            @RequestParam("datetill") Long dateTill){
+        Timestamp from = new Timestamp(dateFrom);
+        Timestamp till = new Timestamp(dateTill);
+        List<RequestPullElement> elementsList = elementService.findByDateInterval(from,till);
         if(elementsList==null){
             return new ResponseEntity<List<RequestPullElement>>(HttpStatus.NO_CONTENT);
         }
@@ -371,9 +373,11 @@ public class ToursControllerJSON {
     @JsonView(UpdateSessionView.class)
     @RequestMapping(value="/getsessions",method=RequestMethod.GET)
     public ResponseEntity<List<UpdateSession>> getSessionsByDates(
-            @RequestParam("datefrom") Timestamp dateFrom,
-            @RequestParam("datetill") Timestamp dateTill){
-        List<UpdateSession> sessionList=sessionService.findByDates(dateFrom, dateTill);
+            @RequestParam("datefrom") Long dateFrom,
+            @RequestParam("datetill") Long dateTill){
+        Timestamp from = new Timestamp(dateFrom);
+        Timestamp till = new Timestamp(dateTill);
+        List<UpdateSession> sessionList=sessionService.findByDates(from, till);
         if(sessionList==null){
             return new ResponseEntity<List<UpdateSession>>(HttpStatus.NO_CONTENT);
         }

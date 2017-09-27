@@ -233,7 +233,6 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
     
     private RequestCommand zeroingCommand(RequestCommand requestCommand){
         RequestCommand command = requestCommand;
-        command.setDone(Boolean.TRUE);
         command.setPriority(1);
         return command;
     }

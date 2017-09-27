@@ -13,6 +13,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
@@ -36,10 +37,10 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         LOG.log(Level.INFO, "GlobalJob Doing");
-//        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
-//        timeUtils.updateTimeConstants();
-//        requestsPullUtils.clearRequestsPull();
-//        resumeShortUpdateJob(jec);
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        timeUtils.updateTimeConstants();
+        requestsPullUtils.clearRequestsPull();
+        resumeShortUpdateJob(jec);
         pauseItSelf(jec);
     }
     

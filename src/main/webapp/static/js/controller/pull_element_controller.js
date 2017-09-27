@@ -29,5 +29,16 @@ App.controller('PullElementController', ['$scope', 'PullElement', function($scop
                                 }
                        );
           };
+          
+          self.fetchElementsByDates = function(datefrom,datetill){
+             PullElement.fetchByDates(datefrom,datetill).then(
+                               function(d) {
+                                    self.elements = d;
+                               },
+                                function(errResponse){
+                                    console.error('Error while fetching element');
+                                }
+                      ); 
+          };
             self.fetchAllElements();
       }]);

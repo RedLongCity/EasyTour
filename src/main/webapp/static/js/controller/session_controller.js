@@ -28,5 +28,17 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
                                 }
                        );
           };
+          
+        self.fetchElementsByDates = function(datefrom,datetill){
+             Session.fetchByDates(datefrom,datetill).then(
+                               function(d) {
+                                    self.sessions = d;
+                               },
+                                function(errResponse){
+                                    console.error('Error while fetching sessions');
+                                }
+                      ); 
+          };
+          
             self.fetchAllSessions();
       }]);
