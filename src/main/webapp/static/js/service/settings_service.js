@@ -1,32 +1,56 @@
 App.factory('SettingsService', ['$http', '$q', function($http, $q){
 
     var SERVER_URL = 'http://localhost:8084/EasyTour';
-    var SERVER_URL_DELAYS = 'http://localhost:8084/EasyTour/json/getdelays/';    
-    var SERVER_URL_STATUSES = 'http://localhost:8084/EasyTour/json/getstatuses/'; 
+    var SERVER_URL_JSON = 'http://localhost:8084/EasyTour/json';    
 
     return{
 
-    getDelays: function(){
-            return $http.get(SERVER_URL_DELAYS)
+    getShort_Delay: function(){
+            return $http.get(SERVER_URL_JSON+"/getshortdelay")
             .then(
                     function(response){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while getting delays');
+                        console.error('Error while getting shortdelay');
                         return $q.reject(errResponse);
                     }
             );
         },
         
-    getStatuses: function(){
-            return $http.get(SERVER_URL_STATUSES)
+    getShort_Status: function(){
+            return $http.get(SERVER_URL_JSON+"/getshortstatus")
             .then(
                     function(response){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while getting statuses');
+                        console.error('Error while getting short status');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+    getGlobal_Delay: function(){
+            return $http.get(SERVER_URL_JSON+"/getglobaldelay")
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while getting global delay');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    getGlobal_Status: function(){
+            return $http.get(SERVER_URL_JSON+"/getglobalstatus")
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while getting global status');
                         return $q.reject(errResponse);
                     }
             );
@@ -49,11 +73,11 @@ App.factory('SettingsService', ['$http', '$q', function($http, $q){
         },
         
     setGlobalDelay: function(delay){
-            return $http.get(SERVER_URL+"/setglobaldelay+?delay="+delay)
+            return $http.get(SERVER_URL+"/setglobaldelay?delay="+delay)
         },
         
     setShortDelay: function(delay){
-            return $http.get(SERVER_URL+"/setshortdelay+?delay="+delay)
+            return $http.get(SERVER_URL+"/setshortdelay?delay="+delay)
         } 
     }
 }]);

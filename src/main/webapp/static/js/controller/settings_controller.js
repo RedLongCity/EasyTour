@@ -3,53 +3,61 @@
 App.controller('SettingsController', ['$scope','SettingsService',function($scope,SettingsService) {
         
         var self = this;
-        self.delays=[];
-        self.statuses=[];
-        self.shortClasses=[];
-        self.globalClasses=[];
+        self.shortStatus="true";
+        self.globalStatus="true";
+        self.shortDelay=12;
+        self.globalDelay=new String();
+        self.globalDelay=1;
+    
+        self.globalDelaysArray_Human=[1,10,15,30,60,120,180,300];
+        self.shortDelaysArray=[1000,2000,5000,10000,12000,20000,30000];
         
-        self.fetchStatuses = function(){
-           SettingsService.getStatuses()
+        self.fetchShortStatus = function(){
+           SettingsService.getShort_Status()
                    .then(
                        function(d) {
-                           self.statuses = d;
+                           self.shortStatus = d;
                        },
                         function(errResponse){
-                            console.error('Error while fetching statuses');
+                            console.error('Error while fetching short status');
                         }
                     );
         };
         
-        self.fetchDelays = function(){
-            SettingsService.getDelays()
+        self.fetchGlobalStatus = function(){
+           SettingsService.getGlobal_Status()
                    .then(
                        function(d) {
-                           self.delays = d;
+                           self.globalStatus = d;
                        },
                         function(errResponse){
-                            console.error('Error while fetching statuses');
+                            console.error('Error while fetching global status');
                         }
                     );
         };
         
-        self.isShortRun=function(){
-            self.fetchStatuses();
-            return self.statuses[0];
+        self.fetchShortDelay = function(){
+            SettingsService.getShort_Delay()
+                   .then(
+                       function(d) {
+                           self.shortDelay = d;
+                       },
+                        function(errResponse){
+                            console.error('Error while fetching short delay');
+                        }
+                    );
         };
         
-        self.isGlobalRun=function(){
-            self.fetchStatuses();
-            return self.statuses[1];
-        };
-        
-        self.getShortDelay=function(){
-            self.fetchDelays();
-            return self.statuses[0];
-        };
-        
-        self.getGlobalDelay=function(){
-            self.fetchDelays();
-            return self.statuses[1];
+        self.fetchGlobalDelay = function(){
+            SettingsService.getGlobal_Delay()
+                   .then(
+                       function(d) {
+                           self.globalDelay = d;
+                       },
+                        function(errResponse){
+                            console.error('Error while fetching global delay');
+                        }
+                    );
         };
         
         self.setShortDelay=function(delay){
@@ -76,26 +84,9 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
             SettingsService.resumeGlobal();  
         };
         
-        self.getShortStatus=function(){
-            if(self.isShortRun=="TRUE"){
-                self.shortClasses=["alert bg-success","Updating Running","fa fa-rocket fa-xl"];
-                return self.shortClasses;
-            }else{
-                self.shortClasses=["alert bg-danger","Updating Stopped","fa fa-ban fa-xl"];
-                return self.shortClasses;
-            }
-        };
         
-        self.getGlobalStatus=function(){
-            if(self.isGlobalRun=="TRUE"){
-                self.shortClasses=["alert bg-success","Updating Running","fa fa-rocket fa-xl"];
-                return self.shortClasses;
-            }else{
-                self.shortClasses=["alert bg-danger","Updating Stopped","fa fa-ban fa-xl"];
-                return self.shortClasses;
-            }
-        };
-        
-        self.fetchStatuses();
-        self.fetchDelays();
+       self.fetchShortStatus();
+       self.fetchGlobalStatus();
+       self.fetchShortDelay();
+       self.fetchGlobalDelay();
 }]);

@@ -79,55 +79,105 @@
                                     <section class="row">
                                             <div class="col-md-12 col-lg-6 col-xl-4">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Global Updating</h3>
                                                                     
                                                                     
                                                                     <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-success">
+                                                                            <button type="button" class="btn btn-sm btn-success"
+                                                                                    ng-click="ctrl.resumeGlobal()">
                                                                                 <em class="fa fa-rocket" aria-hidden="true"></em> Start
                                                                             </button>
                                                                     
-                                                                            <button type="button" class="btn btn-sm btn-primary">
+                                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                                    ng-click='ctrl.fetchGlobalStatus()'>
                                                                                 <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
                                                                             </button>
                                                                         
-                                                                            <button type="button" class="btn btn-sm btn-danger">
+                                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click='ctrl.stopGlobal()'>
                                                                                 <em class="fa fa-power-off" aria-hidden="true"></em> Stop
                                                                             </button>
                                                                             
                                                                     </div>
-                                                                    
-                                                                    <div ng-class="ctrl.getGlobalStatus()[0]" role="alert"><em ng-class="ctrl.getGlobalStatus()[2]"></em><span ng-bind="ctrl.getGlobalStatus()[1]"></span></div>
+                                                                     <h4>Global Job Running: <span ng-bind="ctrl.globalStatus"></span></h4>
                                                             </div>
                                                     </div>
                                             </div>
                                         
                                             <div class="col-md-12 col-lg-6 col-xl-4">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Short Updating</h3>
                                                                     
                                                                     
                                                                     <div class="btn-group btn-lg" role="group" >
-                                                                            <button type="button" class="btn btn-sm btn-success">
+                                                                            <button type="button" class="btn btn-sm btn-success"
+                                                                                    ng-click='ctrl.resumeShort()'>
                                                                                 <em class="fa fa-rocket" aria-hidden="true"></em> Start
                                                                             </button>
                                                                     
-                                                                            <button type="button" class="btn btn-sm btn-primary">
+                                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                                                    ng-click='ctrl.fetchShortStatus()'>
                                                                                 <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
                                                                             </button>
                                                                         
-                                                                            <button type="button" class="btn btn-sm btn-danger">
+                                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click='ctrl.stopShort()'>
                                                                                 <em class="fa fa-power-off" aria-hidden="true"></em> Stop
                                                                             </button>
                                                                             
                                                                     </div>
-                                                                    
-                                                                   <div ng-class="ctrl.getShortStatus()[0]" role="alert"><em ng-class="ctrl.getShortStatus()[2]"></em><span ng-bind="ctrl.getShortStatus()[1]"></span></div>
+                                                                   <h4>Short Job Running: <span ng-bind="ctrl.shortStatus"></span></h4>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                        
+                                            <div class="col-md-12 col-lg-6 col-xl-4">
 
+                                                    <div class="card mb-4 text-center">
+                                                            <div class="card-block pull-right">
+                                                                    <h3 class="card-title">Global Delay</h3>
+                                                            
+                                                                    <section class='text-center'>
+                                                                    <div class="btn-group btn-lg" role="group" >
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                                <em class="fa fa-globe fa-lg"></em> Every: <span ng-bind="ctrl.globalDelay"></span> min
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <div ng-repeat="c in ctrl.globalDelaysArray_Human">
+                                                                                    <button class="dropdown-item" ng-click="ctrl.globalDelay=c;ctrl.setGlobalDelay(c)">
+                                                                                        Every: <span ng-bind="c"></span> min</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> 
+                                                                    </section>
+                                                            </div>
+                                                    </div>
+                                                
+                                                    <div class="card mb-4 text-center">
+                                                            <div class="card-block pull-right">
+                                                                    <h3 class="card-title">Short Delay</h3>
+                                                            
+                                                                    <section class='text-center'>
+                                                                    <div class="btn-group btn-lg" role="group" >
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                                <em class="fa fa-globe fa-lg"></em> Every: <span ng-bind="ctrl.shortDelay/1000"></span> sec
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <div ng-repeat="c in ctrl.shortDelaysArray">
+                                                                                    <button class="dropdown-item" ng-click="ctrl.shortDelay=c;ctrl.setShortDelay(c)">
+                                                                                        Every: <span ng-bind="c/1000"></span> sec</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> 
+                                                                    </section>
                                                             </div>
                                                     </div>
                                             </div>

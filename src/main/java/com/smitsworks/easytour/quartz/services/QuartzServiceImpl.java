@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.smitsworks.easytour.quartz.services;
 
-import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.CronScheduleBuilder;
@@ -15,7 +9,6 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
-import org.quartz.TriggerKey;
 import static org.quartz.TriggerKey.triggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +28,7 @@ public class QuartzServiceImpl implements QuartzService {
     Scheduler scheduler;
     
     @Override
-    public void updateShortTrigger(Integer RepeatInterval, Integer RepeatCount) {
+    public void updateShortTrigger(Long RepeatInterval) {
         if(scheduler==null){
            LOG.log(Level.WARNING,"Sheduler is null");
            return;
@@ -48,8 +41,8 @@ public class QuartzServiceImpl implements QuartzService {
         }
         TriggerBuilder tb = oldTrigger.getTriggerBuilder();
         Trigger newTrigger = tb.withSchedule(SimpleScheduleBuilder.
-        simpleSchedule().withIntervalInSeconds(RepeatInterval).
-        withRepeatCount(RepeatCount)).build();
+        simpleSchedule().withIntervalInMilliseconds(RepeatInterval).
+                repeatForever()).build();
         try {
             scheduler.rescheduleJob(oldTrigger.getKey(), newTrigger);
         } catch (SchedulerException ex) {

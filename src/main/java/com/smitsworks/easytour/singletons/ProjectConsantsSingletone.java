@@ -33,7 +33,7 @@ public class ProjectConsantsSingletone {
     
     private boolean shortRun=true;//indicator for short job running
     
-    private String globalUpdatingDelay="0/10 * * * * ?";//delay between global updating
+    private String globalUpdatingDelay="* 0/1 * * * ?";//delay between global updating
     
     private boolean globalRun=true;//indicator for global job running
 

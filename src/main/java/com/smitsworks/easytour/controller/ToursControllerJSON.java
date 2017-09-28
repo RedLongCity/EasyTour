@@ -36,6 +36,7 @@ import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.service.TourService;
 import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
+import com.smitsworks.easytour.utils.GlobalUpdateDelayUtils;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,10 @@ public class ToursControllerJSON {
     UpdateSessionService sessionService;
     
     @Autowired
-    ProjectConsantsSingletone constatns;
+    ProjectConsantsSingletone constants;
+    
+    @Autowired
+    GlobalUpdateDelayUtils delayUtils;
     
     @Autowired
     ItToursHotSearchRequestHandler searchRequestHandler;
@@ -123,20 +127,28 @@ public class ToursControllerJSON {
         searchRequestHandler.handleRequest(request);
     }
     
-    @RequestMapping(value="/getstatuses",method=RequestMethod.GET)
-    public ResponseEntity<List<Boolean>> getStatus(){
-        List<Boolean> statusesList = new ArrayList<Boolean>();
-        statusesList.add(constatns.isShorRun());
-        statusesList.add(constatns.isGlobalRun());
-        return new ResponseEntity<List<Boolean>>(statusesList,HttpStatus.OK);
+    @RequestMapping(value="/getshortstatus",method=RequestMethod.GET)
+    public ResponseEntity<Boolean> getShortStatus(){
+        Boolean status = constants.isShorRun();
+        return new ResponseEntity<Boolean>(status,HttpStatus.OK);
     }
     
-    @RequestMapping(value="/getdelays",method=RequestMethod.GET)
-    public ResponseEntity<List<String>> getDelays(){
-        List<String> delaysList = new ArrayList<String>();
-        delaysList.add(String.valueOf(constatns.getShortUpdatingDelay()));
-        delaysList.add(constatns.getGlobalUpdatingDelay());
-        return new ResponseEntity<List<String>>(delaysList,HttpStatus.OK);
+    @RequestMapping(value="/getglobalstatus",method=RequestMethod.GET)
+    public ResponseEntity<Boolean> getGlobalStatus(){
+      Boolean status = constants.isGlobalRun();
+      return new ResponseEntity<Boolean>(status,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/getshortdelay",method=RequestMethod.GET)
+    public ResponseEntity<Long> getShortDelay(){
+        Long delay = constants.getShortUpdatingDelay();
+        return new ResponseEntity<Long>(delay,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/getglobaldelay",method=RequestMethod.GET)
+    public ResponseEntity<Integer> getGlobalDelay(){
+        Integer delay = delayUtils.getHumanData(constants.getGlobalUpdatingDelay());
+        return new ResponseEntity<Integer>(delay,HttpStatus.OK);
     }
     
     @JsonView(CountryView.class)

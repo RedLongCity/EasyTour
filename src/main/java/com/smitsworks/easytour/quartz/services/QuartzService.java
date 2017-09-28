@@ -9,8 +9,7 @@ package com.smitsworks.easytour.quartz.services;
 public interface QuartzService {
 
     void updateShortTrigger(
-            Integer RepeatInterval,
-            Integer RepeatCount);
+            Long RepeatInterval);
     
     void updateGlobalTrigger(
             String cronExpressions);
