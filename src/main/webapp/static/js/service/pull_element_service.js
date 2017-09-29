@@ -2,6 +2,7 @@ App.factory('PullElement', ['$http', '$q', function($http, $q){
         
     var SERVER_URL = 'http://localhost:8084/EasyTour/json/element/';
     var SERVER_URL_DATES='http://localhost:8084/EasyTour/json/getelements';
+    var SERVER_URL_JSON = 'http://localhost:8084/EasyTour/json/';    
         
     return {
          
@@ -41,11 +42,65 @@ App.factory('PullElement', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while getting element');
+                        console.error('Error while getting elements');
                         return $q.reject(errResponse);
                     }
             );
-    }    
+    },
+    
+    deleteAll: function() {
+            return $http.delete(SERVER_URL)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting elements');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+     
+     
+   delete: function(id){
+            return $http.delete(SERVER_URL+"/"+id)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting element');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+   deleteBefore: function(date){
+            return $http.delete(SERVER_URL_JSON+"/deleteelementsbeforedate/"+date)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting elements');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    deleteBetween: function(from,till){
+            return $http.delete(SERVER_URL_JSON+"/deleteelementsbetweendates?datefrom="+
+                    from+"&datetill="+till)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting elements');
+                        return $q.reject(errResponse);
+                    }
+            );
+        } 
          
     };
  

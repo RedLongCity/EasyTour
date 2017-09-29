@@ -610,4 +610,20 @@ public class JSONController {
         return new ResponseEntity<Request>(request,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/request",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllRequests(){
+        requestService.deleteAllRequests();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/request/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteRequestById(@PathVariable("id") Integer id){
+        Request request = requestService.findById(id);
+        if(request==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        requestService.deleteRequest(request);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
 }

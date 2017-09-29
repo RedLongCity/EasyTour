@@ -28,6 +28,27 @@ App.controller('CitiesController', ['$scope', 'City', function($scope, City) {
                                 }
                        );
           };
+          
+        self.deleteAllCities = function(){
+              City.deleteAll()
+                  .then(
+                            self.fetchAllCities(),
+                                function(errResponse){
+                                    console.error('Error while deleting city');
+                                }
+                       );
+          };
+            
+          self.deleteCity = function(id){
+              City.delete(id)
+                  .then(
+                            self.fetchAllCities(),
+                                function(errResponse){
+                                    console.error('Error while deleting cities');
+                                }
+                       );
+          }
+          
             self.fetchAllCities();
       }]);
 

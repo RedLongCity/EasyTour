@@ -28,5 +28,26 @@ App.controller('CurrencyController', ['$scope', 'Currency', function($scope, Cur
                                 }
                        );
           };
+          
+        self.deleteAllCurrencies = function(){
+              Currency.deleteAll()
+                  .then(
+                                    self.fetchAllCurrencies(),
+                                function(errResponse){
+                                    console.error('Error while deleting currencys');
+                                }
+                       );
+          };
+            
+      self.deleteCurrency = function(id){
+              Currency.delete(id)
+                  .then(
+                                    self.fetchAllCurrencies(),
+                                function(errResponse){
+                                    console.error('Error while deleting currency');
+                                }
+                       );
+          };
+          
             self.fetchAllCurrencies();
       }]);

@@ -28,5 +28,27 @@ App.controller('MealTypeController', ['$scope', 'MealType', function($scope, Mea
                                 }
                        );
           };
+          
+        self.deleteAllMealTypes = function(){
+              MealType.deleteAll()
+                  .then(
+                                    self.fetchAllMealTypes(),
+                                function(errResponse){
+                                    console.error('Error while deleting mealtypes');
+                                }
+                       );
+          };
+            
+          self.deleteMealType = function(id){
+              MealType.delete(id)
+                  .then(
+                                    self.fetchAllMealTypes(),
+                                function(errResponse){
+                                    console.error('Error while deleting mealtype');
+                                }
+                       );
+          };
+          
+          
             self.fetchAllMealTypes();
       }]);

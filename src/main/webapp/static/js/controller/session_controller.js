@@ -40,5 +40,41 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
                       ); 
           };
           
+          self.deleteAllSessions=function(){
+              Session.deleteAll().then(
+                      self.fetchAllSessions(),
+                      function(errResponse){
+                                    console.error('Error while deleting session');
+                        }
+                      );
+          };
+          
+         self.deleteSession=function(id){
+              Session.delete(id).then(
+                      self.fetchAllSessions(),
+                      function(errResponse){
+                                    console.error('Error while deleting sessions');
+                        }
+                      );
+          };
+          
+        self.deleteSessionsBefore=function(date){
+              Session.deleteBefore(date).then(
+                      self.fetchAllSessions(),
+                      function(errResponse){
+                                    console.error('Error while deleting sessions');
+                        }
+                      );
+          };
+          
+        self.deleteSessionsBetween=function(from,till){
+              Session.deleteBetween(from,till).then(
+                      self.fetchAllSessions(),
+                      function(errResponse){
+                                    console.error('Error while deleting sessions');
+                        }
+                      );
+          };
+          
             self.fetchAllSessions();
       }]);

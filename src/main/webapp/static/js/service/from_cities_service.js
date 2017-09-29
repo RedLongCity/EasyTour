@@ -29,7 +29,33 @@ App.factory('City', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
             );
-        }
+        },
+        
+   delete: function(id){
+            return $http.delete(SERVER_URL+"/"+id)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting cities');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    deleteAll: function() {
+            return $http.delete(SERVER_URL)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting cities');
+                        return $q.reject(errResponse);
+                    }
+            );
+        } 
          
     };
  

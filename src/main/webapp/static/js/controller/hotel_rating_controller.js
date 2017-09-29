@@ -28,5 +28,26 @@ App.controller('HotelRatingController', ['$scope', 'HotelRating', function($scop
                                 }
                        );
           };
+          
+        self.deleteAllRatings = function(){
+              HotelRating.deleteAll()
+                  .then(
+                                    self.fetchAllRatings(),
+                                function(errResponse){
+                                    console.error('Error while deleting hotelratings');
+                                }
+                       );
+          };
+            
+          self.deleteRating = function(id){
+              HotelRating.delete(id)
+                  .then(
+                                    self.fetchAllRatings(),
+                                function(errResponse){
+                                    console.error('Error while deleting hotelrating');
+                                }
+                       );
+          };
+          
             self.fetchAllRatings();
       }]);

@@ -29,5 +29,24 @@ App.controller('RequestController', ['$scope', 'Request', function($scope, Reque
                                 }
                        );
           };
+          
+          self.deleteRequest=function(id){
+              Request.delete(id).then(
+                      self.fetchAllRequests(),
+                          function(errResponse){
+                            console.error('Error while deleting request');
+                            }
+                      )
+          };
+          
+          self.deleteAllRequests=function(){
+              Request.deleteAll().then(
+                      self.fetchAllRequests(),
+                            function(errResponse){
+                            console.error('Error while deleting requests');
+                            }
+                      );  
+          };
+          
             self.fetchAllRequests();
       }]);

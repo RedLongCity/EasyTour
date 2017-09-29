@@ -29,6 +29,31 @@ App.factory('Country', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
             );
+        },
+   deleteCountry: function(id){
+            return $http.delete(SERVER_URL+"/"+id)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting country');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    deleteAll: function() {
+            return $http.delete(SERVER_URL)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting countries');
+                        return $q.reject(errResponse);
+                    }
+            );
         }
          
     };

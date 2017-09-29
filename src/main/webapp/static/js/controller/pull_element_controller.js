@@ -40,5 +40,46 @@ App.controller('PullElementController', ['$scope', 'PullElement', function($scop
                                 }
                       ); 
           };
+          
+          self.deleteElement = function(id){
+              PullElement.delete(id)
+                  .then(
+                                    self.fetchAllElements(),
+                                function(errResponse){
+                                    console.error('Error while deleting element');
+                                }
+                       );
+          };
+          
+          self.deleteElements = function(){
+              PullElement.deleteAll()
+                  .then(
+                                    self.fetchAllElements(),
+                                function(errResponse){
+                                    console.error('Error while deleting elements');
+                                }
+                       );
+          };
+          
+          self.deleteElementsBefore = function(date){
+              PullElement.deleteBefore(date)
+                  .then(
+                                    self.fetchAllElements(),
+                                function(errResponse){
+                                    console.error('Error while deleting elements');
+                                }
+                       );
+          };
+          
+        self.deleteElementsBetween = function(from,till){
+              PullElement.deleteBetween(from,till)
+                  .then(
+                                    self.fetchAllElements(),
+                                function(errResponse){
+                                    console.error('Error while deleting elements');
+                                }
+                       );
+          };
+          
             self.fetchAllElements();
       }]);

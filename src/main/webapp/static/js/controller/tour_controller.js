@@ -60,5 +60,47 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                                 }
                       );
                   };
+            
+          self.deleteAllTours = function(){
+              Tour.deleteAll()
+                  .then(
+                                   self.fetchAllTours(),
+                                function(errResponse){
+                                    console.error('Error while deleting tours');
+                                }
+                       );
+          };
+            
+          self.deleteTour = function(id){
+              Tour.delete(id)
+                  .then(
+                                   self.fetchAllTours(),
+                                function(errResponse){
+                                    console.error('Error while deleting tour');
+                                }
+                       );
+          };
+          
+           self.deleteToursBefore = function(date){
+              Tour.deleteBefore(date)
+                  .then(
+                                   self.fetchAllTours(),
+                                function(errResponse){
+                                    console.error('Error while deleting tour');
+                                }
+                       );
+          };
+          
+           self.deleteToursBetween = function(from,till){
+              Tour.deleteBetween(from,till)
+                  .then(
+                                   self.fetchAllTours(),
+                                function(errResponse){
+                                    console.error('Error while deleting\n\
+ tour');
+                                }
+                       );
+          };
+                  
             self.fetchAllTours();
       }]);

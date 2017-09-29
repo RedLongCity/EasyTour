@@ -28,6 +28,26 @@ App.controller('CountryController', ['$scope', 'Country', function($scope, Count
                                 }
                        );
           };
+          
+          self.deleteAllCountries = function(){
+              Country.deleteAll()
+                  .then(
+                            self.fetchAllCountries(),
+                                function(errResponse){
+                                    console.error('Error while deleting countries');
+                                }
+                       );
+          };
+            
+          self.deleteCountry = function(id){
+              Country.deleteCountry(id)
+                  .then(
+                            self.fetchAllCountries(),
+                                function(errResponse){
+                                    console.error('Error while deleting country');
+                                }
+                       );
+          };
             self.fetchAllCountries();
       }]);
 

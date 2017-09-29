@@ -1,11 +1,12 @@
 App.factory('Tour', ['$http', '$q', function($http, $q){
         
-    var SERVER_URL = 'http://localhost:8084/EasyTour/json/tour/';    
-        
+    var SERVER_URL_JSON = 'http://localhost:8084/EasyTour/json/tour/';     
+    var SERVER_URL = 'http://localhost:8084/EasyTour/json/';    
+  
     return {
          
     fetchAll: function() {
-            return $http.get(SERVER_URL)
+            return $http.get(SERVER_URL_JSON)
             .then(
                     function(response){
                         return response.data;
@@ -19,7 +20,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
      
      
    fetch: function(id){
-            return $http.get(SERVER_URL+"/"+id)
+            return $http.get(SERVER_URL_JSON+"/"+id)
             .then(
                     function(response){
                         return response.data;
@@ -47,7 +48,61 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
                 );
-        }        
+        },
+        
+    deleteAll: function() {
+            return $http.delete(SERVER_URL_JSON)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting tours');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+     
+     
+   delete: function(id){
+            return $http.delete(SERVER_URL_JSON+"/"+id)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting tour');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+   deleteBefore: function(date){
+            return $http.delete(SERVER_URL+"/deletetoursbeforedate/"+date)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting tour');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    deleteBetween: function(from,till){
+            return $http.delete(SERVER_URL+"/deletetoursbetweendates?datefrom="+
+                    from+"&datetill="+till)
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while deleting tour');
+                        return $q.reject(errResponse);
+                    }
+            );
+        } 
             
     }
  
