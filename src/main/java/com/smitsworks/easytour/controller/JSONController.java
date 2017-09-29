@@ -360,7 +360,22 @@ public class JSONController {
         return new ResponseEntity<Hotel_Rating>(rating,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/hotelrating",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllHotelRatings(){
+        hotel_RatingService.deleteAllHotel_Rating();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
     
+    @RequestMapping(value="/hotelrating/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteHotelRatingById(
+                @PathVariable("id") String id){
+        Hotel_Rating rating = hotel_RatingService.findById(id);
+        if(rating==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        hotel_RatingService.deleteHotel_Rating(rating);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
     
     @JsonView(TourView.class)
     @RequestMapping(value="/mealtype",method=RequestMethod.GET)
@@ -382,6 +397,23 @@ public class JSONController {
         return new ResponseEntity<Meal_Type>(mealType,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/mealtype",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllMealTypes(){
+        meal_TypeService.deleteAllMeal_Type();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/mealtype/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteMealTypeById(
+                @PathVariable("id") String id){
+        Meal_Type type = meal_TypeService.findById(id);
+        if(type==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        meal_TypeService.deleteMeal_Type(type);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
     @JsonView(TourView.class)
     @RequestMapping(value="/currency",method=RequestMethod.GET)
     public ResponseEntity<List<Currency>> getCurrencies(){
@@ -400,6 +432,23 @@ public class JSONController {
             return new ResponseEntity<Currency>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<Currency>(currency,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/currency",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllCurrencies(){
+        currencyService.deleteAllCurrency();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/currency/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCurrencyById(
+                    @PathVariable("id") String id){
+        Currency currency = currencyService.findById(id);
+        if(currency==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        currencyService.deleteCurrency(currency);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
     
     @JsonView(RequsetPullElementView.class)
