@@ -79,7 +79,7 @@
                                     <section class="row">
                                             <div class="col-md-12 col-lg-12">
 
-                                                    <div class="card mb-4" ng-controller="TourController as ctrl">
+                                                    <div class="card mb-4 text-center" ng-controller="TourController as ctrl">
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Tours</h3>
                                                                     
@@ -154,6 +154,41 @@
                                                                                         <span ng-bind="c.name_full"></span></button>
                                                                                 </div>
                                                                             </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="btn-group btn-lg" role="group" >
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown">
+                                                                                <em class="fa fa-trash fa-lg" aria-hidden="true"></em> Before
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <div ng-repeat="c in countryctrl.countries">
+                                                                                    <input type="text" class="form-control" ng-model="ctrl.date_before" placeholder="Date: dd/mm/yyyy" 
+                                                                                               data-provide="datepicker" data-date-format="dd/mm/yyyy">  
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    
+                                                                        
+                                                                        <div class="btn-group" ng-controller="CitiesController as cityctrl">
+                                                                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown">
+                                                                                <em class="fa fa-trash fa-lg" aria-hidden="true"></em> Between
+                                                                            </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <div class="input-daterange input-group"   data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                                                                    <input type="text" class="input-sm form-control" ng-model="ctrl.date_from"  name="start"  placeholder="dd/mm/yyyy" />
+                                                                                    <span class="input-group-addon">to</span>
+                                                                                    <input type="text" class="input-sm form-control" ng-model="ctrl.date_till" name="end"  placeholder="dd/mm/yyyy"/>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllTours()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> All
+                                                                            </button>
                                                                             
                                                                         </div>
                                                                     </div>

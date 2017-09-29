@@ -107,15 +107,7 @@ public class JSONController {
             
     @RequestMapping(value="/do",method=RequestMethod.GET)
     public void doSomething(){
-        Request request = new Request();
-        Country country = countryService.findById("318");
-        request.setCountry(country);
-        From_Cities from_Citites = from_CitiesService.findById("2014");
-        request.setFrom_Cities(from_Citites);
-        request.setNight_From(2);
-        request.setNight_Till(4);
-        request.setHotel_Rating("3:78");
-        searchRequestHandler.handleRequest(request);
+        sessionService.deleteAllUpdateSessions();
     }
     
     @RequestMapping(value="/anotherdo",method=RequestMethod.GET)

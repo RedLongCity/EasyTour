@@ -3,6 +3,9 @@
 App.controller('PullElementController', ['$scope', 'PullElement', function($scope, PullElement) {
           var self = this;
           self.elements=[];
+          self.date_from;
+          self.date_till;
+          self.date_before;
           self.element={id:null,request_pull_DateTime:'',requestid:'',done:'',
           priority:'',byHuman:'',updateSessionid:''};     
                

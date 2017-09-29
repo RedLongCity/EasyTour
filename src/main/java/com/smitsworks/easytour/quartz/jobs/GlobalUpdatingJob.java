@@ -42,10 +42,10 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
         LOG.log(Level.INFO, "GlobalJob Doing");
-        constants.setGlobalRun(true);
-        timeUtils.updateTimeConstants();
-        requestsPullUtils.clearRequestsPull();
-        resumeShortUpdateJob(jec);
+//        constants.setGlobalRun(true);
+//        timeUtils.updateTimeConstants();
+//        requestsPullUtils.clearRequestsPull();
+//        resumeShortUpdateJob(jec);
         pauseItSelf(jec);
     }
     

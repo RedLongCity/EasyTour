@@ -3,6 +3,9 @@
 App.controller('SessionController', ['$scope', 'Session', function($scope, Session) {
           var self = this;
           self.sessions=[];
+          self.date_from;
+          self.date_till;
+          self.date_before;
           self.session={id:null,sessionTime:'',requestPullElementSet:''};     
                
           self.fetchAllSessions = function(){
@@ -59,7 +62,12 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
           };
           
         self.deleteSessionsBefore=function(date){
-              Session.deleteBefore(date).then(
+            if(date==null){
+                return;
+            }else{
+              var date_before=new Date(date).getDate();
+            }
+              Session.deleteBefore(date_before).then(
                       self.fetchAllSessions(),
                       function(errResponse){
                                     console.error('Error while deleting sessions');
@@ -68,7 +76,13 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
           };
           
         self.deleteSessionsBetween=function(from,till){
-              Session.deleteBetween(from,till).then(
+                if(from==null||till==null){
+                return;
+            }else{
+                var date_from=new Date(from).getDate();
+                var date_till=new Date(till).getDate();
+            }
+              Session.deleteBetween(date_from,date_till).then(
                       self.fetchAllSessions(),
                       function(errResponse){
                                     console.error('Error while deleting sessions');

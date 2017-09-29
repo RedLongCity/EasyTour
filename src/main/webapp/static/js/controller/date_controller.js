@@ -2,11 +2,12 @@
 
 App.controller('DateController', [function() {
 
-$('#from_date').datepicker({
+$('#date_from.input-daterange').datepicker({
     format: "dd/mm/yyyy",
     autoclose:true,
     language: "ru"
 });
+
       }]);
 
 

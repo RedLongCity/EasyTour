@@ -79,9 +79,9 @@
                                     <section class="row">
                                             <div class="col-md-12 col-lg-12 col-xl-4" ng-controller="SessionController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Sessions</h3>
+                                                                    <h3 class="card-title text-md-left">Sessions</h3>
                                                                     
                                                                     <div ng-controller="TimeController as time">
                                                                     <div class="btn-group btn-lg" role="group" >
@@ -111,6 +111,28 @@
                                                                        </div> 
                                                                     </div>
                                                                     
+                                                                        <div class="input-daterange input-group"   data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_from"  name="start"  placeholder="dd/mm/yyyy" />
+                                                                            <span class="input-group-addon">to</span>
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_till" name="end"  placeholder="dd/mm/yyyy"/>
+                                                                        </div>
+                                                                   <div class="btn-group btn-lg" role="group" >
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteSessionsBetween()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Between
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllSessions()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> All
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteSessionsBefore()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Before
+                                                                        </button>
+                                                                   </div>    
+                                                                        <input type="text" class="form-control" ng-model="ctrl.date_before" placeholder="Date: dd/mm/yyyy" 
+                                                                               data-provide="datepicker" data-date-format="dd/mm/yyyy">  
+                                                                        
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
@@ -145,9 +167,9 @@
                                             </div>
                                          <div class="col-md-12 col-lg-12 col-xl-8" ng-controller="PullElementController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Pull Elements</h3>
+                                                                    <h3 class="card-title text-md-left">Pull Elements</h3>
                                                                     <div ng-controller="TimeController as time">
                                                                         
                                                                     <div class="btn-group btn-lg" role="group" >
@@ -175,8 +197,29 @@
                                                                             </button>
                                                                         
                                                                        </div>   
-                                                                        
                                                                     </div>
+                                                                    
+                                                                        <div class="input-daterange input-group"   data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_from" name="start"  placeholder="dd/mm/yyyy" />
+                                                                            <span class="input-group-addon">to</span>
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_till" name="end"  placeholder="dd/mm/yyyy"/>
+                                                                        </div>
+                                                                   <div class="btn-group btn-lg" role="group" >
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteElementsBetween()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Between
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteElements()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> All
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteElementsBefore()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Before
+                                                                        </button>
+                                                                   </div>    
+                                                                    <input type="text" class="form-control" ng-model="ctrl.date_before" placeholder="Date: dd/mm/yyyy" data-provide="datepicker" data-date-format="dd/mm/yyyy">  
+                                                                        
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
@@ -237,9 +280,14 @@
                                     <section class="row">
                                             <div class="col-md-12 col-lg-6 col-xl-3" ng-controller="CountryController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Countries</h3>
+                                                                    <h3 class="card-title text-md-left">Countries</h3>
+                                                                    
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllCountries()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -276,10 +324,15 @@
                                             </div>
                                          <div class="col-md-12 col-lg-6 col-xl-3" ng-controller="CitiesController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Cites</h3>
-                                                                    
+                                                                    <h3 class="card-title text-md-left">Cites</h3>
+                                                                        
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllCities()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
+                                                                        
                                                                     <div class="divider"></div>
                                                                     
                                                                     <div class="table-responsive">
@@ -317,9 +370,15 @@
                                         
                                          <div class="col-md-12 col-lg-12 col-xl-6" ng-controller="RequestController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Requests</h3>
+                                                                    <h3 class="card-title text-md-left">Requests</h3>
+                                                                    
+                                                                                                                                            
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllRequests()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -381,9 +440,15 @@
                                     <section class="row">
                                             <div class="col-md-12 col-lg-6 col-xl-3" ng-controller="CurrencyController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Currencies</h3>
+                                                                    <h3 class="card-title text-mb-left">Currencies</h3>
+                                                                    
+                                                                                                                                            
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllCurrencies()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -419,9 +484,15 @@
                                             </div>
                                          <div class="col-md-12 col-lg-6 col-xl-3" ng-controller="MealTypeController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Meal Types</h3>
+                                                                    <h3 class="card-title text-mb-left">Meal Types</h3>
+                                                                    
+                                                                                                                                            
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllMealTypes()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -460,9 +531,15 @@
                                         
                                          <div class="col-md-12 col-lg-12 col-xl-6" ng-controller="HotelRatingController as ctrl">
 
-                                                    <div class="card mb-4">
+                                                    <div class="card mb-4 text-center">
                                                             <div class="card-block pull-right">
-                                                                    <h3 class="card-title">Hotel Ratings</h3>
+                                                                    <h3 class="card-title text-mb-left">Hotel Ratings</h3>
+                                                                    
+                                                                                                                                            
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllRatings()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Delete All
+                                                                        </button>
                                                                     
                                                                     <div class="divider"></div>
                                                                     
@@ -541,6 +618,7 @@
       <script src="<c:url value='/static/js/service/request_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/request_controller.js' />"></script>
       <script src="<c:url value='/static/js/controller/time_controller.js' />"></script>
+      <script src="<c:url value='/static/js/controller/date_controller.js' />"></script>
     <script>
 	    window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");

@@ -1666,7 +1666,7 @@
 	);
 	$(function(){
 		$('[data-provide="datepicker-inline"]').datepicker({
-
+                        
                 });
                 
 	});
