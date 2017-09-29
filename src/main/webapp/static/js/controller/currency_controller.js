@@ -34,7 +34,7 @@ App.controller('CurrencyController', ['$scope', 'Currency', function($scope, Cur
                   .then(
                                     self.fetchAllCurrencies(),
                                 function(errResponse){
-                                    console.error('Error while deleting currencys');
+                                    console.error('Error while deleting currencies');
                                 }
                        );
           };

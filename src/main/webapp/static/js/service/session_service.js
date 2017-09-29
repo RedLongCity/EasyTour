@@ -55,7 +55,7 @@ App.factory('Session', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while fetching session');
+                        console.error('Error while fetching sessions');
                         return $q.reject(errResponse);
                     }
             );
@@ -68,7 +68,7 @@ App.factory('Session', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while deleting tour');
+                        console.error('Error while deleting session');
                         return $q.reject(errResponse);
                     }
             );

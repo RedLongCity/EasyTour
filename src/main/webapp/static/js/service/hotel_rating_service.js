@@ -38,7 +38,7 @@ App.factory('HotelRating', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while deleting hotelrating');
+                        console.error('Error while deleting hotelratings');
                         return $q.reject(errResponse);
                     }
             );

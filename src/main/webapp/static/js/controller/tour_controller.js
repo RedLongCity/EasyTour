@@ -86,7 +86,7 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                   .then(
                                    self.fetchAllTours(),
                                 function(errResponse){
-                                    console.error('Error while deleting tour');
+                                    console.error('Error while deleting tours');
                                 }
                        );
           };
@@ -96,8 +96,7 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                   .then(
                                    self.fetchAllTours(),
                                 function(errResponse){
-                                    console.error('Error while deleting\n\
- tour');
+                                    console.error('Error while deleting tours');
                                 }
                        );
           };

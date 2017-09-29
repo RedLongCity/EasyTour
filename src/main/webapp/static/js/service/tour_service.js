@@ -84,7 +84,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while deleting tour');
+                        console.error('Error while deleting tours');
                         return $q.reject(errResponse);
                     }
             );
@@ -98,7 +98,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while deleting tour');
+                        console.error('Error while deleting tours');
                         return $q.reject(errResponse);
                     }
             );

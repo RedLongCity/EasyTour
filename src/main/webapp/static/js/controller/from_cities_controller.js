@@ -34,7 +34,7 @@ App.controller('CitiesController', ['$scope', 'City', function($scope, City) {
                   .then(
                             self.fetchAllCities(),
                                 function(errResponse){
-                                    console.error('Error while deleting city');
+                                    console.error('Error while deleting cities');
                                 }
                        );
           };
@@ -44,7 +44,7 @@ App.controller('CitiesController', ['$scope', 'City', function($scope, City) {
                   .then(
                             self.fetchAllCities(),
                                 function(errResponse){
-                                    console.error('Error while deleting cities');
+                                    console.error('Error while deleting city');
                                 }
                        );
           }

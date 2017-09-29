@@ -44,7 +44,7 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
               Session.deleteAll().then(
                       self.fetchAllSessions(),
                       function(errResponse){
-                                    console.error('Error while deleting session');
+                                    console.error('Error while deleting sessions');
                         }
                       );
           };
@@ -53,7 +53,7 @@ App.controller('SessionController', ['$scope', 'Session', function($scope, Sessi
               Session.delete(id).then(
                       self.fetchAllSessions(),
                       function(errResponse){
-                                    console.error('Error while deleting sessions');
+                                    console.error('Error while deleting session');
                         }
                       );
           };

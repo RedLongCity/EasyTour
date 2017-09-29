@@ -38,7 +38,7 @@ App.factory('MealType', ['$http', '$q', function($http, $q){
                         return response.data;
                     }, 
                     function(errResponse){
-                        console.error('Error while deleting mealtype');
+                        console.error('Error while deleting mealtypes');
                         return $q.reject(errResponse);
                     }
             );
