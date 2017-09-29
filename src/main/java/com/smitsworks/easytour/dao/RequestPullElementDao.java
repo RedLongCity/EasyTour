@@ -20,6 +20,8 @@ public interface RequestPullElementDao {
    List<RequestPullElement> findByDatesInterval(Timestamp dateFrom,
             Timestamp dateTill);
    
+   List<RequestPullElement> findBeforeDate(Timestamp date);
+   
    RequestPullElement findById(Integer id);
    
    void saveRequestPullElement(RequestPullElement requestPullElement);

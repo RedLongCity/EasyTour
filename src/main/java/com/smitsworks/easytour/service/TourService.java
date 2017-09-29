@@ -2,6 +2,7 @@ package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,6 +23,11 @@ public interface TourService {
    void updateTour(Tour tour);
    
    void deleteTour(Tour tour);
+   
+   void deleteToursBeforeDate(Timestamp date);
+   
+   void deleteToursBetweenDats(Timestamp dateFrom,
+           Timestamp dateTill);
    
    List<Tour> findAll();
    

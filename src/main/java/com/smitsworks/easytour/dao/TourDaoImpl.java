@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.smitsworks.easytour.utils.RequestConverterUtils;
+import java.sql.Timestamp;
 /**
  *
  * @author redlongcity
@@ -42,6 +43,46 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
         }
         return tourList;
     }
+
+    @Override
+    public List<Tour> getToursBeforeDate(Timestamp date) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.le("date_From_Unix", date));
+        List<Tour> tourList = crit.list();
+        if(tourList!=null){
+            for(Tour tour:tourList){
+                Hibernate.initialize(tour.getCountry());
+                Hibernate.initialize(tour.getFrom_Cities());
+                Hibernate.initialize(tour.getPrices());
+                Hibernate.initialize(tour.getHotel_ImageSet());
+                Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getMeal_Type());
+                Hibernate.initialize(tour.getRequestSet()); 
+            }
+        }
+        return tourList;
+    }
+
+    @Override
+    public List<Tour> getToursBetweenDates(Timestamp dateBefore, Timestamp dateTill) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.between("date_From_Unix", dateBefore, dateTill));
+        List<Tour> tourList = crit.list();
+        if(tourList!=null){
+            for(Tour tour:tourList){
+                Hibernate.initialize(tour.getCountry());
+                Hibernate.initialize(tour.getFrom_Cities());
+                Hibernate.initialize(tour.getPrices());
+                Hibernate.initialize(tour.getHotel_ImageSet());
+                Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getMeal_Type());
+                Hibernate.initialize(tour.getRequestSet()); 
+            }
+        }
+        return tourList;
+    }
+    
+    
 
     @Override
     public List<Tour> getToursByRequest(Request request) {

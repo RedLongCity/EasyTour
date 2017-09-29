@@ -17,6 +17,8 @@ public interface UpdateSessionDao {
     List<UpdateSession> findByDates(Timestamp datefrom,
             Timestamp dateTill);
     
+    List<UpdateSession> findBeforeDate(Timestamp date);
+    
     UpdateSession findById(Integer id);
     
     UpdateSession findsessionByTime(Timestamp updateTime);

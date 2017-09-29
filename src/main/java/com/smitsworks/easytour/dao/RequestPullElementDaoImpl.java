@@ -69,8 +69,20 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         return requestPullElementList;
     }
 
-    
-    
+    @Override
+    public List<RequestPullElement> findBeforeDate(Timestamp date) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.le("request_pull_DateTime", date));
+        List<RequestPullElement> elementsList = crit.list();
+        if(elementsList!=null){
+            for(RequestPullElement requestPullElement:elementsList){
+            Hibernate.initialize(requestPullElement.getRequest());
+            Hibernate.initialize(requestPullElement.getUpdateSession()); 
+            }
+        }
+        return elementsList;
+    }
+
     @Override
     public RequestPullElement findById(Integer id) {
         RequestPullElement requestPullElement = getByKey(id);

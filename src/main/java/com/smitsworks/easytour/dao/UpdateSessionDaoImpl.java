@@ -43,7 +43,19 @@ public class UpdateSessionDaoImpl extends AbstractDao<Integer,UpdateSession> imp
         }
         return sessionList;
     }
-    
+
+    @Override
+    public List<UpdateSession> findBeforeDate(Timestamp date) {
+        Criteria crit = createCriteria();
+        crit.add(Restrictions.le("sessionTime", date));
+        List<UpdateSession> sessionsList = crit.list();
+        if(sessionsList!=null){
+            for(UpdateSession session:sessionsList){
+                Hibernate.initialize(session.getRequestPullElementSet());
+            }
+        }
+        return sessionsList;
+    }
 
     @Override
     public UpdateSession findById(Integer id) {

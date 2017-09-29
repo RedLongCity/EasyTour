@@ -25,6 +25,11 @@ public interface RequestPullElementService {
     
     void deleteRequestPullElement(RequestPullElement requestPullElement);
     
+    void deleteElementsBeforeDate(Timestamp date);
+    
+    void deleteElementsBetweenDates(Timestamp dateBefore,
+            Timestamp dateTill);
+    
     List<RequestPullElement> findAll();
     
     List<RequestPullElement> findByData(Timestamp request_DateTime);

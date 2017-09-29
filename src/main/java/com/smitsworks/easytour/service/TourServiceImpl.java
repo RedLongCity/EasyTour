@@ -3,6 +3,7 @@ package com.smitsworks.easytour.service;
 import com.smitsworks.easytour.dao.TourDao;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,27 @@ public class TourServiceImpl implements TourService{
         tourDao.deleteTour(tour);
     }
 
+    @Override
+    public void deleteToursBeforeDate(Timestamp date) {
+        List<Tour> tourList = tourDao.getToursBeforeDate(date);
+        if(tourList!=null){
+            for(Tour tour:tourList){
+                tourDao.deleteTour(tour);
+            }
+        }
+    }
+
+    @Override
+    public void deleteToursBetweenDats(Timestamp dateFrom, Timestamp dateTill) {
+        List<Tour> tourList = tourDao.getToursBetweenDates(dateFrom, dateTill);
+        if(tourList!=null){
+            for(Tour tour:tourList){
+                tourDao.deleteTour(tour);
+            }
+        }
+    }
+
+    
     @Override
     public List<Tour> findAll() {
         return tourDao.findAll();

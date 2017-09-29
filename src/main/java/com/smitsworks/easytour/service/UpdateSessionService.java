@@ -28,6 +28,11 @@ public interface UpdateSessionService {
     
     void deleteUpdateSession(UpdateSession session);
     
+    void deleteSessionsBeforeDate(Timestamp date);
+    
+    void deleteSessionsBetweenDates(Timestamp dateFrom,
+            Timestamp dateTill);
+    
     List<UpdateSession> findAll();
     
     void deleteAllUpdateSessions();

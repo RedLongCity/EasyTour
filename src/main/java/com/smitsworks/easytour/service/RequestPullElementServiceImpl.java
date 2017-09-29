@@ -56,6 +56,29 @@ public class RequestPullElementServiceImpl implements RequestPullElementService 
     }
 
     @Override
+    public void deleteElementsBeforeDate(Timestamp date) {
+        List<RequestPullElement> elementsList = requestPullElementDao.findBeforeDate(date);
+        if(elementsList!=null){
+            for(RequestPullElement element:elementsList){
+                requestPullElementDao.deleteRequestPullElement(element);
+            }
+        }
+    }
+
+    @Override
+    public void deleteElementsBetweenDates(Timestamp dateBefore, Timestamp dateTill) {
+        List<RequestPullElement> elementsList = requestPullElementDao.
+                findByDatesInterval(dateTill, dateTill);
+        if(elementsList!=null){
+            for(RequestPullElement element:elementsList){
+                requestPullElementDao.deleteRequestPullElement(element);
+            }
+        }
+    }
+    
+    
+
+    @Override
     public List<RequestPullElement> findAll() {
         return requestPullElementDao.findAll();
     }

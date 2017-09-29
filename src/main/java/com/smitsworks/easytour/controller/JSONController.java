@@ -55,7 +55,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/json")
-public class ToursControllerJSON {
+public class JSONController {
     
     @Autowired
     CountryService countryService;
@@ -231,6 +231,39 @@ public class ToursControllerJSON {
         return new ResponseEntity<Tour>(tour,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/tour",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllTours(){
+        tourService.deleteAllTours();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/tour/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteTourById(@PathVariable("id") Integer id){
+        Tour tour = tourService.findById(id);
+        if(tour==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        tourService.deleteTour(tour);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deletetoursbeforedate/{date}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteToursBerforeDate(@PathVariable("date") Long date){
+        Timestamp dateBefore = new Timestamp(date);
+        tourService.deleteToursBeforeDate(dateBefore);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deletetoursbetweendates",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteToursBetweenDates(
+            @RequestParam("datefrom") Long dateFrom,
+            @RequestParam("datetill") Long dateTill){
+        Timestamp from = new Timestamp(dateFrom);
+        Timestamp till = new Timestamp(dateTill);
+        tourService.deleteToursBetweenDats(from, till);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
     @JsonView(CountryView.class)
     @RequestMapping(value="/country",method=RequestMethod.GET)
     public ResponseEntity<List<Country>> getCountries(){
@@ -249,6 +282,23 @@ public class ToursControllerJSON {
             return new ResponseEntity<Country>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<Country>(country,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/country",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllCountry(){
+        countryService.deleteAllCountries();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/country/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCountryById(
+                        @PathVariable("id") String id){
+        Country country = countryService.findById(id);
+        if(country==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        countryService.deleteCountry(country);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     
@@ -272,6 +322,23 @@ public class ToursControllerJSON {
         return new ResponseEntity<From_Cities>(city,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/city",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllFrom_Cities(){
+        from_CitiesService.deleteAllFrom_Cities();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/city/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteFrom_CititesById(
+                @PathVariable("id") String id){
+        From_Cities city = from_CitiesService.findById(id);
+        if(city==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        from_CitiesService.deleteFrom_Cities(city);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
     @JsonView(Hotel_RatingView.class)
     @RequestMapping(value="/hotelrating",method=RequestMethod.GET)
     public ResponseEntity<List<Hotel_Rating>> getHotelRatings(){
@@ -292,6 +359,8 @@ public class ToursControllerJSON {
         }
         return new ResponseEntity<Hotel_Rating>(rating,HttpStatus.OK);
     }
+    
+    
     
     @JsonView(TourView.class)
     @RequestMapping(value="/mealtype",method=RequestMethod.GET)
@@ -368,6 +437,40 @@ public class ToursControllerJSON {
         return new ResponseEntity<List<RequestPullElement>>(elementsList,HttpStatus.OK);
     }
     
+    @RequestMapping(value="/element",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllElements(){
+        elementService.deleteAllRequestPullElements();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/element/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteElementById(@PathVariable("id") Integer id){
+      RequestPullElement element = elementService.findById(id);
+      if(element==null){
+          return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+      }
+      elementService.deleteRequestPullElement(element);
+      return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deleteelementsbeforedate/{date}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteElementBeforeDate(
+            @PathVariable("date") Long date){
+        Timestamp dateBefore = new Timestamp(date);
+        elementService.deleteElementsBeforeDate(dateBefore);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deleteelementsbetweendates",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteElementBetweenDates(
+            @RequestParam("datefrom") Long dateFrom,
+            @RequestParam("datetill") Long dateTill){
+        Timestamp from = new Timestamp(dateFrom);
+        Timestamp till = new Timestamp(dateTill);
+        elementService.deleteElementsBetweenDates(from, till);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
     @JsonView(UpdateSessionView.class)
     @RequestMapping(value="/session",method=RequestMethod.GET)
     public ResponseEntity<List<UpdateSession>> getSessions(){
@@ -387,6 +490,40 @@ public class ToursControllerJSON {
             return new ResponseEntity<UpdateSession>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<UpdateSession>(session,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/session",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAllSessions(){
+        sessionService.deleteAllUpdateSessions();
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); 
+    }
+    
+    @RequestMapping(value="/session/{id}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSessionById(@PathVariable("id") Integer id){
+        UpdateSession session = sessionService.findById(id);
+        if(session==null){
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        sessionService.deleteUpdateSession(session);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deletesessionsbeforedate/{date}",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSessionsBeforeDate(
+                    @PathVariable("date") Long date){
+        Timestamp dateBefore = new Timestamp(date);
+        sessionService.deleteSessionsBeforeDate(dateBefore);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value="/deletesessionsbetweendates",method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSessionsBetweenDates(
+                    @RequestParam("datefrom") Long dateFrom,
+                    @RequestParam("datetill") Long dateTill){
+        Timestamp from = new Timestamp(dateFrom);
+        Timestamp till = new Timestamp(dateTill);
+        sessionService.deleteSessionsBetweenDates(from, till);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
     
     @JsonView(UpdateSessionView.class)

@@ -68,6 +68,29 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
     }
 
     @Override
+    public void deleteSessionsBeforeDate(Timestamp date) {
+        List<UpdateSession> sessionsList = sessionDao.findBeforeDate(date);
+        if(sessionsList!=null){
+            for(UpdateSession session:sessionsList){
+                sessionDao.deleteUpdateSeesion(session);
+            }
+        }
+    }
+
+    @Override
+    public void deleteSessionsBetweenDates(Timestamp dateFrom, Timestamp dateTill) {
+        List<UpdateSession> sessionsList = 
+                sessionDao.findByDates(dateFrom, dateTill);
+        if(sessionsList!=null){
+            for(UpdateSession session:sessionsList){
+                sessionDao.deleteUpdateSeesion(session);
+            }
+        }
+     }
+    
+    
+
+    @Override
     public List<UpdateSession> findAll() {
         return sessionDao.findAll();
     }
