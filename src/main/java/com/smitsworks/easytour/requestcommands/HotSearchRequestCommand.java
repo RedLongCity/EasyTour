@@ -2,11 +2,13 @@ package com.smitsworks.easytour.requestcommands;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.models.Request;
+import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.HotSearchRequestConverterUtils;
 import com.smitsworks.easytour.utils.HttpUtils;
 import com.smitsworks.easytour.utils.ItToursHotToursSearchParser;
 import com.smitsworks.easytour.utils.ItToursParserConstants;
+import com.smitsworks.easytour.utils.TimeUtils;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
@@ -41,6 +43,12 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     
     @Autowired
     ProjectConsantsSingletone projectConsantsSingletone;
+    
+    @Autowired
+    TimeUtils timeUtils;
+    
+    @Autowired
+    RequestService service;
 
     public HotSearchRequestCommand() {
     }
@@ -55,6 +63,7 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     @Override
     public void execute() {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        Long delay = timeUtils.getCurrentTime().getTime();
         try {
             rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
                     getURLByRequest(request));
@@ -63,6 +72,9 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         }
         projectConsantsSingletone.setRequestUpdating(request);
         parser.extractTours(rootNode);
+        delay = timeUtils.getCurrentTime().getTime()-delay;
+        request.setRequestDelay(delay);
+        service.updateRequest(request);
     }
 
     @Override

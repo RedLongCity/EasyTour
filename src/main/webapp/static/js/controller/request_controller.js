@@ -4,7 +4,7 @@ App.controller('RequestController', ['$scope', 'Request', function($scope, Reque
           var self = this;
           self.requests=[];
           self.request={id:null,country:'',from_Cities:'',hotel_Rating:'',
-          night_From:'',night_Till:'',meal_Type:''};     
+          night_From:'',night_Till:'',meal_Type:'',requestDelay:''};     
                
           self.fetchAllRequests = function(){
               Request.fetchAll()

@@ -2,9 +2,7 @@ package com.smitsworks.easytour.service;
 
 import com.smitsworks.easytour.dao.RequestDao;
 import com.smitsworks.easytour.models.Request;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author redlongcity
  */
+
 @Service("requestService")
 @Transactional
 public class RequestServiceImpl implements RequestService {
@@ -46,6 +45,7 @@ public class RequestServiceImpl implements RequestService {
             entity.setNight_From(request.getNight_From());
             entity.setNight_Till(request.getNight_Till());
             entity.setTourSet(request.getTourSet());
+            entity.setRequestDelay(request.getRequestDelay());
             requestDao.mergeRequest(entity);
         }
     }
@@ -61,6 +61,7 @@ public class RequestServiceImpl implements RequestService {
             entity.setNight_From(request.getNight_From());
             entity.setNight_Till(request.getNight_Till());
             entity.setTourSet(request.getTourSet());
+            entity.setRequestDelay(request.getRequestDelay());
             requestDao.mergeRequest(entity); 
         }else{
             requestDao.saveRequest(request);

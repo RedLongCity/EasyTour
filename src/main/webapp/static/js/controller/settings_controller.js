@@ -8,6 +8,8 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
         self.shortDelay=12;
         self.globalDelay=new String();
         self.globalDelay=1;
+        self.globalSuspended=false;
+        self.shortSuspended=false;
     
         self.globalDelaysArray_Human=[1,10,15,30,60,120,180,300];
         self.shortDelaysArray=[1000,2000,5000,10000,12000,20000,30000];
@@ -24,6 +26,18 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
                     );
         };
         
+        self.fetchShortSuspended = function(){
+           SettingsService.getShort_Suspended()
+                   .then(
+                       function(d) {
+                           self.shortSuspended = d;
+                       },
+                        function(errResponse){
+                            console.error('Error while fetching short suspended');
+                        }
+                    );
+        };
+        
         self.fetchGlobalStatus = function(){
            SettingsService.getGlobal_Status()
                    .then(
@@ -32,6 +46,18 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
                        },
                         function(errResponse){
                             console.error('Error while fetching global status');
+                        }
+                    );
+        };
+        
+        self.fetchGlobalSuspended = function(){
+           SettingsService.getGlobal_Suspended()
+                   .then(
+                       function(d) {
+                           self.globalSuspended = d;
+                       },
+                        function(errResponse){
+                            console.error('Error while fetching global suspended');
                         }
                     );
         };
@@ -55,7 +81,7 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
                            self.globalDelay = d;
                        },
                         function(errResponse){
-                            console.error('Error while fetching global delay');
+                            console.error('Error while fetching global suspended');
                         }
                     );
         };
@@ -89,4 +115,6 @@ App.controller('SettingsController', ['$scope','SettingsService',function($scope
        self.fetchGlobalStatus();
        self.fetchShortDelay();
        self.fetchGlobalDelay();
+       self.fetchGlobalSuspended();
+       self.fetchShortSuspended();
 }]);

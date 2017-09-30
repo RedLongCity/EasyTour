@@ -52,14 +52,14 @@ public class AppController {
     
     @RequestMapping(value="/stopshort",method=RequestMethod.GET)
     public @ResponseBody void stopShort(){
-        quartzService.pauseJob("shortJob", "quartzJobs");
-        constatns.setShorRun(false);
+        constatns.setShortRun(false);
+        quartzService.pauseShortJob();
     }
     
     @RequestMapping(value="/resumeshort",method=RequestMethod.GET)
     public @ResponseBody void resumeShort(){
-        quartzService.resumeJob("shortJob", "quartzJobs");
-        constatns.setShorRun(true);
+        constatns.setShortRun(true);
+        quartzService.resumeShortJob();
     }
     
     @RequestMapping(value="/setshortdelay",method=RequestMethod.GET)
@@ -70,14 +70,14 @@ public class AppController {
     
     @RequestMapping(value="/stopglobal",method=RequestMethod.GET)
     public @ResponseBody void stopGlobal(){
-        quartzService.pauseJob("globalJob", "quartzJobs");
         constatns.setGlobalRun(false);
+        quartzService.pauseGlobalJob();
     }
     
     @RequestMapping(value="/resumeglobal",method=RequestMethod.GET)
     public @ResponseBody void resumeGlobal(){
-        quartzService.resumeJob("globalJob", "quartzJobs");
         constatns.setGlobalRun(true);
+        quartzService.resumeGlobalJob();
     }
     
     @RequestMapping(value="/setglobaldelay",method=RequestMethod.GET)

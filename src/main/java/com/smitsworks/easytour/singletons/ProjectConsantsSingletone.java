@@ -33,9 +33,13 @@ public class ProjectConsantsSingletone {
     
     private boolean shortRun=true;//indicator for short job running
     
+    private boolean shortSuspended=false;//indicator pause job by itself
+    
     private String globalUpdatingDelay="* 0/1 * * * ?";//delay between global updating
     
     private boolean globalRun=true;//indicator for global job running
+    
+    private boolean globalSuspended=false;//indicator of pausing job by itself
 
     private List<RequestCommand> requestsPull=new ArrayList<RequestCommand>();//pull for all requests
     
@@ -135,11 +139,11 @@ public class ProjectConsantsSingletone {
         this.timeOfPreviousSession = timeOfPreviousSession;
     }
 
-    public boolean isShorRun() {
+    public boolean isShortRun() {
         return shortRun;
     }
 
-    public void setShorRun(boolean isShorRun) {
+    public void setShortRun(boolean isShorRun) {
         this.shortRun = isShorRun;
     }
 
@@ -150,6 +154,23 @@ public class ProjectConsantsSingletone {
     public void setGlobalRun(boolean isGlobalRunning) {
         this.globalRun = isGlobalRunning;
     }
+
+    public boolean isShortSuspended() {
+        return shortSuspended;
+    }
+
+    public void setShortSuspended(boolean shortSuspended) {
+        this.shortSuspended = shortSuspended;
+    }
+
+    public boolean isGlobalSuspended() {
+        return globalSuspended;
+    }
+
+    public void setGlobalSuspended(boolean globalSuspended) {
+        this.globalSuspended = globalSuspended;
+    }
+    
     
     
 }

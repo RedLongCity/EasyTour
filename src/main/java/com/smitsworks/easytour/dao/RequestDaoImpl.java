@@ -1,9 +1,6 @@
 package com.smitsworks.easytour.dao;
 
-import com.smitsworks.easytour.models.Country;
-import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Request;
-import java.sql.Timestamp;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;

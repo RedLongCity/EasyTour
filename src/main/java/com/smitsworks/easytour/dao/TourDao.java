@@ -2,7 +2,6 @@ package com.smitsworks.easytour.dao;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
-import java.sql.Timestamp;
 import java.util.List;
 /**
  *
@@ -18,10 +17,10 @@ public interface TourDao {
     
     List<Tour> getToursByRequest(Request request);
     
-    List<Tour> getToursBeforeDate(Timestamp date);
+    List<Tour> getToursBeforeDate(Integer date);
     
-    List<Tour> getToursBetweenDates(Timestamp dateBefore,
-            Timestamp dateTill);
+    List<Tour> getToursBetweenDates(Integer dateBefore,
+            Integer dateTill);
     
     Tour findById(Integer id);
     

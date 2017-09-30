@@ -75,6 +75,11 @@ public class Request {
             inverseJoinColumns={@JoinColumn(name="tour_id")})
     private Set<Tour> tourSet = new HashSet<Tour>();
     
+    @JsonView(RequestView.class)
+    @Column(name="request_delay",unique=false,nullable=true)
+    private Long requestDelay;
+
+    
     public Integer getId() {
         return id;
     }
@@ -146,6 +151,16 @@ public class Request {
     public void setTourSet(Set<Tour> tourSet) {
         this.tourSet = tourSet;
     }
+
+    public Long getRequestDelay() {
+        return requestDelay;
+    }
+
+    public void setRequestDelay(Long requestDelay) {
+        this.requestDelay = requestDelay;
+    }
+    
+    
     
     @Override
     public int hashCode() {
@@ -174,7 +189,7 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", requestPullElement=" + requestPullElement + '}';
+        return "Request{" + "id=" + id + ", country=" + country + ", from_Cities=" + from_Cities + ", hotel_Rating=" + hotel_Rating + ", night_From=" + night_From + ", night_Till=" + night_Till + ", meal_Type=" + meal_Type + ", requestPullElement=" + requestPullElement + ", tourSet=" + tourSet + ", requestDelay=" + requestDelay + '}';
     }
 
 }

@@ -136,7 +136,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils{
         command.setRequestTime(timeUtils.getCurrentTime());
         projectConsantsSingletone.getRequestsPull().add(command);
         if(!projectConsantsSingletone.isGlobalDelay()){
-            quartzService.resumeJob("shortJob","quartzJobs");
+            quartzService.resumeShortJob();
         }
     }
 

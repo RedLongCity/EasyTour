@@ -89,6 +89,15 @@
                                                                         </div>
                                                                     </div>-->
                                                                     
+                                                                    <div role="tablist" id="accordion" aria-multiselectable="true">
+                                                                        <div class="card">
+                                                                            <div class="card-header" role="tab" id="headingOne">
+                                                                                <h5 class="mb-0">
+                                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" <em class="fa fa-search fa-lg"></em> Searching</a>
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                                                                <div class="card-block">
                                                                     <div class="btn-group btn-lg" role="group" >
                                                                         <div class="btn-group" ng-controller="CountryController as countryctrl">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -129,7 +138,7 @@
                                                                             </div>
                                                                             
                                                                         </div>
-                                                                    </div>
+                                                                    </div> 
                                                                     <div class="btn-group btn-lg" role="group" >
                                                                         <div class="btn-group">
                                                                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -157,41 +166,6 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                    <div class="btn-group btn-lg" role="group" >
-                                                                        <div class="btn-group">
-                                                                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown">
-                                                                                <em class="fa fa-trash fa-lg" aria-hidden="true"></em> Before
-                                                                            </button>
-                                                                            <div class="dropdown-menu">
-                                                                                <div ng-repeat="c in countryctrl.countries">
-                                                                                    <input type="text" class="form-control" ng-model="ctrl.date_before" placeholder="Date: dd/mm/yyyy" 
-                                                                                               data-provide="datepicker" data-date-format="dd/mm/yyyy">  
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    
-                                                                        
-                                                                        <div class="btn-group" ng-controller="CitiesController as cityctrl">
-                                                                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown">
-                                                                                <em class="fa fa-trash fa-lg" aria-hidden="true"></em> Between
-                                                                            </button>
-                                                                            <div class="dropdown-menu">
-                                                                                <div class="input-daterange input-group"   data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                                                                                    <input type="text" class="input-sm form-control" ng-model="ctrl.date_from"  name="start"  placeholder="dd/mm/yyyy" />
-                                                                                    <span class="input-group-addon">to</span>
-                                                                                    <input type="text" class="input-sm form-control" ng-model="ctrl.date_till" name="end"  placeholder="dd/mm/yyyy"/>
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                        <div class="btn-group">
-                                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                                    ng-click="ctrl.deleteAllTours()">
-                                                                                <em class="fa fa-trash" aria-hidden="true"></em> All
-                                                                            </button>
-                                                                            
-                                                                        </div>
-                                                                    </div>
                                                                     <div class="btn-group" role="group">
                                                                         
                                                                         <button type="button" class="btn btn-sm btn-danger" ng-click="ctrl.fetchAllTours()">
@@ -202,6 +176,44 @@
                                                                                 <em class="fa fa-search fa-lg"></em> Search
                                                                         </button>
                                                                         
+                                                                    </div>           
+                                                                    </div> 
+                                                                            </div>
+                                                                        </div>
+                                                                     <div div class="card">
+                                                                           <div class="card-header" role="tab" id="headingTwo">
+                                                                                <h5 class="mb-0">
+                                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" <em class="fa fa-trash fa-lg"></em> Deleting</a>
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                               <div class="card-block">
+                                                                        <div class="input-daterange input-group"   data-provide="datepicker" data-date-format="mm/dd/yyyy">
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_from"  name="start"  placeholder="mm/dd/yyyy" />
+                                                                            <span class="input-group-addon">to</span>
+                                                                            <input type="text" class="input-sm form-control" ng-model="ctrl.date_till" name="end"  placeholder="mm/dd/yyyy"/>
+                                                                        </div>
+                                                                   <div class="btn-group btn-lg" role="group" >
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteToursBetween()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Between
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteAllTours()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> All
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                                    ng-click="ctrl.deleteToursBefore()">
+                                                                                <em class="fa fa-trash" aria-hidden="true"></em> Before
+                                                                        </button>
+                                                                   </div>    
+                                                                        <input type="text" class="form-control" ng-model="ctrl.date_before" placeholder="Date: mm/dd/yyyy" 
+                                                                               data-provide="datepicker" data-date-format="mm/dd/yyyy">  
+                                                                                    
+                                                                                </div> 
+                                                                            </div>
+
+                                                                        </div> 
                                                                     </div>
                                                                     
                                                                     <div class="divider"></div>

@@ -16,7 +16,15 @@ public interface QuartzService {
     
     void pauseJob(String jobName,String jobGroup);
     
+    void pauseGlobalJob();
+    
+    void pauseShortJob();
+    
     void resumeJob(String jobName,String jobGroup);
+    
+    void resumeGlobalJob();
+    
+    void resumeShortJob();
     
     void resumeAll();
     

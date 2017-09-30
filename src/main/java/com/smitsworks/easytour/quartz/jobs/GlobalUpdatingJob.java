@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.quartz.jobs;
 
+import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
 import com.smitsworks.easytour.utils.TimeUtils;
@@ -38,40 +39,45 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     @Autowired
     ProjectConsantsSingletone constants;
     
+    @Autowired
+    QuartzService quartzService;
+    
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
         LOG.log(Level.INFO, "GlobalJob Doing");
-//        constants.setGlobalRun(true);
-//        timeUtils.updateTimeConstants();
-//        requestsPullUtils.clearRequestsPull();
-//        resumeShortUpdateJob(jec);
+        constants.setGlobalSuspended(false);
+        timeUtils.updateTimeConstants();
+        requestsPullUtils.clearRequestsPull();
+        resumeShortUpdateJob(jec);
         pauseItSelf(jec);
     }
     
         private void resumeShortUpdateJob(JobExecutionContext jec){
-        Scheduler scheduler = jec.getScheduler();
-        if(scheduler==null){
-            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
-            return;
-        }
-        try {
-            scheduler.resumeJob(jobKey("shortJob","quartzJobs"));
-        } catch (SchedulerException ex) {
-            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        quartzService.resumeShortJob();
+//        Scheduler scheduler = jec.getScheduler();
+//        if(scheduler==null){
+//            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
+//            return;
+//        }
+//        try {
+//            scheduler.resumeJob(jobKey("shortJob","quartzJobs"));
+//        } catch (SchedulerException ex) {
+//            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
             private void pauseItSelf(JobExecutionContext jec){
-        constants.setGlobalRun(false);
-        Scheduler scheduler = jec.getScheduler();
-        if(scheduler==null){
-            LOG.log(Level.WARNING,"GlobalUpdatingJob: scheduler is null");
-            return;
-        }
-        try {
-            scheduler.pauseJob(jobKey("globalJob","quartzJobs"));
-        } catch (SchedulerException ex) {
-            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            constants.setGlobalSuspended(true);
+            quartzService.pauseGlobalJob();
+//        Scheduler scheduler = jec.getScheduler();
+//        if(scheduler==null){
+//            LOG.log(Level.WARNING,"GlobalUpdatingJob: scheduler is null");
+//            return;
+//        }
+//        try {
+//            scheduler.pauseJob(jobKey("globalJob","quartzJobs"));
+//        } catch (SchedulerException ex) {
+//            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

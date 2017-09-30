@@ -3,6 +3,9 @@
 App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           var self = this;
           self.tours=[];
+          self.date_from;
+          self.date_till;
+          self.date_before;
           self.tour={id:null,key:'',type:'',country:'',
           region:'',hotel_id:'',hotel:'',hotel_Rating:'',
           meal_Type:'',room_Type:'',adult_Amount:'',
@@ -81,8 +84,12 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
                        );
           };
           
-           self.deleteToursBefore = function(date){
-              Tour.deleteBefore(date)
+           self.deleteToursBefore = function(){
+              if(self.date_before==null){
+                  return;
+              }
+              var before = new Date(self.date_before).getTime()/1000;
+              Tour.deleteBefore(before)
                   .then(
                                    self.fetchAllTours(),
                                 function(errResponse){

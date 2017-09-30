@@ -121,7 +121,7 @@ public class JSONController {
     
     @RequestMapping(value="/getshortstatus",method=RequestMethod.GET)
     public ResponseEntity<Boolean> getShortStatus(){
-        Boolean status = constants.isShorRun();
+        Boolean status = constants.isShortRun();
         return new ResponseEntity<Boolean>(status,HttpStatus.OK);
     }
     
@@ -129,6 +129,16 @@ public class JSONController {
     public ResponseEntity<Boolean> getGlobalStatus(){
       Boolean status = constants.isGlobalRun();
       return new ResponseEntity<Boolean>(status,HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/getshortsuspended",method=RequestMethod.GET)
+    public ResponseEntity<Boolean> getShortSuspended(){
+        return new ResponseEntity<Boolean>(constants.isShortSuspended(),HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/getglobalsuspended",method=RequestMethod.GET)
+    public ResponseEntity<Boolean> getGlobalSuspended(){
+        return new ResponseEntity<Boolean>(constants.isGlobalSuspended(),HttpStatus.OK);
     }
     
     @RequestMapping(value="/getshortdelay",method=RequestMethod.GET)
@@ -240,19 +250,16 @@ public class JSONController {
     }
     
     @RequestMapping(value="/deletetoursbeforedate/{date}",method=RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteToursBerforeDate(@PathVariable("date") Long date){
-        Timestamp dateBefore = new Timestamp(date);
-        tourService.deleteToursBeforeDate(dateBefore);
+    public ResponseEntity<Void> deleteToursBerforeDate(@PathVariable("date") Integer date){
+        tourService.deleteToursBeforeDate(date);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
     
     @RequestMapping(value="/deletetoursbetweendates",method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteToursBetweenDates(
-            @RequestParam("datefrom") Long dateFrom,
-            @RequestParam("datetill") Long dateTill){
-        Timestamp from = new Timestamp(dateFrom);
-        Timestamp till = new Timestamp(dateTill);
-        tourService.deleteToursBetweenDats(from, till);
+            @RequestParam("datefrom") Integer dateFrom,
+            @RequestParam("datetill") Integer dateTill){
+        tourService.deleteToursBetweenDats(dateFrom, dateTill);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
     

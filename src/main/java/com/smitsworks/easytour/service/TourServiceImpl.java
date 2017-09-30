@@ -79,7 +79,7 @@ public class TourServiceImpl implements TourService{
     }
 
     @Override
-    public void deleteToursBeforeDate(Timestamp date) {
+    public void deleteToursBeforeDate(Integer date) {
         List<Tour> tourList = tourDao.getToursBeforeDate(date);
         if(tourList!=null){
             for(Tour tour:tourList){
@@ -89,7 +89,7 @@ public class TourServiceImpl implements TourService{
     }
 
     @Override
-    public void deleteToursBetweenDats(Timestamp dateFrom, Timestamp dateTill) {
+    public void deleteToursBetweenDats(Integer dateFrom, Integer dateTill) {
         List<Tour> tourList = tourDao.getToursBetweenDates(dateFrom, dateTill);
         if(tourList!=null){
             for(Tour tour:tourList){

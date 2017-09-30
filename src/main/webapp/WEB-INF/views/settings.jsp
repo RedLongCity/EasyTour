@@ -91,7 +91,7 @@
                                                                             </button>
                                                                     
                                                                             <button type="button" class="btn btn-sm btn-primary"
-                                                                                    ng-click='ctrl.fetchGlobalStatus()'>
+                                                                                    ng-click='ctrl.fetchGlobalStatus();ctrl.fetchGlobalSuspended()'>
                                                                                 <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
                                                                             </button>
                                                                         
@@ -102,6 +102,7 @@
                                                                             
                                                                     </div>
                                                                      <h4>Global Job Running: <span ng-bind="ctrl.globalStatus"></span></h4>
+                                                                     <h4>Global Job Suspended <span ng-bind="ctrl.globalSuspended"></span></h4>
                                                             </div>
                                                     </div>
                                             </div>
@@ -120,7 +121,7 @@
                                                                             </button>
                                                                     
                                                                             <button type="button" class="btn btn-sm btn-primary"
-                                                                                    ng-click='ctrl.fetchShortStatus()'>
+                                                                                    ng-click='ctrl.fetchShortStatus();ctrl.fetchShortSuspended()'>
                                                                                 <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
                                                                             </button>
                                                                         
@@ -131,6 +132,7 @@
                                                                             
                                                                     </div>
                                                                    <h4>Short Job Running: <span ng-bind="ctrl.shortStatus"></span></h4>
+                                                                   <h4>Short Job Suspended <span ng-bind="ctrl.shortSuspended"></span></h4>
                                                             </div>
                                                     </div>
                                             </div>

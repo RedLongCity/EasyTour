@@ -401,6 +401,8 @@
                                                                                                 <th>Night Till</th>
 
                                                                                                 <th>Meal Type</th>
+                                                                                                
+                                                                                                <th>Delay</th>
                                                                                         </tr>
                                                                                 </thead>
 
@@ -422,6 +424,8 @@
                                                                                         <td><span ng-bind="r.night_Till"></span></td>
 
                                                                                         <td><span ng-bind="r.meal_Type.name_full"></span></td>
+                                                                                        
+                                                                                        <td><span ng-bind="r.requestDelay"></span></td>
 
                                                                                         </tr>
                                                                                 </tbody>

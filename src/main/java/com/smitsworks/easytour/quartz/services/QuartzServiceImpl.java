@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.quartz.services;
 
+import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quartz.CronScheduleBuilder;
@@ -26,6 +27,10 @@ public class QuartzServiceImpl implements QuartzService {
 
     @Autowired
     Scheduler scheduler;
+    
+    @Autowired
+    ProjectConsantsSingletone constants;
+    
     
     @Override
     public void updateShortTrigger(Long RepeatInterval) {
@@ -89,6 +94,18 @@ public class QuartzServiceImpl implements QuartzService {
     }
 
     @Override
+    public void pauseGlobalJob() {
+    pauseJob("globalJob", "quartzJobs");
+    }
+
+    @Override
+    public void pauseShortJob() {
+    pauseJob("shortJob", "quartzJobs");
+    }
+    
+    
+
+    @Override
     public void resumeJob(String jobName,String jobGroup){
         if(scheduler==null){
            LOG.log(Level.WARNING,"Sheduler is null");
@@ -100,6 +117,22 @@ public class QuartzServiceImpl implements QuartzService {
             Logger.getLogger(QuartzServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void resumeGlobalJob() {
+        if(constants.isGlobalRun()){
+        resumeJob("globalJob", "quartzJobs");
+        }
+    }
+
+    @Override
+    public void resumeShortJob() {
+        if(constants.isShortRun()){
+        resumeJob("shortJob", "quartzJobs");
+        }
+    }
+    
+    
     
     @Override
     public void resumeAll() {

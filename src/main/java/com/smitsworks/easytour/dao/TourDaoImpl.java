@@ -1,10 +1,9 @@
 package com.smitsworks.easytour.dao;
 
-import com.smitsworks.easytour.models.From_Cities;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;
+import com.smitsworks.easytour.service.RequestService;
 import java.util.List;
-import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
@@ -13,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.smitsworks.easytour.utils.RequestConverterUtils;
-import java.sql.Timestamp;
+import java.util.HashSet;
 /**
  *
  * @author redlongcity
@@ -24,6 +23,9 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
 
     @Autowired
     RequestConverterUtils requestHandlerService;
+    
+    @Autowired
+    RequestService requestService;
     
     @Override
     public List<Tour> findAll() {
@@ -45,7 +47,7 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     }
 
     @Override
-    public List<Tour> getToursBeforeDate(Timestamp date) {
+    public List<Tour> getToursBeforeDate(Integer date) {
         Criteria crit = createCriteria();
         crit.add(Restrictions.le("date_From_Unix", date));
         List<Tour> tourList = crit.list();
@@ -64,7 +66,7 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     }
 
     @Override
-    public List<Tour> getToursBetweenDates(Timestamp dateBefore, Timestamp dateTill) {
+    public List<Tour> getToursBetweenDates(Integer dateBefore, Integer dateTill) {
         Criteria crit = createCriteria();
         crit.add(Restrictions.between("date_From_Unix", dateBefore, dateTill));
         List<Tour> tourList = crit.list();

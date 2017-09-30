@@ -30,6 +30,19 @@ App.factory('SettingsService', ['$http', '$q', function($http, $q){
                     }
             );
         },
+    getShort_Suspended: function(){
+            return $http.get(SERVER_URL_JSON+"/getshortsuspended")
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while getting short suspended');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
     getGlobal_Delay: function(){
             return $http.get(SERVER_URL_JSON+"/getglobaldelay")
             .then(
@@ -51,6 +64,19 @@ App.factory('SettingsService', ['$http', '$q', function($http, $q){
                     }, 
                     function(errResponse){
                         console.error('Error while getting global status');
+                        return $q.reject(errResponse);
+                    }
+            );
+        },
+        
+    getGlobal_Suspended: function(){
+            return $http.get(SERVER_URL_JSON+"/getglobalsuspended")
+            .then(
+                    function(response){
+                        return response.data;
+                    }, 
+                    function(errResponse){
+                        console.error('Error while getting global suspended');
                         return $q.reject(errResponse);
                     }
             );
