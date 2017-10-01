@@ -1,12 +1,12 @@
-App.factory('Tour', ['$http', '$q', function($http, $q){
+App.factory('Tour', ['$http', '$q','UrlService', function($http, $q,UrlService){
         
-    var SERVER_URL_JSON = 'http://localhost:8084/EasyTour/json/tour/';     
-    var SERVER_URL = 'http://localhost:8084/EasyTour/json/';    
+    var SERVER_URL_JSON = UrlService.getServerUrlJson();
+    var SERVER_URL = UrlService.getServerUrl();    
   
     return {
          
     fetchAll: function() {
-            return $http.get(SERVER_URL_JSON)
+            return $http.get(SERVER_URL_JSON+'/tour')
             .then(
                     function(response){
                         return response.data;
@@ -20,7 +20,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
      
      
    fetch: function(id){
-            return $http.get(SERVER_URL_JSON+"/"+id)
+            return $http.get(SERVER_URL_JSON+"/tour/"+id)
             .then(
                     function(response){
                         return response.data;
@@ -33,7 +33,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
         },
         
     fetchByRequest:function(country_id,from_city_id,hotel_rating,night_from,night_till,meal_type_id){
-        return $http.get('http://localhost:8084/EasyTour/json/gettours'+
+        return $http.get(SERVER_URL_JSON+'/gettours'+
                 '?country='+country_id+
                 '&from_city='+from_city_id+
                 '&hotel_rating='+hotel_rating+
@@ -51,7 +51,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
         },
         
     deleteAll: function() {
-            return $http.delete(SERVER_URL_JSON)
+            return $http.delete(SERVER_URL_JSON+"/tour")
             .then(
                     function(response){
                         return response.data;
@@ -65,7 +65,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
      
      
    delete: function(id){
-            return $http.delete(SERVER_URL_JSON+"/"+id)
+            return $http.delete(SERVER_URL_JSON+"/tour/"+id)
             .then(
                     function(response){
                         return response.data;
@@ -78,7 +78,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
         },
         
    deleteBefore: function(date){
-            return $http.delete(SERVER_URL+"/deletetoursbeforedate/"+date)
+            return $http.delete(SERVER_URL_JSON+"/deletetoursbeforedate/"+date)
             .then(
                     function(response){
                         return response.data;
@@ -91,7 +91,7 @@ App.factory('Tour', ['$http', '$q', function($http, $q){
         },
         
     deleteBetween: function(from,till){
-            return $http.delete(SERVER_URL+"/deletetoursbetweendates?datefrom="+
+            return $http.delete(SERVER_URL_JSON+"/deletetoursbetweendates?datefrom="+
                     from+"&datetill="+till)
             .then(
                     function(response){

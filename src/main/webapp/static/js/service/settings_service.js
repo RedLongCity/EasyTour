@@ -1,7 +1,7 @@
-App.factory('SettingsService', ['$http', '$q', function($http, $q){
+App.factory('SettingsService', ['$http', '$q','UrlService', function($http, $q,UrlService){
 
-    var SERVER_URL = 'http://localhost:8084/EasyTour';
-    var SERVER_URL_JSON = 'http://localhost:8084/EasyTour/json';    
+    var SERVER_URL = UrlService.getServerUrl();
+    var SERVER_URL_JSON = UrlService.getServerUrlJson();    
 
     return{
 

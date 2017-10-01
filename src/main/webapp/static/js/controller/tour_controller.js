@@ -6,6 +6,7 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           self.date_from;
           self.date_till;
           self.date_before;
+          $scope.load_delay=0;
           self.tour={id:null,key:'',type:'',country:'',
           region:'',hotel_id:'',hotel:'',hotel_Rating:'',
           meal_Type:'',room_Type:'',adult_Amount:'',
@@ -20,6 +21,32 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           self.request={country_id:null,from_city_id:null,
           hotel_rating:"3:78",night_from:"2",
           night_till:"7",meal_type_id:null};
+               
+          
+          self.Timer=function(delay,step){
+//              var addition=100/(delay/step);
+//              $scope.load_delay=0;
+//              var timer = setInterval(function(){
+//                  $scope.load_delay=10000;
+//              },step);
+//              setTimeout(function(){
+//                  clearInterval(timer);
+//              },delay);
+var timerId = setInterval(function() {
+  alert( "тик" );
+  $scope.load_delay=$scope.load_delay+1000;
+}, 2000);
+
+// через 5 сек остановить повторы
+setTimeout(function() {
+  clearInterval(timerId);
+  alert( 'стоп' );
+}, 5000);
+          };
+          
+          self.setLoadDelay=function(delay){
+              self.load_delay=delay;
+          };
                
           self.fetchAllTours = function(){
               Tour.fetchAll()

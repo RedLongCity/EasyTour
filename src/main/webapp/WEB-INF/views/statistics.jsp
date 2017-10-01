@@ -623,6 +623,7 @@
       <script src="<c:url value='/static/js/controller/request_controller.js' />"></script>
       <script src="<c:url value='/static/js/controller/time_controller.js' />"></script>
       <script src="<c:url value='/static/js/controller/date_controller.js' />"></script>
+      <script src="<c:url value='/static/js/service/url_service.js' />"></script>
     <script>
 	    window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");

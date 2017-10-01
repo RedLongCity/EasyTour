@@ -1,11 +1,11 @@
-App.factory('Currency', ['$http', '$q', function($http, $q){
+App.factory('Currency', ['$http', '$q','UrlService', function($http, $q,UrlService){
         
-    var SERVER_URL = 'http://localhost:8084/EasyTour/json/currency/';    
+    var SERVER_URL_JSON = UrlService.getServerUrlJson();    
         
     return {
          
     fetchAll: function() {
-            return $http.get(SERVER_URL)
+            return $http.get(SERVER_URL_JSON+'/currency')
             .then(
                     function(response){
                         return response.data;
@@ -19,7 +19,7 @@ App.factory('Currency', ['$http', '$q', function($http, $q){
      
      
    fetch: function(id){
-            return $http.get(SERVER_URL+"/"+id)
+            return $http.get(SERVER_URL_JSON+"/currency/"+id)
             .then(
                     function(response){
                         return response.data;
@@ -32,7 +32,7 @@ App.factory('Currency', ['$http', '$q', function($http, $q){
         },
         
     deleteAll: function() {
-            return $http.delete(SERVER_URL)
+            return $http.delete(SERVER_URL_JSON+'/currency')
             .then(
                     function(response){
                         return response.data;
@@ -46,7 +46,7 @@ App.factory('Currency', ['$http', '$q', function($http, $q){
      
      
    delete: function(id){
-            return $http.delete(SERVER_URL+"/"+id)
+            return $http.delete(SERVER_URL_JSON+"/currency/"+id)
             .then(
                     function(response){
                         return response.data;

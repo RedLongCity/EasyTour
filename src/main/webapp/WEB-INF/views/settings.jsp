@@ -214,6 +214,7 @@
     <script src="<c:url value='/static/js/app.js' />"></script>
     <script src="<c:url value='/static/js/service/settings_service.js' />"></script>
     <script src="<c:url value='/static/js/controller/settings_controller.js' />"></script>
+    <script src="<c:url value='/static/js/service/url_service.js' />"></script>
     <script>
 	    window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");

@@ -1,11 +1,11 @@
-App.factory('HotelRating', ['$http', '$q', function($http, $q){
+App.factory('HotelRating', ['$http', '$q','UrlService', function($http, $q,UrlService){
         
-    var SERVER_URL = 'http://localhost:8084/EasyTour/json/hotelrating/';    
+    var SERVER_URL_JSON = UrlService.getServerUrlJson();    
         
     return {
          
     fetchAll: function() {
-            return $http.get(SERVER_URL)
+            return $http.get(SERVER_URL_JSON+'/hotelrating')
             .then(
                     function(response){
                         return response.data;
@@ -19,7 +19,7 @@ App.factory('HotelRating', ['$http', '$q', function($http, $q){
      
      
    fetch: function(id){
-            return $http.get(SERVER_URL+"/"+id)
+            return $http.get(SERVER_URL_JSON+"/hotelrating/"+id)
             .then(
                     function(response){
                         return response.data;
@@ -32,7 +32,7 @@ App.factory('HotelRating', ['$http', '$q', function($http, $q){
         },
         
     deleteAll: function() {
-            return $http.delete(SERVER_URL)
+            return $http.delete(SERVER_URL_JSON+'/hotelrating')
             .then(
                     function(response){
                         return response.data;
@@ -46,7 +46,7 @@ App.factory('HotelRating', ['$http', '$q', function($http, $q){
      
      
    delete: function(id){
-            return $http.delete(SERVER_URL+"/"+id)
+            return $http.delete(SERVER_URL_JSON+"/hotelrating/"+id)
             .then(
                     function(response){
                         return response.data;

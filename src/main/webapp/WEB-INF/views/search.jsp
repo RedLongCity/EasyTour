@@ -217,7 +217,19 @@
                                                                     </div>
                                                                     
                                                                     <div class="divider"></div>
-                                                                    
+                                                                        
+                                                                    <div class="progress progress-custom">
+                                                                                        <div class="progress-bar bg-primary" style="width: 25%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                </div>
+                                                                        </div>
+
+                                                                        <div class="col-sm-3 col-md-2 col-xl-1">
+                                                                                <div class="progress-label">25%</div>
+                                                                        </div>
+                                                        
+                                                        <button class="but but-success" ng-click="ctrl.Timer(21000,100)">Start</button>
+                                                        <h6>{{load_delay}}</h6>
+                                                        
                                                                     <div class="table-responsive">
                                                                         <table class="table table-striped">
                                                                                 <thead>
@@ -330,6 +342,7 @@
     <script src="<c:url value='/static/js/app.js' />"></script>
     <script src="<c:url value='/static/js/controller/search_constants_cotntroller.js' />"></script>
     <script src="<c:url value='/static/js/service/tour_service.js' />"></script>
+    <script src="<c:url value='/static/js/service/url_service.js' />"></script>
     <script src="<c:url value='/static/js/controller/tour_controller.js' />"></script>
     <script src="<c:url value='/static/js/service/country_service.js' />"></script>
     <script src="<c:url value='/static/js/controller/country_controller.js' />"></script>
