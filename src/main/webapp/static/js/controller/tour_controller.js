@@ -6,7 +6,7 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           self.date_from;
           self.date_till;
           self.date_before;
-          $scope.load_delay=0;
+          $scope.hide=true;
           self.tour={id:null,key:'',type:'',country:'',
           region:'',hotel_id:'',hotel:'',hotel_Rating:'',
           meal_Type:'',room_Type:'',adult_Amount:'',
@@ -23,26 +23,31 @@ App.controller('TourController', ['$scope', 'Tour', function($scope, Tour) {
           night_till:"7",meal_type_id:null};
                
           
-          self.Timer=function(delay,step){
-//              var addition=100/(delay/step);
-//              $scope.load_delay=0;
-//              var timer = setInterval(function(){
-//                  $scope.load_delay=10000;
-//              },step);
-//              setTimeout(function(){
-//                  clearInterval(timer);
-//              },delay);
-var timerId = setInterval(function() {
-  alert( "тик" );
-  $scope.load_delay=$scope.load_delay+1000;
-}, 2000);
+          self.fetchByTimer=function(delay){
+              var tick=0;
+              document.getElementById("progressbar").style="width: "+tick+"%";
+              document.getElementById("progress_label").innerHTML=tick+"%";
+              var step = delay/20;
+              $scope.hide=false;
+              document.getElementById("progress_card").hidden=false;
+              document.getElementById("search_button").disabled=true;
+              var timerId = setInterval(function() {
+              tick+=5;  
+              document.getElementById("progressbar").style="width: "+tick+"%";
+              document.getElementById("progress_label").innerHTML=tick+"%";
+            }, step);
 
-// через 5 сек остановить повторы
-setTimeout(function() {
-  clearInterval(timerId);
-  alert( 'стоп' );
-}, 5000);
+            setTimeout(function() {
+              clearInterval(timerId);
+              document.getElementById("progress_card").hidden=true;
+              document.getElementById("search_button").disabled=false;
+              self.fetchTourByRequest();
+            }, delay);
           };
+          
+          self.setRequest=function(req){
+              self.request=req;
+          }
           
           self.setLoadDelay=function(delay){
               self.load_delay=delay;
@@ -72,17 +77,20 @@ setTimeout(function() {
                        );
           };
           
-          self.fetchTourByRequest = function(request){
+          self.fetchTourByRequest = function(){
                       Tour.fetchByRequest(
-                  request.country_id,
-                  request.from_city_id,
-                  request.hotel_rating,
-                  request.night_from,
-                  request.night_till,
-                  request.meal_type_id).then(
+                  self.request.country_id,
+                  self.request.from_city_id,
+                  self.request.hotel_rating,
+                  self.request.night_from,
+                  self.request.night_till,
+                  self.request.meal_type_id).then(
                                function(d) {
                                     self.response = d;
                                     self.delay=self.response.comeBackDelay;
+                                    if(self.delay>0){
+                                    self.fetchByTimer(self.delay);    
+                                    }
                                     self.tours=self.response.tourList;
                                },
                                 function(errResponse){

@@ -83,12 +83,6 @@
                                                             <div class="card-block pull-right">
                                                                     <h3 class="card-title">Tours</h3>
                                                                     
-                                                                    <!--<div class="btn-group" role="group" ng-controller="DateController">
-                                                                        <div clas s="input-group date">
-                                                                            <input type="text" class="form-control" ng-model="constants.date" id="from_date" placeholder="Date from: dd/mm/yyyy"><span class="input-group-addon"><i class="carpet"></i></span>
-                                                                        </div>
-                                                                    </div>-->
-                                                                    
                                                                     <div role="tablist" id="accordion" aria-multiselectable="true">
                                                                         <div class="card">
                                                                             <div class="card-header" role="tab" id="headingOne">
@@ -172,7 +166,7 @@
                                                                                 <em class="fa fa-search fa-lg"></em> Find All
                                                                         </button>
                                                                         
-                                                                        <button type="button" class="btn btn-sm btn-success" ng-click="ctrl.fetchTourByRequest(constants.getRequest())">
+                                                                        <button type="button" id="search_button" class="btn btn-sm btn-success" ng-click="ctrl.setRequest(constants.getRequest()); ctrl.fetchTourByRequest()">
                                                                                 <em class="fa fa-search fa-lg"></em> Search
                                                                         </button>
                                                                         
@@ -218,18 +212,22 @@
                                                                     
                                                                     <div class="divider"></div>
                                                                         
-                                                                    <div class="progress progress-custom">
-                                                                                        <div class="progress-bar bg-primary" style="width: 25%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    
+                                                                    
+                                                                        </div>
+                                                        <div id="progress_card" class="card" ng-hide="hide">
+                                                                                <div class="progress progress-custom">
+                                                                                        <div id="progressbar" class="progress-bar bg-primary" style="width: 25%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                                                                 </div>
-                                                                        </div>
+                                                            <br>
 
-                                                                        <div class="col-sm-3 col-md-2 col-xl-1">
-                                                                                <div class="progress-label">25%</div>
+                                                                                <div class="col-sm-3 col-md-2 col-xl-1">
+                                                                                <div id="progress_label" class="progress-label">25%</div>
                                                                         </div>
-                                                        
-                                                        <button class="but but-success" ng-click="ctrl.Timer(21000,100)">Start</button>
-                                                        <h6>{{load_delay}}</h6>
-                                                        
+                                                    </div>
+                                                        <button class="but but-success" ng-click="ctrl.fetchByTimer(20000)">Start</button>
+                                                        <button class="but but-success" ng-click="ctrl.stopTimer()">Stop</button>
+                                                        <p id="p1">Hello World!</p>
                                                                     <div class="table-responsive">
                                                                         <table class="table table-striped">
                                                                                 <thead>
