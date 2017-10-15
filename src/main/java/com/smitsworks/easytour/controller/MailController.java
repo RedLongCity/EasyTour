@@ -2,11 +2,13 @@ package com.smitsworks.easytour.controller;
 
 import com.smitsworks.easytour.javamail.core.Email;
 import com.smitsworks.easytour.javamail.core.EmailConfiguration;
+import com.smitsworks.easytour.javamail.core.EmailContentConverter;
 import com.smitsworks.easytour.javamail.core.EmailSender;
 import com.smitsworks.easytour.javamail.core.SimpleEmail;
 import com.smitsworks.easytour.javamail.core.SimpleEmailSender;
+import com.smitsworks.easytour.models.Order;
 import javax.mail.MessagingException;
-import org.hibernate.criterion.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/json/mail")
 public class MailController {
 
+    @Autowired
+    EmailContentConverter converter;
+
     @RequestMapping(value = "/postorder", method = RequestMethod.POST)
     public ResponseEntity<Void> send(@RequestBody Order order) {
 
         String from = "redlongcity@gmail.com";
-        String to = "redlongcity@gmail.com";
-        String subject = "some subject";
-        String message = "some message";
+        String to = converter.getAddresses();
+        String subject = "Заявка";
+        String message = converter.getMessage(order);
 
         Email email = new SimpleEmail(from, to, subject, message);
         EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
