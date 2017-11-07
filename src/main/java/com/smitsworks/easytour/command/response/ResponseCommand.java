@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.responsecommands;
+package com.smitsworks.easytour.command.response;
 
 import com.smitsworks.easytour.models.Response;
 

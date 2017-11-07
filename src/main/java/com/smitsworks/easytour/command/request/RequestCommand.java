@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.requestcommands;
+package com.smitsworks.easytour.command.request;
 
 import java.sql.Timestamp;
 

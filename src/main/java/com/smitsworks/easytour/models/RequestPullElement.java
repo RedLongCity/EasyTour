@@ -1,8 +1,8 @@
 package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.smitsworks.easytour.JsonView.RequsetPullElementView;
-import com.smitsworks.easytour.JsonView.TourView;
+import com.smitsworks.easytour.json.view.RequsetPullElementView;
+import com.smitsworks.easytour.json.view.TourView;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.logging.Logger;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository("mailAddressDao")
-public class MailAddressImpl extends AbstractDao<Integer,MailAddress> implements MailAddressDao{
+public class MailAddressDaoImpl extends AbstractDao<Integer,MailAddress> implements MailAddressDao{
 
     @Override
     public List<MailAddress> findAll() {

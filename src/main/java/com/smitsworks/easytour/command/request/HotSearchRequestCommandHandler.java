@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.smitsworks.easytour.requestcommands;
+package com.smitsworks.easytour.command.request;
 
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.Tour;

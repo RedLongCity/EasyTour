@@ -1,10 +1,10 @@
 package com.smitsworks.easytour.utils;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.command.request.HotFiltersRequestCommand;
+import com.smitsworks.easytour.command.request.HotSearchRequestCommand;
+import com.smitsworks.easytour.command.request.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import java.util.ArrayList;
 import java.util.Iterator;

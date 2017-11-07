@@ -1,9 +1,9 @@
-package com.smitsworks.easytour.requesthandlers;
+package com.smitsworks.easytour.handler.request;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
-import com.smitsworks.easytour.responsecommands.ItToursHotFiltersResponseCommand;
-import com.smitsworks.easytour.responsecommands.ResponseCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
+import com.smitsworks.easytour.command.response.ItToursHotFiltersResponseCommand;
+import com.smitsworks.easytour.command.response.ResponseCommand;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

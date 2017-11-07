@@ -1,7 +1,7 @@
 package com.smitsworks.easytour.quartz.jobs;
 
 import com.smitsworks.easytour.quartz.services.QuartzService;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
 import java.util.logging.Level;

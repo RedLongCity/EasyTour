@@ -1,7 +1,7 @@
 package com.smitsworks.easytour.singletons;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
 import com.smitsworks.easytour.utils.TimeUtils;
 import java.sql.Timestamp;
 import java.util.ArrayList;

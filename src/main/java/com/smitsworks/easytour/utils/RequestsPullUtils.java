@@ -1,7 +1,7 @@
 package com.smitsworks.easytour.utils;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
 
 /**
  *

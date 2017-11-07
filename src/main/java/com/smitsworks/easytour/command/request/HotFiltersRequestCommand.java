@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.requestcommands;
+package com.smitsworks.easytour.command.request;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smitsworks.easytour.utils.HttpUtils;

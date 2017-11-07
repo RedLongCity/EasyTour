@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.JsonView;
+package com.smitsworks.easytour.json.view;
 
 /**
  *

@@ -22,30 +22,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/json/mail")
 public class MailController {
-
-    @Autowired
-    EmailContentConverter converter;
-
-    @RequestMapping(value = "/postorder", method = RequestMethod.POST)
-    public ResponseEntity<Void> send(@RequestBody Order order) {
-
-        String from = "redlongcity@gmail.com";
-        String to = converter.getAddresses();
-        String subject = "Заявка";
-        String message = converter.getMessage(order);
-
-        Email email = new SimpleEmail(from, to, subject, message);
-        EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
-
-        try {
-            sender.send(email);
-            System.out.println("Sent message succesfully!");
-        } catch (MessagingException e) {
-            System.err.println("Message not sent!");
-            e.printStackTrace();
-        }
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
+//
+//    @Autowired
+//    EmailContentConverter converter;
+//
+//    @RequestMapping(value = "/postorder", method = RequestMethod.POST)
+//    public ResponseEntity<Void> send(@RequestBody Order order) {
+//
+//        String from = "redlongcity@gmail.com";
+//        String to = converter.getAddresses();
+//        String subject = "Заявка";
+//        String message = converter.getMessage(order);
+//
+//        Email email = new SimpleEmail(from, to, subject, message);
+//        EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
+//
+//        try {
+//            sender.send(email);
+//            System.out.println("Sent message succesfully!");
+//        } catch (MessagingException e) {
+//            System.err.println("Message not sent!");
+//            e.printStackTrace();
+//        }
+//
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//    }
 
 }

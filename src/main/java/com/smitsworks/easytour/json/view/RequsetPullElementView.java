@@ -1,4 +1,4 @@
-package com.smitsworks.easytour.JsonView;
+package com.smitsworks.easytour.json.view;
 
 /**
  *
@@ -6,6 +6,6 @@ package com.smitsworks.easytour.JsonView;
  * 23/09/2017
  * interface which constraints JSON output
  */
-public interface UpdateSessionView extends TourView{
+public interface RequsetPullElementView extends TourView{
     
 }

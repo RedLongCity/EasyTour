@@ -1,15 +1,15 @@
 package com.smitsworks.easytour.utils;
 
-import com.smitsworks.easytour.requesthandlers.ItToursHotSearchRequestHandler;
+import com.smitsworks.easytour.handler.request.ItToursHotSearchRequestHandler;
 import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.models.RequestPullElement;
 import com.smitsworks.easytour.models.UpdateSession;
 import com.smitsworks.easytour.quartz.services.QuartzService;
-import com.smitsworks.easytour.requestcommands.HotFiltersRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommandHandler;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
+import com.smitsworks.easytour.command.request.HotFiltersRequestCommand;
+import com.smitsworks.easytour.command.request.HotSearchRequestCommand;
+import com.smitsworks.easytour.command.request.HotSearchRequestCommandHandler;
+import com.smitsworks.easytour.command.request.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
 import com.smitsworks.easytour.service.RequestPullElementService;
 import com.smitsworks.easytour.service.UpdateSessionService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;

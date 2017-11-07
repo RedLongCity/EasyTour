@@ -1,8 +1,8 @@
 package com.smitsworks.easytour.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.smitsworks.easytour.JsonView.CountryView;
-import com.smitsworks.easytour.JsonView.TourView;
+import com.smitsworks.easytour.json.view.CountryView;
+import com.smitsworks.easytour.json.view.TourView;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

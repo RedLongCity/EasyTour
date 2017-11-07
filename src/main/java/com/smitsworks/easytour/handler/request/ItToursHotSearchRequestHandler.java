@@ -1,11 +1,11 @@
-package com.smitsworks.easytour.requesthandlers;
+package com.smitsworks.easytour.handler.request;
 
 import com.smitsworks.easytour.models.Request;
-import com.smitsworks.easytour.requestcommands.HotSearchRequestCommand;
-import com.smitsworks.easytour.requestcommands.ItToursSearchBaseRequestCommand;
-import com.smitsworks.easytour.requestcommands.RequestCommand;
-import com.smitsworks.easytour.responsecommands.ItToursHotSearchResponseCommand;
-import com.smitsworks.easytour.responsecommands.ResponseCommand;
+import com.smitsworks.easytour.command.request.HotSearchRequestCommand;
+import com.smitsworks.easytour.command.request.ItToursSearchBaseRequestCommand;
+import com.smitsworks.easytour.command.request.RequestCommand;
+import com.smitsworks.easytour.command.response.ItToursHotSearchResponseCommand;
+import com.smitsworks.easytour.command.response.ResponseCommand;
 import com.smitsworks.easytour.service.RequestService;
 import com.smitsworks.easytour.utils.ComeBackUtils;
 import com.smitsworks.easytour.utils.RequestsPullUtils;

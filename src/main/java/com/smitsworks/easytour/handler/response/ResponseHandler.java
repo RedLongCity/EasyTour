@@ -1,7 +1,7 @@
-package com.smitsworks.easytour.responsehandlers;
+package com.smitsworks.easytour.handler.response;
 
 import com.smitsworks.easytour.models.Response;
-import com.smitsworks.easytour.responsecommands.ResponseCommand;
+import com.smitsworks.easytour.command.response.ResponseCommand;
 
 /**
  *

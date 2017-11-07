@@ -24,9 +24,7 @@ public class EmailContentConverter {
     @Autowired
     MailAddressService mailService;
 
-    public EmailContentConverter(TourService tourService, MailAddressService mailService) {
-        this.tourService = tourService;
-        this.mailService = mailService;
+    public EmailContentConverter() {
     }
 
     public String getMessage(Order order) {
