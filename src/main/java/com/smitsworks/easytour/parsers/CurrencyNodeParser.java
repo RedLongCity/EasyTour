@@ -7,7 +7,6 @@ import com.smitsworks.easytour.service.CurrencyService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,44 +16,44 @@ import org.springframework.stereotype.Service;
  * class for parsing Currency.class from JsonNode
  */
 @Service
-public class CurrencyNodeParser implements NodeParser{
+public class CurrencyNodeParser implements NodeParser {
 
     private static final Logger LOG = Logger.getLogger(CurrencyNodeParser.class.getName());
 
     @Autowired
     CurrencyService currencyService;
-    
+
     @Override
     public Boolean parseNode(ArrayNode currencyNode) {
-        if(currencyNode.isMissingNode()){
-            LOG.log(Level.WARNING,"CurrencyNode: currencyNode is missing");
+        if (currencyNode.isMissingNode()) {
+            LOG.log(Level.WARNING, "CurrencyNode: currencyNode is missing");
             return false;
         }
-        for(int i=0;i<currencyNode.size();i++){
+        for (int i = 0; i < currencyNode.size(); i++) {
             Currency currency = new Currency();
             JsonNode node;
-            
-            node=currencyNode.get(i).path("id");
-            if(node.isMissingNode()){
-                LOG.log(Level.WARNING,"CurrencyNode: id node is missing");
+
+            node = currencyNode.get(i).path("id");
+            if (node.isMissingNode()) {
+                LOG.log(Level.WARNING, "CurrencyNode: id node is missing");
                 return false;
             }
             String id = node.asText();
-            if(currencyService.findById(id)!=null){
+            if (currencyService.findById(id) != null) {
                 continue;
             }
             currency.setId(id);
-            
-            node=currencyNode.get(i).path("name");
-            if(node.isMissingNode()){
-                LOG.log(Level.WARNING,"CurrencyNode: name node is missing");
-                return false; 
+
+            node = currencyNode.get(i).path("name");
+            if (node.isMissingNode()) {
+                LOG.log(Level.WARNING, "CurrencyNode: name node is missing");
+                return false;
             }
             currency.setName(node.asText());
-            
+
             currencyService.saveCurrency(currency);
         }
         return true;
     }
-    
+
 }

@@ -15,22 +15,20 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author redlongcity
- * 13.09.2017
- * class for handle requests to ItToursSearch
+ * @author redlongcity 13.09.2017 class for handle requests to ItToursSearch
  */
 @Service
-public class ItToursHotSearchRequestHandler implements RequestHandler{
-    
+public class ItToursHotSearchRequestHandler implements RequestHandler {
+
     @Autowired
     TimeUtils timeUtils;
-    
+
     @Autowired
     RequestService requestService;
-    
+
     @Autowired
     RequestsPullUtils pullUtils;
-    
+
     @Autowired
     ComeBackUtils backUtils;
 
@@ -38,49 +36,48 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
     public ResponseCommand handleRequest(Request request) {
         ResponseCommand responseCommand = null;
         Request entity = requestService.findByFields(request);
-        if(entity==null){//Request does not in request database
+        if (entity == null) {//Request does not in request database
             requestService.saveRequest(request);
             Request entityRequest = requestService.findByFields(request);
             HotSearchRequestCommand command = new HotSearchRequestCommand(
-            entityRequest,1,false,true);
+                    entityRequest, 1, false, true);
             pullUtils.addRequestCommandToPull(command);
-            responseCommand = new ItToursHotSearchResponseCommand(null,
-            backUtils.calculate(command));
+            responseCommand = new ItToursHotSearchResponseCommand(entityRequest,
+                    backUtils.calculate(command));
             return responseCommand;
         }
         RequestCommand requestCommand = pullUtils.getCommandByRequest(entity);//return request if it in current's session pull
-        if(requestCommand==null){//request does not in curren session pull
-            if(!pullUtils.isRequestInPreviousPull(entity)){//request does not in previous session pull
-            HotSearchRequestCommand command = new HotSearchRequestCommand(
-            entity,1,false,true);
-            pullUtils.addRequestCommandToPull(command);
-            responseCommand = new ItToursHotSearchResponseCommand(null,
-            backUtils.calculate(command));
-            return responseCommand; 
+        if (requestCommand == null) {//request does not in curren session pull
+            if (!pullUtils.isRequestInPreviousPull(entity)) {//request does not in previous session pull
+                HotSearchRequestCommand command = new HotSearchRequestCommand(
+                        entity, 1, false, true);
+                pullUtils.addRequestCommandToPull(command);
+                responseCommand = new ItToursHotSearchResponseCommand(entity,
+                        backUtils.calculate(command));
+                return responseCommand;
             }//request in previous session pull
             HotSearchRequestCommand command = new HotSearchRequestCommand(
-            entity,1,false,true);
+                    entity, 1, false, true);
             pullUtils.addRequestCommandToPull(command);
             responseCommand = new ItToursHotSearchResponseCommand(entity,
-            backUtils.calculate(command));
-            return responseCommand; 
+                    backUtils.calculate(command));
+            return responseCommand;
         }
         requestCommand.setByHuman(Boolean.TRUE);//request in current session pull
-        if(!requestCommand.getDone()){//request does not done
-            if(!pullUtils.isRequestInPreviousPull(entity)){
-            responseCommand = new ItToursHotSearchResponseCommand(null,
-            backUtils.calculate(requestCommand));
-            return responseCommand;
+        if (!requestCommand.getDone()) {//request does not done
+            if (!pullUtils.isRequestInPreviousPull(entity)) {
+                responseCommand = new ItToursHotSearchResponseCommand(entity,
+                        backUtils.calculate(requestCommand));
+                return responseCommand;
             }
             responseCommand = new ItToursHotSearchResponseCommand(entity,
-            backUtils.calculate(requestCommand));
+                    backUtils.calculate(requestCommand));
             return responseCommand;
         }
         responseCommand = new ItToursHotSearchResponseCommand(entity,//request already done
-            backUtils.calculate(requestCommand));
+                backUtils.calculate(requestCommand));
         return responseCommand;
     }
-    
 
     @Override
     public ItToursSearchBaseRequestCommand getBaseRequestCommand() {
@@ -89,14 +86,13 @@ public class ItToursHotSearchRequestHandler implements RequestHandler{
         request.setNight_From(2);
         request.setNight_Till(7);
         Request entity = requestService.findByFields(request);
-        if(entity==null){
+        if (entity == null) {
             requestService.saveRequest(request);
             entity = requestService.findByFields(request);
         }
         ItToursSearchBaseRequestCommand command = new ItToursSearchBaseRequestCommand(
-        entity,1,false,timeUtils.getCurrentTime());
+                entity, 1, false, timeUtils.getCurrentTime());
         return command;
     }
-    
-    
+
 }

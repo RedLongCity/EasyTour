@@ -19,34 +19,33 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
- * @author redlongcity
- * 10.09.2017
- * class for generalization operations with search information
+ * @author redlongcity 10.09.2017 class for generalization operations with
+ * search information
  */
 @Service
-public class HotSearchRequestCommand implements RequestCommand,ItToursParserConstants {
+public class HotSearchRequestCommand implements RequestCommand, ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(HotSearchRequestCommand.class.getName());
-    
+
     private JsonNode rootNode;
     private Request request;
     private Integer priority;
     private Boolean done;
     private Boolean byHuman;
     private Timestamp requestTime;
-    
+
     @Autowired
     ItToursHotToursSearchParser parser;
-    
+
     @Autowired
     HotSearchRequestConverterUtils handlerService;
-    
+
     @Autowired
     ProjectConsantsSingletone projectConsantsSingletone;
-    
+
     @Autowired
     TimeUtils timeUtils;
-    
+
     @Autowired
     RequestService service;
 
@@ -59,10 +58,10 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         this.done = done;
         this.byHuman = byHuman;
     }
-    
+
     @Override
     public void execute() {
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         Long delay = timeUtils.getCurrentTime().getTime();
         try {
             rootNode = HttpUtils.getJsonNodeFromUrl(handlerService.
@@ -72,7 +71,7 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         }
         projectConsantsSingletone.setRequestUpdating(request);
         parser.extractTours(rootNode);
-        delay = timeUtils.getCurrentTime().getTime()-delay;
+        delay = timeUtils.getCurrentTime().getTime() - delay;
         request.setRequestDelay(delay);
         service.updateRequest(request);
     }
@@ -91,7 +90,6 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     public void IncreasePriority() {
         this.priority++;
     }
-    
 
     @Override
     public Boolean getDone() {
@@ -121,7 +119,6 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
         this.request = request;
     }
 
-    
     public Timestamp getRequestTime() {
         return requestTime;
     }
@@ -129,6 +126,5 @@ public class HotSearchRequestCommand implements RequestCommand,ItToursParserCons
     public void setRequestTime(Timestamp requestTime) {
         this.requestTime = requestTime;
     }
-    
-    
+
 }

@@ -16,40 +16,40 @@ import java.util.logging.Level;
  * class for parsing Country.class from JsonNode
  */
 @Service
-public class CountryNodeParser implements NodeParser{
+public class CountryNodeParser implements NodeParser {
 
     private static final Logger LOG = Logger.getLogger(CountryNodeParser.class.getName());
 
     @Autowired
     CountryService countryService;
-    
+
     @Override
-    public Boolean parseNode(ArrayNode countriesNode){
-        if(countriesNode.isMissingNode()){
+    public Boolean parseNode(ArrayNode countriesNode) {
+        if (countriesNode.isMissingNode()) {
             LOG.log(Level.WARNING, "CountryNode: countriesNode is missing");
             return false;
         }
-        for(int i=0; i<countriesNode.size();i++){
+        for (int i = 0; i < countriesNode.size(); i++) {
             Country country = new Country();
             JsonNode node;
-            
-            node=countriesNode.get(i).path("id");
-            if(node.isMissingNode()){
-                LOG.log(Level.WARNING,"CountryNode: id node is missing");
+
+            node = countriesNode.get(i).path("id");
+            if (node.isMissingNode()) {
+                LOG.log(Level.WARNING, "CountryNode: id node is missing");
                 return false;
             }
             String id = node.asText();
-            if(countryService.findById(id)!=null){
+            if (countryService.findById(id) != null) {
                 continue;
             }
             country.setId(id);
-            node=countriesNode.get(i).path("name");
-            if(node.isMissingNode()){
-                LOG.log(Level.WARNING,"CountryNode: name node is missing");
-                return false; 
+            node = countriesNode.get(i).path("name");
+            if (node.isMissingNode()) {
+                LOG.log(Level.WARNING, "CountryNode: name node is missing");
+                return false;
             }
             country.setName(node.asText());
-            
+
             countryService.saveCountry(country);
         }
         return true;
