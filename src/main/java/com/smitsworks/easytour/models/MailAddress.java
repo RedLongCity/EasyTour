@@ -3,29 +3,30 @@ package com.smitsworks.easytour.models;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
- * @author redlongcity
- * class for storing data about mail addresses 
+ * @author redlongcity class for storing data about mail addresses
  */
-
 @Entity
-@Table(name="mail_addresses")
+@Table(name = "mail_addresses")
 public class MailAddress {
-    
+
     @Id
-    @Column(name="address_id",nullable=false,unique=true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id", nullable = false, unique = true)
     private Integer id;
-    
-    @Column(name="address_owner",nullable=true,unique=false)
+
+    @Column(name = "address_owner", nullable = true, unique = false)
     private String name;
-    
+
     @NotEmpty
-    @Column(name="address",nullable=false,unique=false)
+    @Column(name = "address", nullable = false, unique = false)
     private String emailAddress;
 
     public Integer getId() {
@@ -89,6 +90,5 @@ public class MailAddress {
     public String toString() {
         return "MailAddress{" + "id=" + id + ", name=" + name + ", emailAddress=" + emailAddress + '}';
     }
-    
-    
+
 }

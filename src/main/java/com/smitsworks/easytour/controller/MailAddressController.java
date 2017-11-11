@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author redlongcity
- * 08/11/2017
- * controller for endpoints of MailAddress
+ * @author redlongcity 08/11/2017 controller for endpoints of MailAddress
  */
 @RestController
 @RequestMapping("/json")
@@ -45,10 +43,12 @@ public class MailAddressController {
 
     @RequestMapping(value = "/address/", method = RequestMethod.POST)
     public ResponseEntity<Void> createMailAddress(@RequestBody MailAddress address) {
-//        MailAddress entity = service.findById(address.getId());
-//        if (entity != null) {
-//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-//        }
+        if (address.getId() != null) {
+            MailAddress entity = service.findById(address.getId());
+            if (entity != null) {
+                return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            }
+        }
         service.saveMailAddress(address);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
