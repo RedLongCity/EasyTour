@@ -194,98 +194,110 @@
                                             <div class="table-responsive">
                                                 <table class="table table-striped">
                                                     <thead>
-                                                        
-                                                    <th>#</th>
-                                                    
-                                                    <th>ID</th>
-                                                    
-                                                    <th>Name</th>
-                                                    
-                                                    <th>Email</th>
-                                                    
+                                                        <tr>
+                                                            <th>#</th>
+
+                                                            <th>ID</th>
+
+                                                            <th>Name</th>
+
+                                                            <th>Email</th>
+                                                        </tr>
                                                     </thead>
-                                                    
+
                                                     <tbody>
-                                                        <tr ng-repeat="m in mail.addresses" ng-click="ctrl.onClick(m)"></tr>
-                                                        
-                                                    <td><span ng-bind="$index"></span></td>
-                                                    <td><span ng-bind="m.id"></span></td>
-                                                    <td><span ng-bind="m.name"></span></td>
-                                                    <td><span ng-bind="m.emailAddress"></span></td>
+                                                        <tr ng-repeat="m in mail.addresses" ng-click="ctrl.address = m" 
+                                                            data-toggle="modal" data-target="#modal">
+
+                                                            <td><span ng-bind="$index"></span></td>
+                                                            <td><span ng-bind="m.id"></span></td>
+                                                            <td><span ng-bind="m.name"></span></td>
+                                                            <td><span ng-bind="m.emailAddress"></span></td>
+
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
 
-                                            <div class="btn-group btn-lg" role="group" >
-                                                <button type="button" class="btn btn-sm btn-success"
-                                                        ng-click="ctrl.resumeGlobal()">
-                                                    <em class="fa fa-rocket" aria-hidden="true"></em> Start
-                                                </button>
+                                            <button type="button" class="btn btn-sm btn-success"
+                                                    data-toggle="modal" data-target="#modal">
+                                                <em class="fa fa-rocket" aria-hidden="true"></em> Start
+                                            </button>
 
-                                                <button type="button" class="btn btn-sm btn-primary"
-                                                        ng-click='ctrl.fetchGlobalStatus(); ctrl.fetchGlobalSuspended()'>
-                                                    <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
-                                                </button>
-
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                        ng-click='ctrl.stopGlobal()'>
-                                                    <em class="fa fa-power-off" aria-hidden="true"></em> Stop
-                                                </button>
-
-                                            </div>
-                                            <h4>Global Job Running: <span ng-bind="ctrl.globalStatus"></span></h4>
-                                            <h4>Global Job Suspended <span ng-bind="ctrl.globalSuspended"></span></h4>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
                         </div>
                     </section>
-
-
-
-
-
-                    <section class="row">
-                        <div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
-                    </section>
-
-                </main>
+            </div>
+        </section>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" 
+             ng-controller="MailAddressController as mail">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Name:
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" ng-model="ctrl.address.name">
+                                </div>
+                                <div class="col-md-12">
+                                    Email: 
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="email" ng-model="ctrl.address.emailAddress"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="mail.saveMailAddress(ctrl.address)">Save changes</button>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="mail.deleteMailAddress(ctrl.address.id)">Delete</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="static/js/jquery-3.2.1.min.js"></script>
-        <script src="static/dist/js/bootstrap.min.js"></script>
-        <script src="static/js/bootstrap-datepicker.js"></script>
-        <script src="static/js/chart.min.js"></script>
-        <script src="static/js/chart-data.js"></script>
-        <script src="static/js/easypiechart.js"></script>
-        <script src="static/js/easypiechart-data.js"></script>
-        <script src="static/js/custom.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
-        <script src="<c:url value='/static/js/app.js' />"></script>
-        <script src="<c:url value='/static/js/service/settings_service.js' />"></script>
-        <script src="<c:url value='/static/js/controller/mail_address_controller.js' />"></script>
-        <script src="<c:url value='/static/js/controller/settings_controller.js' />"></script>
-        <script src="<c:url value='/static/js/service/mail_address_service.js' />"></script>
-        <script src="<c:url value='/static/js/service/url_service.js' />"></script>
-        <script>
-                                                window.onload = function () {
-                                                var chart1 = document.getElementById("line-chart").getContext("2d");
-                                                window.myLine = new Chart(chart1).Line(lineChartData, {
-                                                responsive: true,
-                                                        scaleLineColor: "rgba(0,0,0,.2)",
-                                                        scaleGridLineColor: "rgba(0,0,0,.05)",
-                                                        scaleFontColor: "#c5c7cc"
-                                                });
-                                                };
-        </script>
+        <section class="row">
+            <div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
+        </section>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    </main>
+</div>
+</div>
 
-    </body>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="static/js/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="static/dist/js/bootstrap.min.js"></script>
+<script src="static/js/bootstrap-datepicker.js"></script>
+<script src="static/js/chart.min.js"></script>
+<script src="static/js/chart-data.js"></script>
+<script src="static/js/easypiechart.js"></script>
+<script src="static/js/easypiechart-data.js"></script>
+<script src="static/js/custom.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
+<script src="<c:url value='/static/js/app.js' />"></script>
+<script src="<c:url value='/static/js/service/settings_service.js' />"></script>
+<script src="<c:url value='/static/js/service/mail_address_service.js' />"></script>
+<script src="<c:url value='/static/js/controller/mail_address_controller.js' />"></script>
+<script src="<c:url value='/static/js/controller/settings_controller.js' />"></script>
+<script src="<c:url value='/static/js/service/url_service.js' />"></script>
+
+
+</body>
 </html>

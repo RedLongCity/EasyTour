@@ -19,7 +19,7 @@
 	
 	<link rel="icon" href="images/favicon.ico">
 	
-	<title>Searching</title>
+	<title>Statistics</title>
         
             <!-- Bootstrap core CSS -->
     <link href="static/dist/css/bootstrap.min.css" rel="stylesheet">

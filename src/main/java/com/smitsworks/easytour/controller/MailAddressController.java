@@ -38,12 +38,12 @@ public class MailAddressController {
     public ResponseEntity<MailAddress> getMailAddress(@PathVariable("id") Integer id) {
         MailAddress address = service.findById(id);
         if (address == null) {
-            return new ResponseEntity<MailAddress>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MailAddress>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<MailAddress>(address, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/address", method = RequestMethod.POST)
+    @RequestMapping(value = "/address/", method = RequestMethod.POST)
     public ResponseEntity<Void> createMailAddress(@RequestBody MailAddress address) {
         MailAddress entity = service.findById(address.getId());
         if (entity != null) {

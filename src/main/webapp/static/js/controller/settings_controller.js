@@ -10,6 +10,8 @@ App.controller('SettingsController', ['$scope', 'SettingsService', function ($sc
         self.globalDelay = 1;
         self.globalSuspended = false;
         self.shortSuspended = false;
+        self.address = {id: null, name = '', emailAddress = ''};
+        
 
         self.globalDelaysArray_Human = [1, 10, 15, 30, 60, 120, 180, 300];
         self.shortDelaysArray = [1000, 2000, 5000, 10000, 12000, 20000, 30000];
@@ -110,9 +112,6 @@ App.controller('SettingsController', ['$scope', 'SettingsService', function ($sc
             SettingsService.resumeGlobal();
         };
 
-        self.onClick = function(address){
-            
-        };
 
 
         self.fetchShortStatus();
