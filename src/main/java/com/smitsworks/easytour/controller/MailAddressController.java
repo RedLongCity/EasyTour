@@ -45,10 +45,10 @@ public class MailAddressController {
 
     @RequestMapping(value = "/address/", method = RequestMethod.POST)
     public ResponseEntity<Void> createMailAddress(@RequestBody MailAddress address) {
-        MailAddress entity = service.findById(address.getId());
-        if (entity != null) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+//        MailAddress entity = service.findById(address.getId());
+//        if (entity != null) {
+//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//        }
         service.saveMailAddress(address);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
