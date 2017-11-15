@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author redlongcity controller for manipulations with mail resources
  */
 @RestController
-@RequestMapping("/json/mail")
+@RequestMapping("/json")
 public class MailController {
 
     private static final Logger LOG = Logger.getLogger(MailController.class.getName());
@@ -30,7 +30,7 @@ public class MailController {
     @Autowired
     EmailContentConverter converter;
 
-    @RequestMapping(value = "/postorder", method = RequestMethod.POST)
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
     public ResponseEntity<Void> send(@RequestBody Order order) {
 
         String from = "redlongcity@gmail.com";
@@ -49,6 +49,11 @@ public class MailController {
         }
 
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/ordered",method=RequestMethod.POST)
+    public ResponseEntity<String> returnSomething(){
+        return new ResponseEntity<String>("Hrhrh",HttpStatus.OK);
     }
 
 }
