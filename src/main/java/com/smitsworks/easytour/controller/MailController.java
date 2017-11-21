@@ -7,6 +7,7 @@ import com.smitsworks.easytour.javamail.core.EmailSender;
 import com.smitsworks.easytour.javamail.core.SimpleEmail;
 import com.smitsworks.easytour.javamail.core.SimpleEmailSender;
 import com.smitsworks.easytour.models.Order;
+import com.smitsworks.easytour.models.UserData;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -52,8 +53,16 @@ public class MailController {
     }
     
     @RequestMapping(value="/ordered",method=RequestMethod.POST)
-    public ResponseEntity<String> returnSomething(){
-        return new ResponseEntity<String>("Hrhrh",HttpStatus.OK);
+    public ResponseEntity<Order> returnSomething(@RequestBody String string){
+        Order order = new Order();
+        UserData data = new UserData();
+        data.setName("Smit");
+        data.setEmail("redlongcity@gmail.com");
+        data.setMobileNumber("0975613426");
+        data.setCity("KriviyRih");
+        order.setData(data);
+        order.setTourId(1);
+        return new ResponseEntity<Order>(order,HttpStatus.OK);
     }
 
 }

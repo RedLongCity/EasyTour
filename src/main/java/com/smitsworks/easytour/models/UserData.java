@@ -16,13 +16,9 @@ public class UserData {
 
     private String city;
 
-    public UserData(String name, String mobileNumber, String email, String city) {
-        this.name = name;
-        this.mobileNumber = mobileNumber;
-        this.email = email;
-        this.city = city;
+    public UserData() {
     }
-
+    
     public String getName() {
         return name;
     }
