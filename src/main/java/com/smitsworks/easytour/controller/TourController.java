@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,4 +152,34 @@ public class TourController {
         tourService.deleteToursBetweenDats(dateFrom, dateTill);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
+
+    @JsonView(TourView.class)
+    @RequestMapping(value = "/gettoursbyrequest", method = RequestMethod.POST)
+    public ResponseEntity<Response> getToursByRequest(
+            @RequestBody Request request) {
+        if (request == null) {
+            return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
+        }
+        if (request.getHotel_Rating().isEmpty() || request.getHotel_Rating().equals("null")) {
+            request.setHotel_Rating("3:78");
+        }
+        if (request.getNight_From() == null) {
+            request.setNight_From(2);
+        }
+        if (request.getNight_Till() == null) {
+            request.setNight_Till(7);
+        }
+        ResponseCommand command = searchRequestHandler.handleRequest(request);
+        Response response = searchResponseHandler.executeResponseCommand(command);
+        if (response == null) {
+            return new ResponseEntity<Response>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Response>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/string", method = RequestMethod.POST)
+    public ResponseEntity<String> getString(@RequestBody String string) {
+        return new ResponseEntity<String>(string, HttpStatus.OK);
+    }
+
 }
