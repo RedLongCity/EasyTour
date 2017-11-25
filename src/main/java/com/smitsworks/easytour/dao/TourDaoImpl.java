@@ -19,26 +19,27 @@ import java.util.HashSet;
  */
 
 @Repository("tourDao")
-public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
+public class TourDaoImpl extends AbstractDao<Integer, Tour> implements TourDao {
 
     @Autowired
     RequestConverterUtils requestHandlerService;
-    
+
     @Autowired
     RequestService requestService;
-    
+
     @Override
     public List<Tour> findAll() {
         Criteria crit = createCriteria();
         crit.addOrder(Order.asc("country"));
-        List<Tour> tourList = (List<Tour>)crit.list();
-        if(tourList!=null){
-            for(Tour tour:tourList){
+        List<Tour> tourList = (List<Tour>) crit.list();
+        crit.setMaxResults(100);
+        if (tourList != null) {
+            for (Tour tour : tourList) {
                 Hibernate.initialize(tour.getCountry());
                 Hibernate.initialize(tour.getFrom_Cities());
                 Hibernate.initialize(tour.getPrices());
-                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getMeal_Type());
                 Hibernate.initialize(tour.getRequestSet());
             }
@@ -50,16 +51,17 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     public List<Tour> getToursBeforeDate(Integer date) {
         Criteria crit = createCriteria();
         crit.add(Restrictions.le("date_From_Unix", date));
+        crit.setMaxResults(100);
         List<Tour> tourList = crit.list();
-        if(tourList!=null){
-            for(Tour tour:tourList){
+        if (tourList != null) {
+            for (Tour tour : tourList) {
                 Hibernate.initialize(tour.getCountry());
                 Hibernate.initialize(tour.getFrom_Cities());
                 Hibernate.initialize(tour.getPrices());
-                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getMeal_Type());
-                Hibernate.initialize(tour.getRequestSet()); 
+                Hibernate.initialize(tour.getRequestSet());
             }
         }
         return tourList;
@@ -69,35 +71,52 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     public List<Tour> getToursBetweenDates(Integer dateBefore, Integer dateTill) {
         Criteria crit = createCriteria();
         crit.add(Restrictions.between("date_From_Unix", dateBefore, dateTill));
+        crit.setMaxResults(100);
         List<Tour> tourList = crit.list();
-        if(tourList!=null){
-            for(Tour tour:tourList){
+        if (tourList != null) {
+            for (Tour tour : tourList) {
                 Hibernate.initialize(tour.getCountry());
                 Hibernate.initialize(tour.getFrom_Cities());
                 Hibernate.initialize(tour.getPrices());
-                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getHotel_ImageSet());
                 Hibernate.initialize(tour.getMeal_Type());
-                Hibernate.initialize(tour.getRequestSet()); 
+                Hibernate.initialize(tour.getRequestSet());
             }
         }
         return tourList;
     }
-    
-    
 
     @Override
     public List<Tour> getToursByRequest(Request request) {
         Criteria crit = createCriteria();
         List<Criterion> criterionsList = requestHandlerService.getCriterionsByRequest(request);
-        if(criterionsList!=null){
-            for(Criterion criterion:criterionsList){
+        if (criterionsList != null) {
+            for (Criterion criterion : criterionsList) {
                 crit.add(criterion);
             }
         }
-        List<Tour> tourList=(List<Tour>) crit.list();
-            if(tourList!=null){
-        for(Tour tour:tourList){
+        crit.setMaxResults(100);
+        List<Tour> tourList = (List<Tour>) crit.list();
+        if (tourList != null) {
+            for (Tour tour : tourList) {
+                Hibernate.initialize(tour.getCountry());
+                Hibernate.initialize(tour.getFrom_Cities());
+                Hibernate.initialize(tour.getPrices());
+                Hibernate.initialize(tour.getHotel_Rating());
+                Hibernate.initialize(tour.getHotel_ImageSet());
+                Hibernate.initialize(tour.getMeal_Type());
+                Hibernate.initialize(tour.getRequestSet());
+
+            }
+        }
+        return tourList;
+    }
+
+    @Override
+    public Tour findById(Integer id) {
+        Tour tour = getByKey(id);
+        if (tour != null) {
             Hibernate.initialize(tour.getCountry());
             Hibernate.initialize(tour.getFrom_Cities());
             Hibernate.initialize(tour.getPrices());
@@ -107,25 +126,6 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
             Hibernate.initialize(tour.getRequestSet());
 
         }
-    }
-        return tourList;
-    }
-    
-    
-
-    @Override
-    public Tour findById(Integer id) {
-        Tour tour = getByKey(id);
-        if(tour!=null){
-               Hibernate.initialize(tour.getCountry());
-               Hibernate.initialize(tour.getFrom_Cities());
-               Hibernate.initialize(tour.getPrices());
-               Hibernate.initialize(tour.getHotel_ImageSet()); 
-               Hibernate.initialize(tour.getHotel_Rating());
-               Hibernate.initialize(tour.getMeal_Type());
-               Hibernate.initialize(tour.getRequestSet());
-
-        }
         return tour;
     }
 
@@ -133,13 +133,13 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     public Tour findByRequest(Request request) {
         Criteria crit = createCriteria();
         List<Criterion> criterionsList = requestHandlerService.getCriterionsByRequest(request);
-        if(criterionsList!=null){
-            for(Criterion criterion:criterionsList){
+        if (criterionsList != null) {
+            for (Criterion criterion : criterionsList) {
                 crit.add(criterion);
             }
         }
-        Tour tour = (Tour)crit.uniqueResult();
-        if(tour!=null){
+        Tour tour = (Tour) crit.uniqueResult();
+        if (tour != null) {
             Hibernate.initialize(tour.getCountry());
             Hibernate.initialize(tour.getFrom_Cities());
             Hibernate.initialize(tour.getPrices());
@@ -155,16 +155,16 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     @Override
     public Tour findByKey(String key) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.eq("key",key));
-        Tour tour = (Tour)crit.uniqueResult();
-        if(tour!=null){
+        crit.add(Restrictions.eq("key", key));
+        Tour tour = (Tour) crit.uniqueResult();
+        if (tour != null) {
             Hibernate.initialize(tour.getCountry());
             Hibernate.initialize(tour.getFrom_Cities());
             Hibernate.initialize(tour.getPrices());
             Hibernate.initialize(tour.getHotel_ImageSet());
             Hibernate.initialize(tour.getHotel_Rating());
             Hibernate.initialize(tour.getMeal_Type());
-            Hibernate.initialize(tour.getRequestSet());  
+            Hibernate.initialize(tour.getRequestSet());
         }
         return tour;
     }
@@ -178,10 +178,10 @@ public class TourDaoImpl extends AbstractDao<Integer,Tour> implements TourDao{
     public void mergeTour(Tour tour) {
         merge(tour);
     }
-    
+
     @Override
     public void deleteTour(Tour tour) {
         delete(tour);
     }
-    
+
 }
