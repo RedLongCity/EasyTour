@@ -4,7 +4,7 @@ App.controller('MailAddressController', ['$scope', 'MailAddress', function ($sco
         var self = this;
         self.addresses = [];
         self.address = {id: null, name: '', emailAddress: ''};
-
+        
         self.getAllMailAddresses = function () {
             MailAddress.getAll()
                     .then(

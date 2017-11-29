@@ -187,7 +187,7 @@
                             <section class="row">
                                 <div class="col-md-12 col-lg-6 col-xl-4">
 
-                                    <div class="card mb-4 text-center" ng-controller="MailAddressController as mail">
+                                    <div class="card mb-4 text-center">
                                         <div class="card-block pull-right">
                                             <h3 class="card-title">Mail Addresses</h3>
 
@@ -206,7 +206,7 @@
                                                     </thead>
 
                                                     <tbody>
-                                                        <tr ng-repeat="m in mail.addresses" ng-click="ctrl.address = m" 
+                                                        <tr ng-repeat="m in ctrl.addresses" ng-click="ctrl.edit(m.id)" 
                                                             data-toggle="modal" data-target="#modal">
 
                                                             <td><span ng-bind="$index"></span></td>
@@ -221,7 +221,10 @@
 
                                             <button type="button" class="btn btn-sm btn-success"
                                                     data-toggle="modal" data-target="#modal">
-                                                <em class="fa fa-rocket" aria-hidden="true"></em> Start
+                                                <em class="fa fa-plus" aria-hidden="true"></em> Add
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-primary" ng-click="ctrl.getAllMailAddresses()">
+                                                <em class="fa fa-refresh" aria-hidden="true"></em> Refresh
                                             </button>
 
                                         </div>
@@ -232,12 +235,11 @@
             </div>
         </section>
         <!-- Modal -->
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" 
-             ng-controller="MailAddressController as mail">
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -261,19 +263,23 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="mail.saveMailAddress(ctrl.address)">Save changes</button>
-                        <button type="button" class="btn btn-danger btn-sm" ng-click="mail.deleteMailAddress(ctrl.address.id)">Delete</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.reset()"> 
+                            <em class="fa fa-refresh" aria-hidden="true"></em> Refresh</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="ctrl.saveMailAddress(ctrl.address)">
+                            {{!ctrl.address.id?'Save':'Update'}}</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="ctrl.deleteMailAddress(ctrl.address.id)">Delete</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <section class="row">
-            <div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
-        </section>
+    <section class="row">
+        <div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
+    </section>
 
-    </main>
+</main>
 </div>
 </div>
 
@@ -294,7 +300,6 @@
 <script src="<c:url value='/static/js/app.js' />"></script>
 <script src="<c:url value='/static/js/service/settings_service.js' />"></script>
 <script src="<c:url value='/static/js/service/mail_address_service.js' />"></script>
-<script src="<c:url value='/static/js/controller/mail_address_controller.js' />"></script>
 <script src="<c:url value='/static/js/controller/settings_controller.js' />"></script>
 <script src="<c:url value='/static/js/service/url_service.js' />"></script>
 

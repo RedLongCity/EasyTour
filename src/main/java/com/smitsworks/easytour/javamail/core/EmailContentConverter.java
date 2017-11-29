@@ -75,7 +75,7 @@ public class EmailContentConverter {
         }
 
         for (MailAddress address : list) {
-            addresses = addresses.concat(address + ", ");
+            addresses = addresses.concat(address.getEmailAddress() + ", ");
         }
         return addresses;
     }
