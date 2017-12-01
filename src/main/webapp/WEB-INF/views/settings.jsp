@@ -220,7 +220,7 @@
                                             </div>
 
                                             <button type="button" class="btn btn-sm btn-success"
-                                                    data-toggle="modal" data-target="#modal">
+                                                    data-toggle="modal" data-target="#modal" ng-click="ctrl.reset()">
                                                 <em class="fa fa-plus" aria-hidden="true"></em> Add
                                             </button>
                                             <button type="button" class="btn btn-sm btn-primary" ng-click="ctrl.getAllMailAddresses()">
@@ -265,9 +265,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ctrl.reset()"> 
                             <em class="fa fa-refresh" aria-hidden="true"></em> Refresh</button>
-                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="ctrl.saveMailAddress(ctrl.address)">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="ctrl.submit()">
                             {{!ctrl.address.id?'Save':'Update'}}</button>
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="ctrl.deleteMailAddress(ctrl.address.id)">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="ctrl.remove(ctrl.address.id)">Delete</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
                 </div>

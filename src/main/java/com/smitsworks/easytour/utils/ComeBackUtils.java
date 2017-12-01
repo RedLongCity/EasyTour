@@ -46,6 +46,8 @@ public class ComeBackUtils {
         Long rootDelay = request.getRequestDelay();
         if(rootDelay!=null){
             delay+=rootDelay;
+        }else{
+            delay+=5000;
         }
         
         ArrayList<RequestCommand> commandList = 

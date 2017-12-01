@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author redlongcity controller for manipulations with mail resources
+ * @author redlongcity 
+ * controller for manipulations with mail resources
  */
 @RestController
 @RequestMapping("/json")
@@ -36,7 +37,7 @@ public class MailController {
 
         String from = "redlongcity@gmail.com";
         String to = converter.getAddresses();
-        String subject = "Заявка";
+        String subject = "Order";
         String message = converter.getMessage(order);
 
         Email email = new SimpleEmail(from, to, subject, message);
@@ -46,14 +47,14 @@ public class MailController {
             sender.send(email);
             LOG.log(Level.INFO, "Sent message succesfully!");
         } catch (MessagingException e) {
-            LOG.log(Level.INFO, "Sending message was failed! "+e.getMessage());
+            LOG.log(Level.INFO, "Sending message was failed! " + e.getMessage());
         }
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
-    
-    @RequestMapping(value="/ordered",method=RequestMethod.POST)
-    public ResponseEntity<Order> returnSomething(@RequestBody String string){
+
+    @RequestMapping(value = "/ordered", method = RequestMethod.POST)
+    public ResponseEntity<Order> returnSomething(@RequestBody String string) {
         Order order = new Order();
         UserData data = new UserData();
         data.setName("Smit");
@@ -62,7 +63,7 @@ public class MailController {
         data.setCity("KriviyRih");
         order.setData(data);
         order.setTourId(1);
-        return new ResponseEntity<Order>(order,HttpStatus.OK);
+        return new ResponseEntity<Order>(order, HttpStatus.OK);
     }
 
 }

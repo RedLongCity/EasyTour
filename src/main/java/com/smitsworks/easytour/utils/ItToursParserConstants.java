@@ -11,7 +11,7 @@ public interface ItToursParserConstants {
     
     String api_base_url = "http://api.ittour.com.ua/";
     String authorization = "Authorization";
-    String authorization_token = "4a24d8ad6425bdc3c7fcfe1f1d9f63b9";
+    String authorization_token = "d5b80c6bbb43d945faa9577e80f24a22";
     String acceptLanguage = "Accept-Language";
     String response_language   = "ru";
     

@@ -67,12 +67,9 @@ public class ToursNodeParser implements NodeParser {
     
     @Override
     public Boolean parseNode(ArrayNode offersNode) {
-        if(offersNode.isMissingNode()){
-            LOG.log(Level.WARNING,"OffersNode: offersNode is missing");
-            return false;
-        }
         Request request = projectConsantsSingletone.getRequestUpdating();
         Set<Tour> tourSet = new HashSet<Tour>();
+        if(!offersNode.isMissingNode()){
         for(int i=0;i<offersNode.size();i++){
                 JsonNode indexNode = offersNode.get(i);
                 if(indexNode.isMissingNode()){
@@ -308,6 +305,7 @@ public class ToursNodeParser implements NodeParser {
             tourSet.add(tour);
             tourService.saveTour(tour);
     } 
+        }
         request.setTourSet(tourSet);
         requestService.updateRequest(request);
         return true;

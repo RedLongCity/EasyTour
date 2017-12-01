@@ -51,6 +51,7 @@ public class ShortUpdatingJob extends QuartzJobBean{
             command.execute();
             command.setDone(Boolean.TRUE);
             constants.setGlobalDelay(true);
+            constants.setRequestUpdating(null);
         }else{
         constants.setGlobalDelay(false);
         pauseItSelf(jec);

@@ -116,7 +116,7 @@ App.controller('SettingsController', ['$scope', 'SettingsService', 'MailAddress'
         self.saveMailAddress = function (address) {
             MailAddress.save(address)
                     .then(
-                            self.getAllMailAddresses(),
+                            self.getAllMailAddresses,
                             function (errResponse) {
                                 console.error('Error while save address');
                             }
@@ -126,7 +126,7 @@ App.controller('SettingsController', ['$scope', 'SettingsService', 'MailAddress'
         self.updateMailAddress = function (address, id) {
             MailAddress.update(address, id)
                     .then(
-                            self.getAllMailAddresses(),
+                            self.getAllMailAddresses,
                             function (errResponse) {
                                 console.error('Error while update address');
                             }
@@ -167,9 +167,9 @@ App.controller('SettingsController', ['$scope', 'SettingsService', 'MailAddress'
         self.edit = function(id){
             console.log('id to be edited', id);
             for(var i=0; i < self.addresses.length;i++){
-                if(self.addresses[i]===id){
+                if(self.addresses[i].id===id){
                     self.address = angular.copy(self.addresses[i]);
-                    console.log('address: ',address);
+                    console.log('address: ',self.address);
                     break;
                 }
             }
