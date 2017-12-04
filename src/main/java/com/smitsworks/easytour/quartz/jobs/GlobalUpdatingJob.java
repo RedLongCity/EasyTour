@@ -45,7 +45,7 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
         ConnectionManager manager = new ConnectionManager();
         LOG.log(Level.INFO, "URL"+manager.getUrl());
-        LOG.log(Level.INFO, "GlobalJob Doing");
+        LOG.log(Level.INFO, "Global Job Doing");
         constants.setGlobalSuspended(false);
         timeUtils.updateTimeConstants();
         requestsPullUtils.clearRequestsPull();
