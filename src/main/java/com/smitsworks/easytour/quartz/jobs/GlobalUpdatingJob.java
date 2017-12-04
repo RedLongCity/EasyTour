@@ -9,10 +9,7 @@ import java.util.logging.Logger;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import static org.quartz.JobKey.jobKey;
 import org.quartz.PersistJobDataAfterExecution;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -50,34 +47,14 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         timeUtils.updateTimeConstants();
         requestsPullUtils.clearRequestsPull();
         resumeShortUpdateJob(jec);
-        pauseItSelf(jec);
+        //pauseItSelf(jec);
     }
     
         private void resumeShortUpdateJob(JobExecutionContext jec){
         quartzService.resumeShortJob();
-//        Scheduler scheduler = jec.getScheduler();
-//        if(scheduler==null){
-//            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
-//            return;
-//        }
-//        try {
-//            scheduler.resumeJob(jobKey("shortJob","quartzJobs"));
-//        } catch (SchedulerException ex) {
-//            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
             private void pauseItSelf(JobExecutionContext jec){
             constants.setGlobalSuspended(true);
             quartzService.pauseGlobalJob();
-//        Scheduler scheduler = jec.getScheduler();
-//        if(scheduler==null){
-//            LOG.log(Level.WARNING,"GlobalUpdatingJob: scheduler is null");
-//            return;
-//        }
-//        try {
-//            scheduler.pauseJob(jobKey("globalJob","quartzJobs"));
-//        } catch (SchedulerException ex) {
-//            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }
