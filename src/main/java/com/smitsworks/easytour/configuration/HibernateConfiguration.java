@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.configuration;
 
+import com.smitsworks.easytour.utils.ConnectionManager;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -40,11 +41,15 @@ public class HibernateConfiguration {
     
     @Bean
     public DataSource dataSource(){
+        ConnectionManager manager = new ConnectionManager();
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        dataSource.setUrl(manager.getUrl());
+        dataSource.setUsername(manager.getUser());
+        dataSource.setPassword(manager.getPassword());
+//        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+//        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+//        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
     
