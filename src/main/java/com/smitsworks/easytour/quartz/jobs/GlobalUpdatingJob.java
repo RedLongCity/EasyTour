@@ -2,7 +2,6 @@ package com.smitsworks.easytour.quartz.jobs;
 
 import com.smitsworks.easytour.quartz.services.QuartzService;
 import com.smitsworks.easytour.singletons.ProjectConsantsSingletone;
-import com.smitsworks.easytour.utils.ConnectionManager;
 import com.smitsworks.easytour.utils.RequestsPullUtils;
 import com.smitsworks.easytour.utils.TimeUtils;
 import java.util.logging.Level;
@@ -43,14 +42,12 @@ public class GlobalUpdatingJob extends QuartzJobBean{
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
-        ConnectionManager manager = new ConnectionManager();
-        LOG.log(Level.INFO, "URL"+manager.getUrl());
         LOG.log(Level.INFO, "Global Job Doing");
         constants.setGlobalSuspended(false);
         timeUtils.updateTimeConstants();
         requestsPullUtils.clearRequestsPull();
         resumeShortUpdateJob(jec);
-        //pauseItSelf(jec);
+        pauseItSelf(jec);
     }
     
         private void resumeShortUpdateJob(JobExecutionContext jec){
