@@ -14,12 +14,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 /**
  *
  * @author redlongcity
  */
-
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"com.smitsworks.easytour.configuration"})
@@ -28,18 +26,18 @@ public class HibernateConfiguration {
 
     @Autowired
     private Environment environment;
-    
+
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(new String[]{"com.smitsworks.easytour.models"});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
-    
+
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
@@ -47,22 +45,23 @@ public class HibernateConfiguration {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
-    
-    
-    public Properties hibernateProperties(){
+
+    public Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-        properties.put("hbm2ddl.auto","create");
+        properties.put("hibernate.connection.useUnicode", environment.getRequiredProperty("hibernate.connection.useUnicode"));
+        properties.put("hibernate.connection.characterEncoding", environment.getRequiredProperty("hibernate.connection.characterEncoding"));
+        properties.put("hibernate.connection.charSet", environment.getRequiredProperty("hibernate.connection.charSet"));
         return properties;
     }
-    
-   @Bean
-   @Autowired
-   public HibernateTransactionManager transactionManager(SessionFactory s){
-   HibernateTransactionManager txManager = new HibernateTransactionManager();
-   txManager.setSessionFactory(s);
-   return txManager;
-   }
+
+    @Bean
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory s) {
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(s);
+        return txManager;
+    }
 }
