@@ -62,15 +62,5 @@ public class ShortUpdatingJob extends QuartzJobBean{
     private void pauseItSelf(JobExecutionContext jec){
         constants.setShortSuspended(true);
         quartzService.pauseShortJob();
-//        Scheduler scheduler = jec.getScheduler();
-//        if(scheduler==null){
-//            LOG.log(Level.WARNING,"ShortJob: scheduler is null");
-//            return;
-//        }
-//        try {
-//            scheduler.pauseJob(jobKey("shortJob","quartzJobs"));
-//        } catch (SchedulerException ex) {
-//            Logger.getLogger(ShortUpdatingJob.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }
