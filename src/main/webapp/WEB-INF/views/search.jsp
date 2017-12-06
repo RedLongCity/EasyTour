@@ -43,9 +43,9 @@
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
 
                     <ul class="nav nav-pills flex-column sidebar-nav">
-                        <li class="nav-item"><a class="nav-link active" href="http://localhost:8084/EasyTour/search"><em class="fa fa-search" aria-hidden="true"></em> Searching <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://localhost:8084/EasyTour/statistics"><em class="fa fa-bar-chart"></em> Statistics</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://localhost:8084/EasyTour/settings"><em class="fa fa-cogs" aria-hidden="true"></em> Settings</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="http://rest-easytour.193b.starter-ca-central-1.openshiftapps.com/search"><em class="fa fa-search" aria-hidden="true"></em> Searching <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://rest-easytour.193b.starter-ca-central-1.openshiftapps.com/statistics"><em class="fa fa-bar-chart"></em> Statistics</a></li>
+                        <li class="nav-item"><a class="nav-link" href="hhttp://rest-easytour.193b.starter-ca-central-1.openshiftapps.com/settings"><em class="fa fa-cogs" aria-hidden="true"></em> Settings</a></li>
                     </ul>
 
                     <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a></nav>

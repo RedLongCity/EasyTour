@@ -47,7 +47,7 @@ public class GlobalUpdatingJob extends QuartzJobBean{
         timeUtils.updateTimeConstants();
         requestsPullUtils.clearRequestsPull();
         resumeShortUpdateJob(jec);
-        pauseItSelf(jec);
+        //pauseItSelf(jec);
     }
     
         private void resumeShortUpdateJob(JobExecutionContext jec){

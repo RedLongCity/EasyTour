@@ -76,8 +76,9 @@ public class HttpUtils implements ItToursParserConstants{
 	}
         
         public static JsonNode getJsonNodeFromUrl(String url) throws IOException{
+            JsonNode node = null;
             try{
-                return Request.Get(url)
+                node = Request.Get(url)
                         .connectTimeout(CONNECT_TIMEOUT)
                         .socketTimeout(SOCKET_TIMEOUT)
                         .addHeader(authorization,authorization_token)
@@ -85,8 +86,9 @@ public class HttpUtils implements ItToursParserConstants{
                         .execute()
                         .handleResponse(JSONNODE_CONTENT_HANDLER);
             }catch(IOException e){
-                throw e;
+                LOG.log(Level.WARNING, e.toString());
             }
+        return node;
         }
 
 	public static Content postWithBodyAsRawRequestAsContent(String url, String body) throws IOException{
