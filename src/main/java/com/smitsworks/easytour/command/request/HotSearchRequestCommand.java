@@ -31,6 +31,7 @@ public class HotSearchRequestCommand implements RequestCommand, ItToursParserCon
     private Request request;
     private Integer priority;
     private Boolean done;
+    private boolean processed;
     private Boolean byHuman;
     private Timestamp requestTime;
 
@@ -126,5 +127,17 @@ public class HotSearchRequestCommand implements RequestCommand, ItToursParserCon
     public void setRequestTime(Timestamp requestTime) {
         this.requestTime = requestTime;
     }
+
+    @Override
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    @Override
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
+    }
+    
+    
 
 }

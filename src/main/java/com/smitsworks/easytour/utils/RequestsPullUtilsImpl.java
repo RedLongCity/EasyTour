@@ -66,6 +66,10 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils {
         while (it.hasNext()) {
 
             RequestCommand command = it.next();
+            
+            if(command.isProcessed()){
+                continue;
+            }
 
             if (command instanceof HotFiltersRequestCommand) {
                 if (!command.getDone()) {

@@ -30,6 +30,7 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     private Request request;
     private Integer priority;
     private Boolean done;
+    private boolean processed;
     private Timestamp requestTime;
     
     @Autowired
@@ -110,6 +111,16 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     @Override
     public Boolean getByHuman() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    @Override
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
     }
     
     

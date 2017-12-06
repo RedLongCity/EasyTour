@@ -19,32 +19,32 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * class for generalization operations with filters information
  */
 @Service
-public class HotFiltersRequestCommand implements RequestCommand,ItToursParserConstants {
+public class HotFiltersRequestCommand implements RequestCommand, ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(HotFiltersRequestCommand.class.getName());
-    
+
     @Autowired
     ItToursHotToursFiltersParser parser;
-    
+
     private JsonNode rootNode;
     private Boolean done;
+    private boolean processed;
     private Integer priority;
     private Timestamp requestTime;
 
     public HotFiltersRequestCommand() {
     }
-    
+
     public HotFiltersRequestCommand(Boolean done) {
         this.done = done;
     }
-    
-    
+
     @Override
     public void execute() {
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         try {
-            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url+api_showcases+
-                    api_showcases_filters);
+            rootNode = HttpUtils.getJsonNodeFromUrl(api_base_url + api_showcases
+                    + api_showcases_filters);
         } catch (IOException ex) {
             Logger.getLogger(HotFiltersRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,7 +72,7 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
-    
+
     @Override
     public void setByHuman(Boolean byHuman) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -91,5 +91,14 @@ public class HotFiltersRequestCommand implements RequestCommand,ItToursParserCon
         this.requestTime = requestTime;
     }
 
-    
+    @Override
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    @Override
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
+    }
+
 }
