@@ -1,5 +1,6 @@
 package com.smitsworks.easytour.javamail.core;
 
+import com.smitsworks.easytour.models.FeedBack;
 import com.smitsworks.easytour.models.MailAddress;
 import com.smitsworks.easytour.models.Order;
 import com.smitsworks.easytour.models.Price;
@@ -38,6 +39,7 @@ public class EmailContentConverter {
         message = message.concat(date.toString() + "\n\n");
         message = message.concat("Данные пользователя: " + "\n");
         message = message.concat("Имя: " + data.getName() + "\n");
+        message = message.concat("Email: " + data.getEmail() + "\n");
         message = message.concat("Телефонный номер: " + data.getMobileNumber() + "\n");
         message = message.concat("Город: " + data.getMobileNumber() + "\n\n");
         message = message.concat("Данные тура: \n");
@@ -63,7 +65,7 @@ public class EmailContentConverter {
             message = message.concat("Валюта: " + price.getCurrency().getName()
                     + " Цена: " + price.getCost() + "\n");
         }
-        
+
         return message;
     }
 
@@ -78,5 +80,15 @@ public class EmailContentConverter {
             addresses = addresses.concat(address.getEmailAddress() + ", ");
         }
         return addresses;
+    }
+
+    public String getFeedBack(FeedBack feedBack) {
+        String message = "";
+        message = message.concat("Данные пользователя: " + "\n");
+        message = message.concat("Имя: " + feedBack.getName() + "\n");
+        message = message.concat("Email: " + feedBack.getEmail() + "\n");
+        message = message.concat("Device: " + feedBack.getDevice() + "\n");
+        message = message.concat("FeedBack: " + feedBack.getFeedBack() + "\n");
+        return message;
     }
 }

@@ -6,8 +6,7 @@ import com.smitsworks.easytour.javamail.core.EmailContentConverter;
 import com.smitsworks.easytour.javamail.core.EmailSender;
 import com.smitsworks.easytour.javamail.core.SimpleEmail;
 import com.smitsworks.easytour.javamail.core.SimpleEmailSender;
-import com.smitsworks.easytour.models.Order;
-import com.smitsworks.easytour.models.UserData;
+import com.smitsworks.easytour.models.FeedBack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -20,25 +19,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author redlongcity 
- * controller for manipulations with mail resources
+ *
+ * @author redlongcity controller for feedback handling
  */
 @RestController
 @RequestMapping("/json")
-public class MailController {
+public class FeedBackController {
 
-    private static final Logger LOG = Logger.getLogger(MailController.class.getName());
+    private static final Logger LOG = Logger.getLogger(FeedBackController.class.getName());
 
     @Autowired
-    EmailContentConverter converter;
+    private EmailContentConverter converter;
 
-    @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public ResponseEntity<Void> send(@RequestBody Order order) {
+    @RequestMapping(value = "/feedback", method = RequestMethod.POST)
+    public ResponseEntity<Void> send(@RequestBody FeedBack feedBack) {
 
         String from = "HotToursUkraine@gmail.com";
-        String to = converter.getAddresses();
-        String subject = "Order";
-        String message = converter.getMessage(order);
+        String to = "redlongcity@gmail.com";
+        String subject = "FeedBack";
+        String message = converter.getFeedBack(feedBack);
 
         Email email = new SimpleEmail(from, to, subject, message);
         EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
@@ -52,6 +51,7 @@ public class MailController {
         }
 
         return new ResponseEntity<Void>(HttpStatus.OK);
+
     }
 
 }
