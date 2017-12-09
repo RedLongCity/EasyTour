@@ -225,7 +225,7 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils {
             Set<RequestPullElement> elementSet = previousSession.getRequestPullElementSet();
             Iterator<RequestPullElement> it = elementSet.iterator();
             while (it.hasNext()) {
-                RequestPullElement element = it.next();
+                RequestPullElement element = requestPullElementService.findById(it.next().getId());
                 if (element.getRequest().equals(request)) {
                     return true;
                 }

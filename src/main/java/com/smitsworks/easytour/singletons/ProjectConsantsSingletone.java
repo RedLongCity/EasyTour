@@ -35,7 +35,8 @@ public class ProjectConsantsSingletone {
     
     private boolean shortSuspended=false;//indicator pause job by itself
     
-    private String globalUpdatingDelay="0 0 0/2 1/1 * ? *";//delay between global updating
+//    private String globalUpdatingDelay="0 0 0/2 1/1 * ? *";//delay between global updating
+    private String globalUpdatingDelay="0 0/10 * * * ?";//delay between global updating
     
     private boolean globalRun=true;//indicator for global job running
     

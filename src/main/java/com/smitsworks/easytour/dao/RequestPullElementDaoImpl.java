@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * class for Dao manipulating directly
  */
 @Repository("requestPullElementDao")
-public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullElement> 
+public class RequestPullElementDaoImpl extends AbstractDao<Integer, RequestPullElement>
         implements RequestPullElementDao {
 
     @Override
@@ -29,8 +29,8 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         Criteria crit = createCriteria();
         crit.addOrder(Order.asc("request_pull_DateTime"));
         List<RequestPullElement> requestPullElementList = crit.list();
-        if(requestPullElementList!=null){
-            for(RequestPullElement requestPullElement:requestPullElementList){
+        if (requestPullElementList != null) {
+            for (RequestPullElement requestPullElement : requestPullElementList) {
                 Hibernate.initialize(requestPullElement.getRequest());
                 Hibernate.initialize(requestPullElement.getUpdateSession());
             }
@@ -43,11 +43,10 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         Criteria crit = createCriteria();
         crit.add(Restrictions.eq("request_pull_DateTime", request_DateTime));
         List<RequestPullElement> requestPullElementList = crit.list();
-                if(requestPullElementList!=null){
-            for(RequestPullElement requestPullElement:requestPullElementList){
+        if (requestPullElementList != null) {
+            for (RequestPullElement requestPullElement : requestPullElementList) {
                 Hibernate.initialize(requestPullElement.getRequest());
                 Hibernate.initialize(requestPullElement.getUpdateSession());
-
             }
         }
         return requestPullElementList;
@@ -56,14 +55,13 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     @Override
     public List<RequestPullElement> findByDatesInterval(Timestamp dateFrom, Timestamp dateTill) {
         Criteria crit = createCriteria();
-        crit.add(Restrictions.le("request_pull_DateTime",dateTill));
-        crit.add(Restrictions.ge("request_pull_DateTime",dateFrom));
+        crit.add(Restrictions.le("request_pull_DateTime", dateTill));
+        crit.add(Restrictions.ge("request_pull_DateTime", dateFrom));
         List<RequestPullElement> requestPullElementList = crit.list();
-        if(requestPullElementList!=null){
-            for(RequestPullElement requestPullElement:requestPullElementList){
-            Hibernate.initialize(requestPullElement.getRequest());
-            Hibernate.initialize(requestPullElement.getUpdateSession());
-
+        if (requestPullElementList != null) {
+            for (RequestPullElement requestPullElement : requestPullElementList) {
+                Hibernate.initialize(requestPullElement.getRequest());
+                Hibernate.initialize(requestPullElement.getUpdateSession());
             }
         }
         return requestPullElementList;
@@ -74,10 +72,10 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
         Criteria crit = createCriteria();
         crit.add(Restrictions.le("request_pull_DateTime", date));
         List<RequestPullElement> elementsList = crit.list();
-        if(elementsList!=null){
-            for(RequestPullElement requestPullElement:elementsList){
-            Hibernate.initialize(requestPullElement.getRequest());
-            Hibernate.initialize(requestPullElement.getUpdateSession()); 
+        if (elementsList != null) {
+            for (RequestPullElement requestPullElement : elementsList) {
+                Hibernate.initialize(requestPullElement.getRequest());
+                Hibernate.initialize(requestPullElement.getUpdateSession());
             }
         }
         return elementsList;
@@ -86,9 +84,9 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     @Override
     public RequestPullElement findById(Integer id) {
         RequestPullElement requestPullElement = getByKey(id);
-        if(requestPullElement!=null){
-           Hibernate.initialize(requestPullElement.getRequest());
-           Hibernate.initialize(requestPullElement.getUpdateSession());
+        if (requestPullElement != null) {
+            Hibernate.initialize(requestPullElement.getRequest());
+            Hibernate.initialize(requestPullElement.getUpdateSession());
         }
         return requestPullElement;
     }
@@ -107,5 +105,5 @@ public class RequestPullElementDaoImpl extends AbstractDao<Integer,RequestPullEl
     public void deleteRequestPullElement(RequestPullElement requestPullElement) {
         delete(requestPullElement);
     }
-    
+
 }

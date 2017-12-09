@@ -7,7 +7,6 @@ import com.smitsworks.easytour.javamail.core.EmailSender;
 import com.smitsworks.easytour.javamail.core.SimpleEmail;
 import com.smitsworks.easytour.javamail.core.SimpleEmailSender;
 import com.smitsworks.easytour.models.Order;
-import com.smitsworks.easytour.models.UserData;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
