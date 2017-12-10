@@ -25,11 +25,11 @@ public class SimpleEmailSender extends AbstractEmailSender implements EmailSende
         });
 
         // creates MIME style email message
-        final Message message = new MimeMessage(session);
+        final MimeMessage message = new MimeMessage(session);
         
         message.setSentDate(new Date());
-        message.setSubject(email.getSubject());
-        message.setText(email.getMessage());
+        message.setSubject(email.getSubject(),"utf-8");
+        message.setText(email.getMessage(),"utf-8");
 
         // extract and creates address (to)
         final Address[] toAddresses = buildAddress(email.getTo());
