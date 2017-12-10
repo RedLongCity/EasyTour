@@ -26,68 +26,75 @@ public class ComeBackUtils {
     @Autowired
     ProjectConsantsSingletone constants;
     
-    public Long calculate(RequestCommand requestCommand){
-        long delay=0;
-        long shortDelay = constants.getShortUpdatingDelay();
+    public long calculate(RequestCommand requestCommand){
+//        long delay=0;
+//        long shortDelay = constants.getShortUpdatingDelay();
+        
         if(requestCommand.getDone()){
-            return delay;
+            return 0;
         }
         
-        Request request = ((HotSearchRequestCommand) requestCommand).
-                                   getRequest();
-        Request requestUpdating = constants.getRequestUpdating();
-        if(requestUpdating!=null){
-            if(requestUpdating.equals(request)){
-            delay = 1500;
-            return delay;
-            }
+        if(requestCommand.isProcessed()){
+            return 1500;
         }
         
-        Long rootDelay = request.getRequestDelay();
-        if(rootDelay!=null){
-            delay+=rootDelay;
-        }else{
-            delay+=5000;
-        }
+        return 5000;
         
-        ArrayList<RequestCommand> commandList = 
-                (ArrayList<RequestCommand>) constants.getRequestsPull();
-        Iterator<RequestCommand> it = commandList.iterator();
-        while(it.hasNext()){
-            
-        RequestCommand command = it.next();
-            
-                if(command instanceof HotFiltersRequestCommand){
-                if(!command.getDone()){
-                    delay+=shortDelay;
-                    continue;
-                }
-                }
-                
-                if(command instanceof ItToursSearchBaseRequestCommand){
-                if(!command.getDone()){
-                    delay+=shortDelay;
-                    continue;
-                }
-                }
-                
-                if(command instanceof HotSearchRequestCommand){
-                    if(command.getByHuman()){
-                        if(command.getPriority()<requestCommand.getPriority()){
-                           Long requestDelay = ((HotSearchRequestCommand) command).
-                                   getRequest().getRequestDelay();
-                           if(requestDelay!=null){
-                               delay+=requestDelay;
-                           }
-                           delay+=shortDelay;
-                           continue; 
-                        }
-                    }
-                }
-            
-            
-        }
-        return delay;
+//        Request request = ((HotSearchRequestCommand) requestCommand).
+//                                   getRequest();
+//        Request requestUpdating = constants.getRequestUpdating();
+//        if(requestUpdating!=null){
+//            if(requestUpdating.equals(request)){
+//            delay = 1500;
+//            return delay;
+//            }
+//        }
+//        
+//        Long rootDelay = request.getRequestDelay();
+//        if(rootDelay!=null){
+//            delay+=rootDelay;
+//        }else{
+//            delay+=5000;
+//        }
+//        
+//        ArrayList<RequestCommand> commandList = 
+//                (ArrayList<RequestCommand>) constants.getRequestsPull();
+//        Iterator<RequestCommand> it = commandList.iterator();
+//        while(it.hasNext()){
+//            
+//        RequestCommand command = it.next();
+//            
+//                if(command instanceof HotFiltersRequestCommand){
+//                if(!command.getDone()){
+//                    delay+=shortDelay;
+//                    continue;
+//                }
+//                }
+//                
+//                if(command instanceof ItToursSearchBaseRequestCommand){
+//                if(!command.getDone()){
+//                    delay+=shortDelay;
+//                    continue;
+//                }
+//                }
+//                
+//                if(command instanceof HotSearchRequestCommand){
+//                    if(command.getByHuman()){
+//                        if(command.getPriority()<requestCommand.getPriority()){
+//                           Long requestDelay = ((HotSearchRequestCommand) command).
+//                                   getRequest().getRequestDelay();
+//                           if(requestDelay!=null){
+//                               delay+=requestDelay;
+//                           }
+//                           delay+=shortDelay;
+//                           continue; 
+//                        }
+//                    }
+//                }
+//            
+//            
+//        }
+//        return delay;
     }
     
 }

@@ -27,8 +27,6 @@ public class ProjectConsantsSingletone {
     
     private boolean filtersUpdate=false;//consist Country, From_Cities updating etc.
     
-    private Request requestUpdating;//Request which are updating at the moment
-    
     private long shortUpdatingDelay=20000;//Previous or Current update time
     
     private boolean shortRun=true;//indicator for short job running
@@ -70,14 +68,6 @@ public class ProjectConsantsSingletone {
 
     public void setFiltersUpdate(boolean filtersUpdate) {
         this.filtersUpdate = filtersUpdate;
-    }
-
-    public Request getRequestUpdating() {
-        return requestUpdating;
-    }
-
-    public void setRequestUpdating(Request requestUpdating) {
-        this.requestUpdating = requestUpdating;
     }
 
     public long getShortUpdatingDelay() {
