@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class GlobalUpdateDelayUtils {
     
-    private String[] machineData = {"* 0/1 * * * ?","* 0/10 * * * ?","* 0/15 * * * ?",
-        "* 0/30 * * * ?","* * 0/1 * * ?","* * 0/2 * * ?",
-        "* * 0/3 * * ?","* * 0/5 * * ?"};
+    private String[] machineData = {"0 0/1 * * * ?","0 0/10 * * * ?","0 0/15 * * * ?",
+        "0 0/30 * * * ?","0 0 0/1 * * ?","0 0 0/2 * * ?",
+        "0 0 0/3 * * ?","0 0 0/5 * * ?"};
     
     private Integer[] humanData = {1,10,15,30,60,120,180,300};
     
