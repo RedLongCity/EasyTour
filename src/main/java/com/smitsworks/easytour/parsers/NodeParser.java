@@ -1,6 +1,7 @@
 package com.smitsworks.easytour.parsers;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.smitsworks.easytour.models.Request;
 
 /**
  *
@@ -10,6 +11,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
  */
 public interface NodeParser {
     
-    Boolean parseNode(ArrayNode arrayNode);
+    Boolean parseNode(ArrayNode arrayNode, Request request);
     
 }

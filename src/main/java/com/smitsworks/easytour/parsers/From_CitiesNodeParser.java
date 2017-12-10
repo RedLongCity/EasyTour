@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Country;
 import com.smitsworks.easytour.models.From_Cities;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.service.CountryService;
 import com.smitsworks.easytour.service.From_CitiesService;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +31,7 @@ public class From_CitiesNodeParser implements NodeParser {
     CountryService countryService;
 
     @Override
-    public Boolean parseNode(ArrayNode from_CitiesNode) {
+    public Boolean parseNode(ArrayNode from_CitiesNode, Request request) {
         if (from_CitiesNode.isMissingNode()) {
             LOG.log(Level.WARNING, "From_CitiesNode: from_CitiesNode is missing");
             return false;

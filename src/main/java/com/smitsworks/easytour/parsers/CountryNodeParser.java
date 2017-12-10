@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Country;
+import com.smitsworks.easytour.models.Request;
 import java.util.logging.Level;
 
 /**
@@ -24,7 +25,7 @@ public class CountryNodeParser implements NodeParser {
     CountryService countryService;
 
     @Override
-    public Boolean parseNode(ArrayNode countriesNode) {
+    public Boolean parseNode(ArrayNode countriesNode, Request request) {
         if (countriesNode.isMissingNode()) {
             LOG.log(Level.WARNING, "CountryNode: countriesNode is missing");
             return false;

@@ -120,22 +120,22 @@ public class ItToursHotToursFiltersParser {
     }
     private Boolean parseCountries(ArrayNode countriesNode){
         //countryService.deleteAllCountries();
-        return countryNodeParser.parseNode(countriesNode);
+        return countryNodeParser.parseNode(countriesNode,null);
     }
     private Boolean parseFrom_Cities(ArrayNode from_CitiesNode){
         //from_CitiesService.deleteAllFrom_Cities();
-        return from_CitiesNodeParser.parseNode(from_CitiesNode);
+        return from_CitiesNodeParser.parseNode(from_CitiesNode,null);
     }
     private Boolean parseHotel_rating(ArrayNode hotel_RatingNode){
         //hotel_RatingService.deleteAllHotel_Rating();
-        return hotel_RatingNodeParser.parseNode(hotel_RatingNode);
+        return hotel_RatingNodeParser.parseNode(hotel_RatingNode,null);
     }
     private Boolean parseMeal_Type(ArrayNode meal_TypeNode){
         //meal_TypeService.deleteAllMeal_Type();
-        return meal_TypeNodeParser.parseNode(meal_TypeNode);
+        return meal_TypeNodeParser.parseNode(meal_TypeNode,null);
     }
     private Boolean parseCurrency(ArrayNode currencyNode){
         //currencyService.deleteAllCurrency();
-        return currencyNodeParser.parseNode(currencyNode);
+        return currencyNodeParser.parseNode(currencyNode,null);
     }
 }

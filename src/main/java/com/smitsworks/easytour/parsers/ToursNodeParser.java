@@ -66,8 +66,7 @@ public class ToursNodeParser implements NodeParser {
     private static final Logger LOG = Logger.getLogger(ToursNodeParser.class.getName());
     
     @Override
-    public Boolean parseNode(ArrayNode offersNode) {
-        Request request = projectConsantsSingletone.getRequestUpdating();
+    public Boolean parseNode(ArrayNode offersNode, Request request) {
         Set<Tour> tourSet = new HashSet<Tour>();
         if(!offersNode.isMissingNode()){
         for(int i=0;i<offersNode.size();i++){

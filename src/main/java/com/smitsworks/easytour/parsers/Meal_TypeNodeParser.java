@@ -3,11 +3,11 @@ package com.smitsworks.easytour.parsers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Meal_Type;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.service.Meal_TypeService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,7 +26,7 @@ public class Meal_TypeNodeParser implements NodeParser {
     Meal_TypeService meal_TypeService;
     
     @Override
-    public Boolean parseNode(ArrayNode meal_TypeNode) {
+    public Boolean parseNode(ArrayNode meal_TypeNode, Request request) {
         if(meal_TypeNode.isMissingNode()){
             LOG.log(Level.WARNING,"Meal_TypeNode: meal_typeNode is misssing");
             return false;

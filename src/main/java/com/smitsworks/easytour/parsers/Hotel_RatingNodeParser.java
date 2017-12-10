@@ -3,6 +3,7 @@ package com.smitsworks.easytour.parsers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Hotel_Rating;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.service.Hotel_RatingService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +25,7 @@ public class Hotel_RatingNodeParser implements NodeParser{
     Hotel_RatingService hotel_RatingService;
     
     @Override
-    public Boolean parseNode(ArrayNode hotel_RatingNode) {
+    public Boolean parseNode(ArrayNode hotel_RatingNode, Request request) {
         if(hotel_RatingNode.isMissingNode()){
             LOG.log(Level.WARNING, "Hotel_Rating: hotel_ratingNode is missing");
             return false;

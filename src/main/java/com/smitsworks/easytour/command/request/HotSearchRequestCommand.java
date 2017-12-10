@@ -19,7 +19,9 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
- * @author redlongcity 10.09.2017 class for generalization operations with
+ * @author redlongcity 
+ * 10.09.2017 
+ * class for generalization operations with
  * search information
  */
 @Service
@@ -70,8 +72,7 @@ public class HotSearchRequestCommand implements RequestCommand, ItToursParserCon
         } catch (IOException ex) {
             Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
-        projectConsantsSingletone.setRequestUpdating(request);
-        parser.extractTours(rootNode);
+        parser.extractTours(rootNode, request);
         delay = timeUtils.getCurrentTime().getTime() - delay;
         request.setRequestDelay(delay);
         service.updateRequest(request);
@@ -137,7 +138,5 @@ public class HotSearchRequestCommand implements RequestCommand, ItToursParserCon
     public void setProcessed(boolean processed) {
         this.processed = processed;
     }
-    
-    
 
 }

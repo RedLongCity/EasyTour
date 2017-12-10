@@ -2,6 +2,7 @@ package com.smitsworks.easytour.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.parsers.ToursNodeParser;
 import com.smitsworks.easytour.service.TourService;
 import java.util.logging.Level;
@@ -25,7 +26,7 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
     
     @Autowired
     ToursNodeParser toursNodeParser;
-    public boolean extractTours(JsonNode rootNode){
+    public boolean extractTours(JsonNode rootNode, Request request){
             if(rootNode.isMissingNode()){
                 LOG.log(Level.WARNING, "rootNode is Missing");
                 return false;
@@ -35,7 +36,7 @@ public class ItToursHotToursSearchParser implements ItToursParserConstants {
                 LOG.log(Level.WARNING, "offersNode is Missing");
                 return false;
             }
-            if(!toursNodeParser.parseNode(offersNode)){
+            if(!toursNodeParser.parseNode(offersNode, request)){
                LOG.log(Level.WARNING,"ToursNodeParser: toursNode Parser returned false");
                return false;
             }

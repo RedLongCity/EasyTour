@@ -3,6 +3,7 @@ package com.smitsworks.easytour.parsers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.smitsworks.easytour.models.Currency;
+import com.smitsworks.easytour.models.Request;
 import com.smitsworks.easytour.service.CurrencyService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +25,7 @@ public class CurrencyNodeParser implements NodeParser {
     CurrencyService currencyService;
 
     @Override
-    public Boolean parseNode(ArrayNode currencyNode) {
+    public Boolean parseNode(ArrayNode currencyNode, Request request) {
         if (currencyNode.isMissingNode()) {
             LOG.log(Level.WARNING, "CurrencyNode: currencyNode is missing");
             return false;

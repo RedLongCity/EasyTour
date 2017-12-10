@@ -17,12 +17,12 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  *
- * @author redlongcity
- * 13.09.2017
+ * @author redlongcity 
+ * 13.09.2017 
  * class for wrapping base request
  */
 @Service
-public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursParserConstants {
+public class ItToursSearchBaseRequestCommand implements RequestCommand, ItToursParserConstants {
 
     private static final Logger LOG = Logger.getLogger(ItToursSearchBaseRequestCommand.class.getName());
 
@@ -32,13 +32,13 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     private Boolean done;
     private boolean processed;
     private Timestamp requestTime;
-    
+
     @Autowired
     HotSearchRequestConverterUtils converter;
-    
+
     @Autowired
     ItToursHotToursSearchParser parser;
-    
+
     @Autowired
     ProjectConsantsSingletone projectConsantsSingletone;
 
@@ -51,19 +51,17 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
         this.done = done;
         this.requestTime = requestTime;
     }
-    
-    
+
     @Override
     public void execute() {
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this); 
-                try {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        try {
             rootNode = HttpUtils.getJsonNodeFromUrl(converter.
                     getURLByRequest(request));
         } catch (IOException ex) {
             Logger.getLogger(HotSearchRequestCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
-        projectConsantsSingletone.setRequestUpdating(request);
-        parser.extractTours(rootNode);
+        parser.extractTours(rootNode, request);
     }
 
     public Request getRequest() {
@@ -86,7 +84,7 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     public void IncreasePriority() {
         this.priority++;
     }
-    
+
     public Boolean getDone() {
         return done;
     }
@@ -122,6 +120,5 @@ public class ItToursSearchBaseRequestCommand implements RequestCommand,ItToursPa
     public void setProcessed(boolean processed) {
         this.processed = processed;
     }
-    
-    
+
 }
