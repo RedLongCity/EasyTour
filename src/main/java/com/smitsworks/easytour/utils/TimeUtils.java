@@ -17,14 +17,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TimeUtils {
-    
+
     @Autowired
     UpdateSessionService sessionService;
-    
+
     @Autowired
     ProjectConsantsSingletone projectConsantsSingletone;
-    
-    public Timestamp getCurrentTime(){
+
+    public Timestamp getCurrentTime() {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -32,27 +32,14 @@ public class TimeUtils {
         Timestamp time = new Timestamp(cal.getTimeInMillis());
         return time;
     }
-    
-    public  Timestamp getTimeOfPreviousSession(){
-        Timestamp time = projectConsantsSingletone.getTimeOfPreviousSession();
-        return time;
-    }
-    
-    public UpdateSession getCurrentSession(){
+
+    public UpdateSession getCurrentSession() {
         UpdateSession session = sessionService.findByUpdateTime(
                 projectConsantsSingletone.getTimeOfCurrentSession());
         return session;
     }
-    
-    public UpdateSession getPreviousSession(){
-        UpdateSession session = sessionService.findByUpdateTime(
-                projectConsantsSingletone.getTimeOfPreviousSession());
-        return session;
-    }
-    
-    public void updateTimeConstants(){
-        projectConsantsSingletone.setTimeOfPreviousSession(
-                projectConsantsSingletone.getTimeOfCurrentSession());
+
+    public void updateTimeConstants() {
         projectConsantsSingletone.setTimeOfCurrentSession(getCurrentTime());
     }
 }

@@ -48,31 +48,18 @@ public class ItToursHotSearchRequestHandler implements RequestHandler {
         }
         RequestCommand requestCommand = pullUtils.getCommandByRequest(entity);//return request if it in current's session pull
         if (requestCommand == null) {//request does not in curren session pull
-            if (!pullUtils.isRequestInPreviousPull(entity)) {//request does not in previous session pull
                 HotSearchRequestCommand command = new HotSearchRequestCommand(
                         entity, 1, false, true);
                 pullUtils.addRequestCommandToPull(command);
                 responseCommand = new ItToursHotSearchResponseCommand(entity,
                         backUtils.calculate(command));
                 return responseCommand;
-            }//request in previous session pull
-            HotSearchRequestCommand command = new HotSearchRequestCommand(
-                    entity, 1, false, true);
-            pullUtils.addRequestCommandToPull(command);
-            responseCommand = new ItToursHotSearchResponseCommand(entity,
-                    backUtils.calculate(command));
-            return responseCommand;
         }
         requestCommand.setByHuman(Boolean.TRUE);//request in current session pull
         if (!requestCommand.getDone()) {//request does not done
-            if (!pullUtils.isRequestInPreviousPull(entity)) {
                 responseCommand = new ItToursHotSearchResponseCommand(entity,
                         backUtils.calculate(requestCommand));
                 return responseCommand;
-            }
-            responseCommand = new ItToursHotSearchResponseCommand(entity,
-                    backUtils.calculate(requestCommand));
-            return responseCommand;
         }
         responseCommand = new ItToursHotSearchResponseCommand(entity,//request already done
                 backUtils.calculate(requestCommand));

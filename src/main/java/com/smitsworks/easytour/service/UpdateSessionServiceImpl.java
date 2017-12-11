@@ -43,11 +43,6 @@ public class UpdateSessionServiceImpl implements  UpdateSessionService{
     }
 
     @Override
-    public UpdateSession getPreviousSession() {
-        return sessionDao.findsessionByTime(utils.getTimeOfPreviousSession());
-    }
-
-    @Override
     public void saveUpdateSession(UpdateSession session) {
         sessionDao.saveUpdateSession(session);
     }

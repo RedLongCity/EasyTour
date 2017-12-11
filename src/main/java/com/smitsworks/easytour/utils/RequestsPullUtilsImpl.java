@@ -218,22 +218,6 @@ public class RequestsPullUtilsImpl implements RequestsPullUtils {
         return false;
     }
 
-    @Override
-    public boolean isRequestInPreviousPull(Request request) {
-        UpdateSession previousSession = sessionService.getPreviousSession();
-        if (previousSession != null) {
-            Set<RequestPullElement> elementSet = previousSession.getRequestPullElementSet();
-            Iterator<RequestPullElement> it = elementSet.iterator();
-            while (it.hasNext()) {
-                RequestPullElement element = requestPullElementService.findById(it.next().getId());
-                if (element.getRequest().equals(request)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     private RequestCommand zeroingCommand(RequestCommand requestCommand) {
         RequestCommand command = requestCommand;
         command.setPriority(1);

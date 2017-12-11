@@ -20,8 +20,6 @@ public interface UpdateSessionService {
     List<UpdateSession> findByDates(Timestamp dateFrom,
             Timestamp dateTill);
     
-    UpdateSession getPreviousSession();
-    
     void saveUpdateSession(UpdateSession session);
     
     void updateUpdateSession(UpdateSession session);//lol... nice name of method dude

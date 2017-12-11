@@ -21,5 +21,4 @@ public interface RequestsPullUtils {
     
     boolean isRequestInPull(Request request);
     
-    boolean isRequestInPreviousPull(Request request);
 }
